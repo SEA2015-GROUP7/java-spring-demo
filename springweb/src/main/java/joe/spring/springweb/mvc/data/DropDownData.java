@@ -1,4 +1,4 @@
-package jot.projects.spring.springweb.mvc.data;
+package joe.spring.springweb.mvc.data;
 
 public class DropDownData {
 

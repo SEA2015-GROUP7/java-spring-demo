@@ -1,4 +1,4 @@
-package jot.projects.spring.springweb.mvc.controller;
+package joe.spring.springweb.mvc.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

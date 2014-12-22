@@ -1,13 +1,14 @@
-package jot.projects.spring.springweb.mvc.controller;
+package joe.spring.springweb.mvc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jot.projects.spring.springapp.data.reference.Country;
-import jot.projects.spring.springapp.data.reference.State;
-import jot.projects.spring.springapp.data.reference.Title;
-import jot.projects.spring.springapp.services.ReferenceService;
-import jot.projects.spring.springweb.mvc.data.DropDownData;
+import joe.spring.springweb.mvc.data.DropDownData;
+import joe.spring.springapp.data.reference.Country;
+import joe.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.reference.Title;
+import joe.spring.springapp.services.ReferenceService;
+
 
 //import jot.projects.spring.springapp.data.reference.State;
 //import jot.projects.spring.springapp.services.ReferenceService;

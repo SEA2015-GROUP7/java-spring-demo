@@ -18,7 +18,7 @@
 <!-- 
 	<context:component-scan base-package="jot.projects.spring" />
  -->
-	<context:component-scan base-package="jot.projects.spring.springweb.mvc.controller" />
+	<context:component-scan base-package="joe.spring.springweb.mvc.controller" />
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
@@ -31,6 +31,6 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean name="/DbHibernateConfig" class="jot.projects.spring.springapp.data.jpa.DbHibernateConfig">
+	<bean name="/DbHibernateConfig" class="joe.spring.springapp.data.jpa.DbHibernateConfig">
 	</bean>
 </beans>
