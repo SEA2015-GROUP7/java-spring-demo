@@ -1,13 +1,13 @@
-package jot.projects.spring.test.springapp.services;
+package test.joe.spring.springapp.services;
 
 import java.util.Date;
 
-import jot.projects.spring.springapp.data.domain.Account;
-import jot.projects.spring.springapp.data.domain.Account.AccountType;
-import jot.projects.spring.springapp.data.domain.Customer;
-import jot.projects.spring.springapp.data.jpa.DbHibernateConfig;
-import jot.projects.spring.springapp.services.AccountService;
-import jot.projects.spring.springapp.services.CustomerService;
+import joe.spring.springapp.data.domain.Account;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.domain.Account.AccountType;
+import joe.spring.springapp.data.jpa.DbHibernateConfig;
+import joe.spring.springapp.services.AccountService;
+import joe.spring.springapp.services.CustomerService;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

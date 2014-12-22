@@ -1,4 +1,4 @@
-package jot.projects.spring.springapp.data.reference;
+package joe.spring.springapp.data.reference;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

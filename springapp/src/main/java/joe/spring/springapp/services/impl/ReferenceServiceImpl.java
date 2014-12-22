@@ -1,14 +1,14 @@
-package jot.projects.spring.springapp.services.impl;
+package joe.spring.springapp.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jot.projects.spring.springapp.data.jpa.repository.CountryRepository;
-import jot.projects.spring.springapp.data.jpa.repository.StateRepository;
-import jot.projects.spring.springapp.data.reference.Country;
-import jot.projects.spring.springapp.data.reference.State;
-import jot.projects.spring.springapp.data.reference.Title;
-import jot.projects.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.data.jpa.repository.CountryRepository;
+import joe.spring.springapp.data.jpa.repository.StateRepository;
+import joe.spring.springapp.data.reference.Country;
+import joe.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.reference.Title;
+import joe.spring.springapp.services.ReferenceService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

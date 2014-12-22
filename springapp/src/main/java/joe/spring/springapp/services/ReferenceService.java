@@ -1,10 +1,10 @@
-package jot.projects.spring.springapp.services;
+package joe.spring.springapp.services;
 
 import java.util.List;
 
-import jot.projects.spring.springapp.data.reference.Country;
-import jot.projects.spring.springapp.data.reference.State;
-import jot.projects.spring.springapp.data.reference.Title;
+import joe.spring.springapp.data.reference.Country;
+import joe.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.reference.Title;
 
 /**
  * An administrative service used to manage customers and accounts.

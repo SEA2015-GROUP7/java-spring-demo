@@ -1,11 +1,11 @@
-package jot.projects.spring.springapp.services;
+package joe.spring.springapp.services;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import jot.projects.spring.springapp.data.domain.Address;
-import jot.projects.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.domain.Address;
+import joe.spring.springapp.data.domain.Customer;
 
 /**
  * An administrative service used to manage customers and accounts.

@@ -1,11 +1,11 @@
-package jot.projects.spring.springapp.services;
+package joe.spring.springapp.services;
 
 import java.util.List;
 
-import jot.projects.spring.springapp.data.domain.Address;
-import jot.projects.spring.springapp.data.domain.Address.AddressType;
-import jot.projects.spring.springapp.data.domain.Customer;
-import jot.projects.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.domain.Address;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.domain.Address.AddressType;
+import joe.spring.springapp.data.reference.State;
 
 /**
  * An service used to manage addresses.

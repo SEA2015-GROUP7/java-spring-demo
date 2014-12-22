@@ -1,4 +1,4 @@
-package jot.projects.spring.springapp.data.jpa;
+package joe.spring.springapp.data.jpa;
 
 import java.beans.PropertyVetoException;
 import java.util.Properties;
@@ -7,14 +7,14 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import jot.projects.spring.springapp.services.AccountService;
-import jot.projects.spring.springapp.services.AddressService;
-import jot.projects.spring.springapp.services.CustomerService;
-import jot.projects.spring.springapp.services.ReferenceService;
-import jot.projects.spring.springapp.services.impl.AccountServiceImpl;
-import jot.projects.spring.springapp.services.impl.AddressServiceImpl;
-import jot.projects.spring.springapp.services.impl.CustomerServiceImpl;
-import jot.projects.spring.springapp.services.impl.ReferenceServiceImpl;
+import joe.spring.springapp.services.AccountService;
+import joe.spring.springapp.services.AddressService;
+import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.services.impl.AccountServiceImpl;
+import joe.spring.springapp.services.impl.AddressServiceImpl;
+import joe.spring.springapp.services.impl.CustomerServiceImpl;
+import joe.spring.springapp.services.impl.ReferenceServiceImpl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +41,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * 
  */
 @Configuration
-@EnableJpaRepositories(basePackages = { "jot.projects.spring.springapp.data.jpa.repository" })
+@EnableJpaRepositories(basePackages = { "joe.spring.springapp.data.jpa.repository" })
 @PropertySource({ "classpath:db_hibernate.properties" })
 public class DbHibernateConfig {
 

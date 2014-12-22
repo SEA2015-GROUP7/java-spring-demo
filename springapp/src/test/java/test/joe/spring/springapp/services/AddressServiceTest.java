@@ -1,15 +1,15 @@
-package jot.projects.spring.test.springapp.services;
+package test.joe.spring.springapp.services;
 
 import java.util.Date;
 
-import jot.projects.spring.springapp.data.domain.Address;
-import jot.projects.spring.springapp.data.domain.Address.AddressType;
-import jot.projects.spring.springapp.data.domain.Customer;
-import jot.projects.spring.springapp.data.jpa.DbHibernateConfig;
-import jot.projects.spring.springapp.data.reference.State;
-import jot.projects.spring.springapp.services.AddressService;
-import jot.projects.spring.springapp.services.CustomerService;
-import jot.projects.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.data.domain.Address;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.domain.Address.AddressType;
+import joe.spring.springapp.data.jpa.DbHibernateConfig;
+import joe.spring.springapp.data.reference.State;
+import joe.spring.springapp.services.AddressService;
+import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ReferenceService;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

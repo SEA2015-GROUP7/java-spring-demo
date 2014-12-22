@@ -1,13 +1,13 @@
-package jot.projects.spring.springapp.services.impl;
+package joe.spring.springapp.services.impl;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import jot.projects.spring.springapp.data.domain.Address;
-import jot.projects.spring.springapp.data.domain.Customer;
-import jot.projects.spring.springapp.data.jpa.repository.CustomerRepository;
-import jot.projects.spring.springapp.services.CustomerService;
+import joe.spring.springapp.data.domain.Address;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.jpa.repository.CustomerRepository;
+import joe.spring.springapp.services.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
-package jot.projects.spring.springapp.data.jpa.repository;
+package joe.spring.springapp.data.jpa.repository;
 
 import java.util.List;
 
-import jot.projects.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.domain.Customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

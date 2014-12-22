@@ -1,4 +1,4 @@
-package jot.projects.spring.springapp.data.reference;
+package joe.spring.springapp.data.reference;
 
 public enum Title {
 	MR (1L, "Mr."),

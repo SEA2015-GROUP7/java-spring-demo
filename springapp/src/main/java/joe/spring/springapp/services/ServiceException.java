@@ -1,4 +1,4 @@
-package jot.projects.spring.springapp.services;
+package joe.spring.springapp.services;
 
 /**
  * A wrapper around a <code>RuntimeException</code> used for services.

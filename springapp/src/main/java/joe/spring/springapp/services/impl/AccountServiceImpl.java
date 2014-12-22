@@ -1,13 +1,13 @@
-package jot.projects.spring.springapp.services.impl;
+package joe.spring.springapp.services.impl;
 
 import java.util.Date;
 import java.util.List;
 
-import jot.projects.spring.springapp.data.domain.Account;
-import jot.projects.spring.springapp.data.domain.Account.AccountType;
-import jot.projects.spring.springapp.data.domain.Customer;
-import jot.projects.spring.springapp.data.jpa.repository.AccountRepository;
-import jot.projects.spring.springapp.services.AccountService;
+import joe.spring.springapp.data.domain.Account;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.domain.Account.AccountType;
+import joe.spring.springapp.data.jpa.repository.AccountRepository;
+import joe.spring.springapp.services.AccountService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

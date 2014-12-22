@@ -1,12 +1,12 @@
-package jot.projects.spring.test.springapp.services;
+package test.joe.spring.springapp.services;
 
 import java.util.ArrayList;
 
-import jot.projects.spring.springapp.data.jpa.DbHibernateConfig;
-import jot.projects.spring.springapp.data.reference.Country;
-import jot.projects.spring.springapp.data.reference.State;
-import jot.projects.spring.springapp.data.reference.Title;
-import jot.projects.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.data.jpa.DbHibernateConfig;
+import joe.spring.springapp.data.reference.Country;
+import joe.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.reference.Title;
+import joe.spring.springapp.services.ReferenceService;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

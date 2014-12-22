@@ -1,4 +1,4 @@
-package jot.projects.spring.springapp.data.domain;
+package joe.spring.springapp.data.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-import jot.projects.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.reference.State;
 
 @Entity(name="ADDRESS")
 public class Address {

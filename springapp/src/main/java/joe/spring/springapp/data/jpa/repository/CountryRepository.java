@@ -1,11 +1,11 @@
-package jot.projects.spring.springapp.data.jpa.repository;
+package joe.spring.springapp.data.jpa.repository;
 
 import java.util.List;
 
-import jot.projects.spring.springapp.data.domain.Account;
-import jot.projects.spring.springapp.data.domain.Customer;
-import jot.projects.spring.springapp.data.reference.Country;
-import jot.projects.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.domain.Account;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.reference.Country;
+import joe.spring.springapp.data.reference.State;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

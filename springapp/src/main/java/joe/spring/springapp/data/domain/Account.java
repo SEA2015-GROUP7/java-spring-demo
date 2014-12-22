@@ -1,4 +1,4 @@
-package jot.projects.spring.springapp.data.domain;
+package joe.spring.springapp.data.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

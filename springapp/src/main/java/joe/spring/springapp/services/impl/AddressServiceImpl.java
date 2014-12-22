@@ -1,13 +1,13 @@
-package jot.projects.spring.springapp.services.impl;
+package joe.spring.springapp.services.impl;
 
 import java.util.List;
 
-import jot.projects.spring.springapp.data.domain.Address;
-import jot.projects.spring.springapp.data.domain.Address.AddressType;
-import jot.projects.spring.springapp.data.domain.Customer;
-import jot.projects.spring.springapp.data.jpa.repository.AddressRepository;
-import jot.projects.spring.springapp.data.reference.State;
-import jot.projects.spring.springapp.services.AddressService;
+import joe.spring.springapp.data.domain.Address;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.domain.Address.AddressType;
+import joe.spring.springapp.data.jpa.repository.AddressRepository;
+import joe.spring.springapp.data.reference.State;
+import joe.spring.springapp.services.AddressService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
