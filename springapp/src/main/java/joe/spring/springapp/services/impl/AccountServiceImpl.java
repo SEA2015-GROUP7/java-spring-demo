@@ -1,11 +1,10 @@
 package joe.spring.springapp.services.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import joe.spring.springapp.data.domain.Account;
-import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.domain.Account.AccountType;
+import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.jpa.repository.AccountRepository;
 import joe.spring.springapp.services.AccountService;
 

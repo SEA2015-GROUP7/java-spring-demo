@@ -1,11 +1,8 @@
 package joe.spring.springapp.data.jpa.repository;
 
-import java.util.List;
-
 import joe.spring.springapp.data.domain.Account;
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.reference.Country;
-import joe.spring.springapp.data.reference.State;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

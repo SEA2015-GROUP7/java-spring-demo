@@ -1,11 +1,10 @@
 package joe.spring.springapp.services;
 
-import java.util.Date;
 import java.util.List;
 
 import joe.spring.springapp.data.domain.Account;
-import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.domain.Account.AccountType;
+import joe.spring.springapp.data.domain.Customer;
 
 /**
  * An administrative service used to manage customers and accounts.
