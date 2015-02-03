@@ -22,6 +22,7 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/" /> 
 
 	<!-- Resolve logical view names to .jsp resources in the /WEB-INF/views 
 		directory -->

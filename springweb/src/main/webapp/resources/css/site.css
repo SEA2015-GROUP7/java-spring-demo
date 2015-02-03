@@ -1,0 +1,55 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #b0c4de;
+}
+
+fieldset {
+	width: 400px;
+	border: 1;
+}
+
+header {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.0em; /* 16px */
+	font-weight: bold;
+	text-align: center;	
+}
+
+hr {
+	color: black;
+}
+
+label {
+	display: block;
+	margin: 20px 0 0 0;
+}
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: .75em; /* 12px */
+	font-weight: normal;
+	margin-left: 10px;
+}
+
+select {
+	width: 200px;
+}
+
+.overflow {
+	height: 100px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 800px;
+}
+
+table,th,td {
+	border: 1px solid black;
+}
+
+td {
+	text-align: left;
+}

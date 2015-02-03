@@ -3,12 +3,11 @@ package joe.spring.springweb.mvc.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import joe.spring.springweb.mvc.data.DropDownData;
 import joe.spring.springapp.data.reference.Country;
 import joe.spring.springapp.data.reference.State;
 import joe.spring.springapp.data.reference.Title;
 import joe.spring.springapp.services.ReferenceService;
-
+import joe.spring.springweb.mvc.data.DropDownData;
 
 //import jot.projects.spring.springapp.data.reference.State;
 //import jot.projects.spring.springapp.services.ReferenceService;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -32,19 +32,29 @@ public class JsonController {
 	protected final static Logger log = LoggerFactory
 			.getLogger(JsonController.class);
 
-	@RequestMapping(value = "/json/getStates", method = RequestMethod.GET)
-	public @ResponseBody
-	List<DropDownData> getStatesAsJSON() {
-		log.debug("Calling JSON service getStatesAsJSON()");
-		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
-		Country c = refService.getCountryByCode("CA");
-		ArrayList<State> stateList = null;
+	
+	protected ArrayList<State> getStatesByCountryId(Long countryId) {
+		ArrayList<State> stateList = new ArrayList<State>();
+		Country c = null;
+		if (countryId != null) {
+			c = refService.getCountryById(countryId);			
+		}		
 		if (c != null) {
 			stateList = (ArrayList<State>) refService.getStatesByCountry(c);
 		} else {	
 			log.warn("Country was null. Getting all states / provinces");
 			stateList = (ArrayList<State>) refService.getAllStates();
-		}
+		}		
+		return stateList;
+	}
+	
+	@RequestMapping(value = "/json/getStatesDropDownData", method = RequestMethod.GET)
+	public @ResponseBody
+	List<DropDownData> getStatesDropDownData(
+			@RequestParam(value = "countryId",required=false) Long countryId) {
+		log.debug("Calling JSON service getStatesDropDownData() with countryId = " + countryId);
+		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
+		ArrayList<State> stateList = getStatesByCountryId(countryId);
 		if (stateList != null && stateList.size() > 0) {
 			for (State s: stateList) {
 				dropDownList.add(new DropDownData(s.getId(), s.getName() + " (" + s.getCode() + ")"));
@@ -53,6 +63,17 @@ public class JsonController {
 		return dropDownList;
 	}
 
+	@RequestMapping(value = "/json/getStates", method = RequestMethod.GET)
+	public @ResponseBody
+	List<State> getStates(
+			@RequestParam(value = "countryId",required=false) Long countryId) {
+		log.debug("Calling JSON service getStates() with countryId = " + countryId);
+		ArrayList<State> stateList = getStatesByCountryId(countryId);
+		return stateList;
+	}
+	
+	
+	
 	@RequestMapping(value = "/json/getTitles", method = RequestMethod.GET)
 	public @ResponseBody
 	List<DropDownData> getTitlesAsJSON() {
