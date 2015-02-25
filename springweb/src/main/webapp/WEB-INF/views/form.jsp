@@ -18,7 +18,7 @@
 	    $( "#submit" ).button();
 	});
 
-  $.getJSON('json/getTitles', function(data){
+  $.getJSON('getTitlesDropDownData', function(data){
 	    var html = '';
 	    var len = data.length;
 	    for (var i = 0; i< len; i++) {
@@ -27,7 +27,7 @@
 	    $('#title').append(html);
 	});
 
-  $.getJSON('json/getCountries', function(data){
+  $.getJSON('getCountriesDropDownData', function(data){
 	    var html = '';
 	    var len = data.length;
 	    for (var i = 0; i< len; i++) {
@@ -36,7 +36,7 @@
 	    $('#country').append(html);
 	});
   
-  $.getJSON('json/getStates', function(data){
+  $.getJSON('getStatesDropDownData', function(data){
 	    var html = '';
 	    var len = data.length;
 	    for (var i = 0; i< len; i++) {

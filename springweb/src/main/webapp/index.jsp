@@ -25,6 +25,8 @@
 	<p>This web application contains the following examples:</p>
 	<ul>
 		<li><a href="states">Simple AJAX Data Fetch with JQuery UI SelectMenu</a> - A simple example of a JQuery UI SelectMenu component that calls a web service to fetch data.</li>
+		<li><a href="customers">View Customers</a> - A tabular view of customers with JQuery modal dialogs.</li>
+		<li><a href="newCustomerForm">Create a new Customer</a> - A simple form using JQuery UI to create a new customer.</li>
 	</ul>	
 	
 </body>

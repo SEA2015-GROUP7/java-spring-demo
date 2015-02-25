@@ -24,16 +24,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Handles requests for the application home page.
  */
 @Controller
-public class JsonController {
+public class ReferenceController {
 
 	@Autowired
 	protected ReferenceService refService;
 
 	protected final static Logger log = LoggerFactory
-			.getLogger(JsonController.class);
+			.getLogger(ReferenceController.class);
 
 	
-	protected ArrayList<State> getStatesByCountryId(Long countryId) {
+	protected ArrayList<State> lookupStatesByCountryId(Long countryId) {
 		ArrayList<State> stateList = new ArrayList<State>();
 		Country c = null;
 		if (countryId != null) {
@@ -48,13 +48,13 @@ public class JsonController {
 		return stateList;
 	}
 	
-	@RequestMapping(value = "/json/getStatesDropDownData", method = RequestMethod.GET)
+	@RequestMapping(value = "/getStatesDropDownData", method = RequestMethod.GET)
 	public @ResponseBody
-	List<DropDownData> getStatesDropDownData(
+	List<DropDownData> getStatesDropDownDataByCountryId(
 			@RequestParam(value = "countryId",required=false) Long countryId) {
 		log.debug("Calling JSON service getStatesDropDownData() with countryId = " + countryId);
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
-		ArrayList<State> stateList = getStatesByCountryId(countryId);
+		ArrayList<State> stateList = lookupStatesByCountryId(countryId);
 		if (stateList != null && stateList.size() > 0) {
 			for (State s: stateList) {
 				dropDownList.add(new DropDownData(s.getId(), s.getName() + " (" + s.getCode() + ")"));
@@ -65,18 +65,18 @@ public class JsonController {
 
 	@RequestMapping(value = "/json/getStates", method = RequestMethod.GET)
 	public @ResponseBody
-	List<State> getStates(
+	List<State> getStatesByCountryId(
 			@RequestParam(value = "countryId",required=false) Long countryId) {
 		log.debug("Calling JSON service getStates() with countryId = " + countryId);
-		ArrayList<State> stateList = getStatesByCountryId(countryId);
+		ArrayList<State> stateList = lookupStatesByCountryId(countryId);
 		return stateList;
 	}
 	
 	
 	
-	@RequestMapping(value = "/json/getTitles", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTitlesDropDownData", method = RequestMethod.GET)
 	public @ResponseBody
-	List<DropDownData> getTitlesAsJSON() {
+	List<DropDownData> getTitlesDropDownData() {
 		log.debug("Calling JSON service getTitlesAsJSON()");
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 		ArrayList<Title> titleList = (ArrayList<Title>) refService
@@ -89,9 +89,9 @@ public class JsonController {
 		return dropDownList;
 	}
 
-	@RequestMapping(value = "/json/getCountries", method = RequestMethod.GET)
+	@RequestMapping(value = "/getCountriesDropDownData", method = RequestMethod.GET)
 	public @ResponseBody
-	List<DropDownData> getCountriesAsJSON() {
+	List<DropDownData> getCountriesDropDownData() {
 		log.debug("Calling JSON service getCountriesAsJSON()");
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 		ArrayList<Country> countryList = (ArrayList<Country>) refService
