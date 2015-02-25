@@ -40,6 +40,15 @@
 		lastName = $("#lastName").val();
 		userName = $("#userName").val();
 		dob = $("#dob").val();
+		$("#newCustomerForm").submit();
+	}
+
+	function createNewCustomerJson() {
+		titleId = $("#title option:selected").val();
+		firstName = $("#firstName").val();
+		lastName = $("#lastName").val();
+		userName = $("#userName").val();
+		dob = $("#dob").val();
 
 		$.ajax({
 					method: "POST",
@@ -61,13 +70,13 @@
 <body>
 <header>New Customer</header>
  
-<form id="newCustomerForm">
+<form id="newCustomerForm" method="POST">
     <fieldset>
-	  <label for="title">Title</label><select name="title" id="title"></select><br/>
-	  <label for="firstName">First Name</label><input type="text" id="firstName"></input><br/>
-	  <label for="lastName">Last Name</label><input type="text" id="lastName"></input><br/>
-	  <label for="userName">User Name</label><input type="text" id="userName"></input><br/>
-	  <label for="dob">Birth Date</label><input type="text" id="dob"/><br/>	  
+	  <label for="title">Title</label><select name="title" id="title" name="title"></select><br/>
+	  <label for="firstName">First Name</label><input type="text" id="firstName" name="firstName"></input><br/>
+	  <label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName"></input><br/>
+	  <label for="userName">User Name</label><input type="text" id="userName" name="userName"></input><br/>
+	  <label for="dob">Birth Date</label><input type="text" id="dob" name="dob"/><br/>	  
 	  <button name="submit" id="submit" onClick="createNewCustomer()">Submit</button> 
 	</fieldset>
 </form>

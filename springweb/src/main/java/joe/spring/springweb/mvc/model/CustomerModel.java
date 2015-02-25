@@ -2,29 +2,33 @@ package joe.spring.springweb.mvc.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 public class CustomerModel {
-	private Long id;
 
+	@NotNull
+	private Long title;
+	
+	@Size(min=3, max=15)
 	private String firstName;
+
+	@Size(min=5, max=20)
 	private String lastName;
 	
+	
+	@Size(min=5, max=10)
 	private String userName;
-
-	private Date birthDate;
+	
+	@NotNull
+	private Date dob;
 
 	public CustomerModel() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -51,14 +55,28 @@ public class CustomerModel {
 		this.userName = userName;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
+	public Date getDob() {
+		return dob;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
-	
+	public Long getTitle() {
+		return title;
+	}
+
+	public void setTitle(Long title) {
+		this.title = title;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerModel [title=" + title + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", userName=" + userName
+				+ ", dob=" + dob + "]";
+	}
+
 	
 }
