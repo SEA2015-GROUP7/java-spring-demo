@@ -1,7 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.Date" %>    
-	
+<%@ page import="java.util.Date" %>    	
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,13 +21,39 @@
 				dob = $( "#dob" ),
 			    allFields = $( [] ).add( firstName ).add( lastName ).add( userName ).add( dob );
 				
-				refreshCustomerTable();
-
 				function addCustomer() {
-				      var valid = true;
-				      allFields.removeClass( "ui-state-error" );
-				      dialog.dialog( "close" );
-				      return valid;
+				      	var valid = true;
+				      	var titleIdVal = 1;
+						var firstNameVal = $("#firstName").val();
+						var lastNameVal = $("#lastName").val();
+						var userNameVal = $("#userName").val();
+						var dobVal = $("#dob").val();
+
+						$.ajax({
+									method: "POST",
+									dataType : "json",
+									url : "newCustomerJson",
+									data : {
+										title : titleIdVal,
+										firstName : firstNameVal,
+										lastName : lastNameVal,
+										userName : userNameVal,
+										dob : dobVal
+										},
+									success: function(result) {		
+										if (result.status == "OK") {
+											refreshCustomerTable();											
+										} else {
+							            	for (var i = 0; i < result.fieldErrorList.length; i++) {
+							            		alert(result.fieldErrorList[i].fieldName + ": " + result.fieldErrorList[i].errorMsg);
+							            	}
+										}
+									}
+								});
+						
+				      	allFields.removeClass( "ui-state-error" );
+				      	dialog.dialog( "close" );
+				      	return valid;
 				    }				
 
 				function editCustomer(id) {
@@ -55,8 +81,6 @@
 							    $("#customer_table TBODY").find("a[id='edit_" + data[i].id + "']").button().on( "click", function() {
 									   editCustomer(22);					
 							    });
-							    //$("#customer_table TBODY").find("a[id='edit_" + data[i].id + "']").button().on( "click", editCustomer(data[i].id));
-
 							}			
 						    
 						} else {
@@ -106,9 +130,9 @@
 				      yearRange : '-99:+0'
 				    });
 				
+				refreshCustomerTable();
 
-	});				
-				
+	});								
 </script>
 </head>
 <body>
@@ -127,7 +151,7 @@
       <label for="dob">BirthDate</label>
       <input type="text" name="dob" id="dob" class="text ui-widget-content ui-corner-all"> 
       <!-- Allow form submission with keyboard without duplicating the dialog button -->
-      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
     </fieldset>
   </form>
 </div>

@@ -1,32 +1,30 @@
 package joe.spring.springweb.mvc.model;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 
 public class CustomerModel {
 
-	@NotNull
+	@NotNull(message="Please select a title.")
 	private Long title;
 	
-	@Size(min=3, max=15)
+	@Size(min=3, max=15, message="The first name must be between 3 and 15 characters.")
 	private String firstName;
 
-	@Size(min=5, max=20)
+	@Size(min=5, max=20, message="The last name must be between 5 and 20 characters.")
 	private String lastName;
 	
 	
-	@Size(min=5, max=10)
+	@Size(min=5, max=10, message="The user name must be between 5 and 10 characters.")
 	private String userName;
 	
-	@NotNull
-	private Date dob;
+	@NotNull(message="Please enter your date of birth.")
+	@Pattern(regexp="^[0-1][0-9]/[0-3][0-9]/[1-2][0-9][0-9][0-9]$", message="Please use the format mm/dd/yyyy.")
+	private String dob;
 
 	public CustomerModel() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getFirstName() {
@@ -53,11 +51,11 @@ public class CustomerModel {
 		this.userName = userName;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
@@ -75,6 +73,5 @@ public class CustomerModel {
 				+ ", lastName=" + lastName + ", userName=" + userName
 				+ ", dob=" + dob + "]";
 	}
-
 	
 }

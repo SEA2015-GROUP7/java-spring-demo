@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.Date" %>    	
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,14 +21,16 @@
 </script>
 </head>
 <body>
-	<header>Spring / JQuery Demo - Home</header>
-	<p>The home page for the Spring / JQuery demo project.</p>	
-	<p>This web application contains the following examples:</p>
-	<ul>
-		<li><a href="states">Simple AJAX Data Fetch with JQuery UI SelectMenu</a> - A simple example of a JQuery UI SelectMenu component that calls a web service to fetch data.</li>
-		<li><a href="customers">View Customers</a> - A tabular view of customers with JQuery modal dialogs.</li>
-		<li><a href="newCustomerForm">Create a new Customer</a> - A simple form using JQuery UI to create a new customer.</li>
-	</ul>	
-	
+<header>Spring / JQuery Demo - Home</header>
+<hr/>
+<p>The home page for the Spring / JQuery demo project.</p>	
+<p>This web application contains the following examples:</p>
+<ul>
+	<li><a href="states">Simple AJAX Data Fetch with JQuery UI SelectMenu</a> - A simple example of a JQuery UI SelectMenu component that calls a web service to fetch data.</li>
+	<li><a href="customers">View Customers</a> - A tabular view of customers with JQuery modal dialogs.</li>
+	<li><a href="createCustomer">Create a new Customer (Spring MVC)</a> - A simple form using Spring MVC to create a new customer. This example does not use JQuery.</li>
+</ul>	
+<hr/>
+<footer>Page Generated: <%= new Date() %></footer>	
 </body>
 </html>
