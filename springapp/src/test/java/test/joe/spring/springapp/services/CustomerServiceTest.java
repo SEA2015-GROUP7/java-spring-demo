@@ -2,6 +2,7 @@ package test.joe.spring.springapp.services;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.jpa.DbHibernateConfig;
@@ -38,7 +39,7 @@ public class CustomerServiceTest {
 				DbHibernateConfig.class);
 		customerService = (CustomerService) context.getBean("customerService");
 
-		customerService.removeAllCustomers();
+		//customerService.removeAllCustomers();
 	}
 
 	@Test
@@ -137,6 +138,107 @@ public class CustomerServiceTest {
 
 	}
 	
+	/**
+	 * Tests the searchCustomers method, which will do a partial match on either
+	 * the first name, last name or user name. If the search term in null, then
+	 * all records are returned.
+	 */
+	@Test
+	public void testSearchCustomers() {
+
+		log.info(">> Entering testSearchCustomers");
+
+		log.info("Creating test customer.");
+		String firstName = "John";
+		String lastName = "Doe";
+		String userName = "jdoe";
+		Date dob = new Date();
+		Customer c = customerService.createCustomer(firstName,lastName,userName,dob);
+
+		List<Customer> customerList = customerService.searchCustomers(firstName);
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + firstName  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + firstName +")");
+		}
+
+		customerList = customerService.searchCustomers(firstName.substring(0,1));
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + firstName.substring(0,1)  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + firstName.substring(0,1) +")");
+		}
+
+		customerList = customerService.searchCustomers(firstName.substring(firstName.length() - 2));
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + firstName.substring(firstName.length() - 2)  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + firstName.substring(firstName.length() - 2) +")");
+		}
+
+		customerList = customerService.searchCustomers(lastName);
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + lastName  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + lastName +")");
+		}
+
+		customerList = customerService.searchCustomers(lastName.substring(0,1));
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + lastName.substring(0,1)  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + lastName.substring(0,1) +")");
+		}
+
+		customerList = customerService.searchCustomers(firstName.substring(lastName.length() - 2));
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + firstName.substring(lastName.length() - 2)  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + lastName.substring(firstName.length() - 2) +")");
+		}
+
+		customerList = customerService.searchCustomers(userName);
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + userName + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + userName +")");
+		}
+
+		customerList = customerService.searchCustomers(userName.substring(0,1));
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + userName.substring(0,1)  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + userName.substring(0,1) +")");
+		}
+
+		customerList = customerService.searchCustomers(firstName.substring(userName.length() - 2));
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(" + firstName.substring(userName.length() - 2)  + ") failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(" + userName.substring(firstName.length() - 2) +")");
+		}
+
+		String badString = "XXX";
+		customerList = customerService.searchCustomers(badString);
+		if (customerList == null || customerList.size() == 0) {
+			log.info("Found no customers as expected using searchCustomers(" + badString + ")");
+		} else {
+			org.junit.Assert.fail("searchCustomers(" + badString + ") failed by returning records.");
+		}
+		
+		customerList = customerService.searchCustomers(null);
+		if (customerList == null || customerList.size() == 0) {
+			org.junit.Assert.fail("searchCustomers(null) failed.");
+		} else {
+			log.info("Found " + customerList.size() + " customers using searchCustomers(null)");
+		}
+		
+		log.info("Removing customer.");
+		customerService.removeCustomer(c.getId());
+
+		log.info("<< Leaving testLookupCustomers");
+
+	}
 	
 	@Test
 	public void negativeCustomerTest() {
@@ -183,7 +285,7 @@ public class CustomerServiceTest {
 	@AfterClass
 	public static void after() {
 		log.info("In after().");
-		customerService.removeAllCustomers();
+		//customerService.removeAllCustomers();
 	}
 
 }

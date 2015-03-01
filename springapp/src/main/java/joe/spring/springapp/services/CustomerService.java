@@ -27,6 +27,8 @@ public interface CustomerService {
 
 	public List<Customer> getAllCustomers();
 
+	public List<Customer> searchCustomers(final String searchTerm);
+
 	public Customer getCustomerById(final Long customerId);
 
 	public Customer getCustomerByUserName(final String userName);

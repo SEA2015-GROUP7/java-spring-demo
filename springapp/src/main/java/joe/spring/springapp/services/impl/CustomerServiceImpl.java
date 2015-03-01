@@ -1,5 +1,6 @@
 package joe.spring.springapp.services.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -106,4 +107,17 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerList;
 	}
 
+	@Override
+	public List<Customer> searchCustomers(final String searchTerm) {
+		
+		List<Customer> customerList = new ArrayList<Customer>();
+		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+			customerList = customerRepo.searchCustomers(searchTerm);
+		} else {
+			customerList = customerRepo.findAll();
+		}
+
+		return customerList;		
+	}
+	
 }

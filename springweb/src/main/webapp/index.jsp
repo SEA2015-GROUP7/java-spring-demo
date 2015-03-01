@@ -29,6 +29,7 @@
 	<li><a href="states">Simple AJAX Data Fetch with JQuery UI SelectMenu</a> - A simple example of a JQuery UI SelectMenu component that calls a web service to fetch data.</li>
 	<li><a href="customers">View Customers</a> - A tabular view of customers with JQuery modal dialogs.</li>
 	<li><a href="createCustomer">Create a new Customer (Spring MVC)</a> - A simple form using Spring MVC to create a new customer. This example does not use JQuery.</li>
+	<li><a href="customerSearch">Customer Search</a></li>
 </ul>	
 <hr/>
 <footer>Page Generated: <%= new Date() %></footer>	

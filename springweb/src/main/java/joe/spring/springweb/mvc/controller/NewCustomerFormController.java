@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class NewCustomerFormController {
 	protected final static Logger log = LoggerFactory
-			.getLogger(FormController.class);
+			.getLogger(NewCustomerFormController.class);
 
 	public NewCustomerFormController() {
 

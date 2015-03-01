@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name = "CUSTOMER")
+@Entity
 public class Customer {
 
 	@Id
