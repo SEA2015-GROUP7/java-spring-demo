@@ -21,6 +21,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.integration.annotation.IntegrationComponentScan;
+import org.springframework.integration.config.EnableIntegration;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -43,6 +45,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @Configuration
 @EnableJpaRepositories(basePackages = { "joe.spring.springapp.data.jpa.repository" })
 @PropertySource({ "classpath:db_hibernate.properties" })
+@IntegrationComponentScan("joe.spring.springapp.integration")
+@EnableIntegration
 public class DbHibernateConfig {
 
 	private static final String PROPERTY_NAME_DATABASE_DRIVER_TYPE = "db.driverType";

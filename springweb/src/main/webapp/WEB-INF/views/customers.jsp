@@ -67,7 +67,7 @@
 					$('#customer_table').hide();
 					$('#customer_table TBODY tr').remove();
 
-					$.getJSON('getCustomers', function(data) {
+					$.getJSON('getAllCustomers', function(data) {
 						var html = '';
 						var len = data.length;
 						if (len > 0) {
