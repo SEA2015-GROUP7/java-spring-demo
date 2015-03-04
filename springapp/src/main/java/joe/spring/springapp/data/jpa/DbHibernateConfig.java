@@ -168,5 +168,5 @@ public class DbHibernateConfig {
 	public ReferenceService referenceService() {
 		return new ReferenceServiceImpl();
 	}
-	
+
 }
