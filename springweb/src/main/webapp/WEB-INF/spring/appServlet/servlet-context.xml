@@ -32,6 +32,15 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<bean id="customerModelValidator" class="joe.spring.springweb.mvc.validator.CustomerModelValidator" />
+    
 	<bean name="/DbHibernateConfig" class="joe.spring.springapp.data.jpa.DbHibernateConfig">
 	</bean>
+	
+	<bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:message" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>	
+	
 </beans>

@@ -32,7 +32,7 @@
 						$.ajax({
 									method: "POST",
 									dataType : "json",
-									url : "newCustomerJson",
+									url : "createCustomerJson",
 									data : {
 										title : titleIdVal,
 										firstName : firstNameVal,

@@ -16,6 +16,9 @@
 <script>
 	$(document).ready(
 			function() {
+				$( "#example_table tr:even" ).css( "background-color", "#ffffff" );
+				$( "#example_table tr:odd" ).css( "background-color", "#eeeeee" );
+
 			});
 
 </script>
@@ -25,12 +28,39 @@
 <hr/>
 <p>The home page for the Spring / JQuery demo project.</p>	
 <p>This web application contains the following examples:</p>
-<ul>
-	<li><a href="states">Simple AJAX Data Fetch with JQuery UI SelectMenu</a> - A simple example of a JQuery UI SelectMenu component that calls a web service to fetch data.</li>
-	<li><a href="customers">View Customers</a> - A tabular view of customers with JQuery modal dialogs.</li>
-	<li><a href="createCustomer">Create a new Customer (Spring MVC)</a> - A simple form using Spring MVC to create a new customer. This example does not use JQuery.</li>
-	<li><a href="customerSearch">Customer Search</a></li>
-</ul>	
+<div class="table-contain">
+<table id="example_table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Link</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="row-header"><b>Simple AJAX Data Fetch with JQuery UI SelectMenu</b></td>
+				<td>A simple example of a JQuery UI SelectMenu component that calls a web service to fetch data.</td>
+				<td><a href="states">View States by Country</a></td>
+			</tr>
+			<tr>
+				<td class="row-header"><b>Spring MVC Form Processing</b></td>
+				<td>A simple form using Spring MVC to create a new customer. This example does not use JQuery.</td>
+				<td><a href="createCustomer">Create a New Customer</a></td>
+			</tr>
+			<tr>
+				<td class="row-header"><b>AJAX Data Fetch and Form Submission</b></td>
+				<td>An example using Spring MVC / JQuery UI to display a list of customers and a dialog to create a new customer.</td>
+				<td><a href="customers">View Customers / Create a New Customer</a></td>
+			</tr>
+			<tr>
+				<td class="row-header"><b>AJAX Data Fetch and Form Submission</b></td>
+				<td>A simple search example to display a search results page with the ability to search by first name, last name or user name.</td>
+				<td><a href="customerSearch">Customer Search</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 <hr/>
 <footer>Page Generated: <%= new Date() %></footer>	
 </body>

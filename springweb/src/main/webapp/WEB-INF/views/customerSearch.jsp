@@ -37,7 +37,7 @@
 					$.ajax({
 						method: "POST",
 						dataType : "json",
-						url : "searchCustomers",
+						url : "customerSearch",
 						data : {
 							searchTerm : searchVal
 						},
