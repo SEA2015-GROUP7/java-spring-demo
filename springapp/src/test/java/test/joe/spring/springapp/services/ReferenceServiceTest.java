@@ -29,12 +29,13 @@ public class ReferenceServiceTest {
 
 	protected final static Logger log = LoggerFactory.getLogger(ReferenceServiceTest.class); 
 
-	protected static ReferenceService referenceService;
-	
+	private static ReferenceService referenceService;
+	private static AbstractApplicationContext context;
+
 	@BeforeClass
 	public static void setup() {
 
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(DbHibernateConfig.class);		
+		context = new AnnotationConfigApplicationContext(DbHibernateConfig.class);		
 		referenceService = (ReferenceService) context
 				.getBean("referenceService");		
 }
@@ -126,6 +127,9 @@ public class ReferenceServiceTest {
 	
 	@AfterClass
 	public static void after() {
+		if (context != null) {
+			context.close();
+		}
 	}
 
 }

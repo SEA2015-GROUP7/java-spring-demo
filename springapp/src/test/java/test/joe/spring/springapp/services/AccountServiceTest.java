@@ -30,13 +30,14 @@ public class AccountServiceTest {
 
 	protected final static Logger log = LoggerFactory.getLogger(AccountServiceTest.class); 
 
-	protected static CustomerService customerService;
-	protected static AccountService accountService;
+	private static CustomerService customerService;
+	private static AccountService accountService;
+	private static AbstractApplicationContext context;
 	
 	@BeforeClass
 	public static void setup() {
 
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(DbHibernateConfig.class);		
+		context = new AnnotationConfigApplicationContext(DbHibernateConfig.class);		
 		customerService = (CustomerService) context
 				.getBean("customerService");		
 
@@ -77,6 +78,9 @@ public class AccountServiceTest {
 	
 	@AfterClass
 	public static void after() {
+		if (context != null) {
+			context.close();
+		}
 	}
 
 }

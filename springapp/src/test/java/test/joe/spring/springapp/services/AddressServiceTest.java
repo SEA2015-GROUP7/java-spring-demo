@@ -33,14 +33,14 @@ public class AddressServiceTest {
 
 	protected final static Logger log = LoggerFactory.getLogger(AddressServiceTest.class); 
 
-	protected static AddressService addressService;
-	protected static CustomerService customerService;
-	protected static ReferenceService referenceService;
-	
+	private static AddressService addressService;
+	private static CustomerService customerService;
+	private static ReferenceService referenceService;
+	private static AbstractApplicationContext context;
 	@BeforeClass
 	public static void setup() {
 
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(DbHibernateConfig.class);		
+		context = new AnnotationConfigApplicationContext(DbHibernateConfig.class);		
 		referenceService = (ReferenceService) context
 				.getBean("referenceService");		
 
@@ -100,8 +100,9 @@ public class AddressServiceTest {
 	
 	@AfterClass
 	public static void after() {
-//		addressService.removeAllAddresses();
-//		customerService.removeAllCustomers();
+		if (context != null) {
+			context.close();
+		}
 	}
 
 }

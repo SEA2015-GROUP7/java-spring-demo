@@ -9,23 +9,15 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing 
-		infrastructure -->
-
-	<!-- Scans within the base package of the application for @Components to 
-		configure as beans -->
-	<!-- @Controller, @Service, @Configuration, etc. -->
-<!-- 
-	<context:component-scan base-package="jot.projects.spring" />
- -->
 	<context:component-scan base-package="joe.spring.springweb.mvc.controller" />
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
+
+	<!-- Maps the location of resources such as .css files. -->
 	<mvc:resources mapping="/resources/**" location="/resources/" /> 
 
-	<!-- Resolve logical view names to .jsp resources in the /WEB-INF/views 
-		directory -->
+	<!-- Resolve logical view names to .jsp resources in the /WEB-INF/views directory -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />

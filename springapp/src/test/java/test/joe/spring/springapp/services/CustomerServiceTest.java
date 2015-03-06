@@ -31,11 +31,11 @@ public class CustomerServiceTest {
 			.getLogger(CustomerServiceTest.class);
 
 	private static CustomerService customerService;
-
+	private static AbstractApplicationContext context;
 	@BeforeClass
 	public static void setup() {
 
-		AbstractApplicationContext context = new AnnotationConfigApplicationContext(
+		context = new AnnotationConfigApplicationContext(
 				DbHibernateConfig.class);
 		customerService = (CustomerService) context.getBean("customerService");
 
@@ -286,6 +286,10 @@ public class CustomerServiceTest {
 	public static void after() {
 		log.info("In after().");
 		//customerService.removeAllCustomers();
+		if (context != null) {
+			context.close();
+		}
+
 	}
 
 }

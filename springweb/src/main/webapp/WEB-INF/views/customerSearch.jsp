@@ -137,7 +137,7 @@
 	<form id="searchCustomerForm" method="POST">
 	    <fieldset class="customer-fs">
 	      <input type="text" name="searchVal" id="searchVal" class="text ui-widget-content ui-corner-all">
-	  	  <button name="search_submit" id="search_submit"">Search</button> 
+	  	  <button name="search_submit" id="search_submit">Search</button> 
 	    </fieldset>
 	  </form>
 

@@ -12,7 +12,7 @@ public class AnnotatedAccountModel {
 	@NotNull
 	private Long accountTypeId;
 
-	@Size(min=10, max=10)
+	@Size(min=11, max=11)
 	private String accountNumber;
 
 	public AnnotatedAccountModel() {
