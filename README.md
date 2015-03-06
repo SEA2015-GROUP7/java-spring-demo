@@ -11,5 +11,6 @@ The purpose of this demo is to provide a working web application that highlights
 * Maven
 * Oracle 
 
-**[Travis CI](https://travis-ci.org) Build Status:** [![Build Status](https://travis-ci.org/jsicree/java-spring-demo.svg)](https://travis-ci.org/jsicree/java-spring-demo)
+----------
+[Travis CI](https://travis-ci.org) Build Status: [![Build Status](https://travis-ci.org/jsicree/java-spring-demo.svg)](https://travis-ci.org/jsicree/java-spring-demo)
 
