@@ -7,9 +7,12 @@ The purpose of this demo is to provide a working web application that highlights
 * Spring Data JPA
 * Spring MVC
 * Validation via JSR-303 and Spring custom validators
+* HTML5 and CSS3
 * JQuery and JQuery UI
-* Maven
-* Oracle 
+* JUnit
+* Maven 
+* Oracle *(The demo has been tested on an Oracle Express database)*
+* Travis CI *(A Hosted Continuous Integration Service)*
 
 ----------
 [Travis CI](https://travis-ci.org) Build Status: [![Build Status](https://travis-ci.org/jsicree/java-spring-demo.svg)](https://travis-ci.org/jsicree/java-spring-demo)
