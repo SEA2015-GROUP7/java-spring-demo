@@ -58,6 +58,11 @@
 				<td>A simple search example to display a search results page with the ability to search by first name, last name or user name.</td>
 				<td><a href="customerSearch">Customer Search</a></td>
 			</tr>
+			<tr>
+				<td class="row-header"><b>Content Negotiation</b></td>
+				<td>Returns XML or JSON data based on the extension appended to the request URL. The default format is JSON.</td>
+				<td><a href="getCustomers">Customers (default)</a><br/><br/><a href="getCustomers.json">Customers (.json)</a><br/><br/><a href="getCustomers.xml">Customers (.xml)</a></td>
+			</tr>
 		</tbody>
 	</table>
 </div>

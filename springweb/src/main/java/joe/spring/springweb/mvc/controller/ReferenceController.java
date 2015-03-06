@@ -9,8 +9,6 @@ import joe.spring.springapp.data.reference.Title;
 import joe.spring.springapp.services.ReferenceService;
 import joe.spring.springweb.mvc.data.DropDownData;
 
-//import jot.projects.spring.springapp.data.reference.State;
-//import jot.projects.spring.springapp.services.ReferenceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +29,6 @@ public class ReferenceController {
 
 	protected final static Logger log = LoggerFactory
 			.getLogger(ReferenceController.class);
-
-	
-	protected ArrayList<State> lookupStatesByCountryId(Long countryId) {
-		ArrayList<State> stateList = new ArrayList<State>();
-		Country c = null;
-		if (countryId != null) {
-			c = refService.getCountryById(countryId);			
-		}		
-		if (c != null) {
-			stateList = (ArrayList<State>) refService.getStatesByCountry(c);
-		} else {	
-			log.warn("Country was null. Getting all states / provinces");
-			stateList = (ArrayList<State>) refService.getAllStates();
-		}		
-		return stateList;
-	}
 	
 	@RequestMapping(value = "/getStatesDropDownData", method = RequestMethod.GET)
 	public @ResponseBody
@@ -102,6 +84,21 @@ public class ReferenceController {
 			}
 		}
 		return dropDownList;
+	}
+	
+	private ArrayList<State> lookupStatesByCountryId(Long countryId) {
+		ArrayList<State> stateList = new ArrayList<State>();
+		Country c = null;
+		if (countryId != null) {
+			c = refService.getCountryById(countryId);			
+		}		
+		if (c != null) {
+			stateList = (ArrayList<State>) refService.getStatesByCountry(c);
+		} else {	
+			log.warn("Country was null. Getting all states / provinces");
+			stateList = (ArrayList<State>) refService.getAllStates();
+		}		
+		return stateList;
 	}
 
 }

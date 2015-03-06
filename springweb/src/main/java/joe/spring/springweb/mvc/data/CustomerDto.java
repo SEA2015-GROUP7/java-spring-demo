@@ -1,23 +1,36 @@
-package joe.spring.springweb.mvc.model;
+package joe.spring.springweb.mvc.data;
+
+import java.util.Date;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
+@XmlRootElement(name = "customer")
+public class CustomerDto {
 
-public class CustomerModel {
-
-	private Long title;
-	
 	private String firstName;
 
 	private String lastName;
 	
 	private String userName;
 	
-	private String dob;
+	private Date dob;
 
-	public CustomerModel() {
+	public CustomerDto() {
 		super();
 	}
 
+	public CustomerDto(String firstName, String lastName,
+			String userName, Date dob) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.dob = dob;
+	}
+
+	@XmlElement
 	public String getFirstName() {
 		return firstName;
 	}
@@ -26,6 +39,7 @@ public class CustomerModel {
 		this.firstName = firstName;
 	}
 
+	@XmlElement
 	public String getLastName() {
 		return lastName;
 	}
@@ -34,6 +48,7 @@ public class CustomerModel {
 		this.lastName = lastName;
 	}
 
+	@XmlElement
 	public String getUserName() {
 		return userName;
 	}
@@ -42,25 +57,19 @@ public class CustomerModel {
 		this.userName = userName;
 	}
 
-	public String getDob() {
+	@XmlElement
+	public Date getDob() {
 		return dob;
 	}
 
-	public void setDob(String dob) {
+	public void setDob(Date dob) {
 		this.dob = dob;
 	}
 
-	public Long getTitle() {
-		return title;
-	}
-
-	public void setTitle(Long title) {
-		this.title = title;
-	}
 
 	@Override
 	public String toString() {
-		return "CustomerModel [title=" + title + ", firstName=" + firstName
+		return "CustomerDto [firstName=" + firstName
 				+ ", lastName=" + lastName + ", userName=" + userName
 				+ ", dob=" + dob + "]";
 	}
