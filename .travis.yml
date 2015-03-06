@@ -1,4 +1,4 @@
 language: java
 script: 
   - cd springall
-  - mvn clean compile
+  - mvn clean compile -DskipTests=true
