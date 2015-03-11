@@ -129,12 +129,13 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>${spring-security.version}</version>
 		</dependency>
+<!-- 
 	    <dependency>
 	        <groupId>org.springframework.ws</groupId>
 	        <artifactId>spring-ws-core</artifactId>
 			<version>${spring-ws.version}</version>
 	    </dependency>
-
+-->
 		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -198,7 +199,27 @@
 					<!-- the server and admin credentials are defined in settings.xml -->
 					<!-- <server>tomcat</server> -->
 				</configuration>
-			</plugin>
+			</plugin>			
+<!-- 
+		<plugin>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>jaxb2-maven-plugin</artifactId>
+		    <version>1.6</version>
+		    <executions>
+		        <execution>
+		            <id>xjc</id>
+		            <goals>
+		                <goal>xjc</goal>
+		            </goals>
+		        </execution>
+		    </executions>
+		    <configuration>
+		        <schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
+		        <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+		        <clearOutputDir>false</clearOutputDir>
+		    </configuration>
+		</plugin>			
+ -->
 		</plugins>
 	</build>
 </project>
