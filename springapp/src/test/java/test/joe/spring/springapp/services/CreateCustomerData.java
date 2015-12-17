@@ -73,9 +73,12 @@ public class CreateCustomerData {
 
 		log.info(">> Entering createCustomerAndAccounts.");
 
+		log.info("Removing existing accounts.");
+		accountService.removeAllAccounts();
+
 		log.info("Removing existing customers.");
 		customerService.removeAllCustomers();
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		try {
 			log.info("Adding test customers.");

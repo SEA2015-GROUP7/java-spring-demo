@@ -63,6 +63,11 @@
 				<td>Returns XML or JSON data based on the extension appended to the request URL. The default format is JSON.</td>
 				<td><a href="getCustomers">Customers (default)</a><br/><br/><a href="getCustomers.json">Customers (.json)</a><br/><br/><a href="getCustomers.xml">Customers (.xml)</a></td>
 			</tr>
+			<tr>
+				<td class="row-header"><b>Admin</b></td>
+				<td>Create or delete test data</td>
+				<td><a href="admin">Admin</a></td>
+			</tr>
 		</tbody>
 	</table>
 </div>
