@@ -3,12 +3,6 @@ package joe.spring.springweb.mvc.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import joe.spring.springapp.data.reference.Country;
-import joe.spring.springapp.data.reference.State;
-import joe.spring.springapp.data.reference.Title;
-import joe.spring.springapp.services.ReferenceService;
-import joe.spring.springweb.mvc.data.DropDownData;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import joe.spring.springapp.data.dto.DtoConverter;
+import joe.spring.springapp.data.reference.Country;
+import joe.spring.springapp.data.reference.State;
+import joe.spring.springapp.data.reference.Title;
+import joe.spring.springapp.services.ReferenceService;
+import joe.spring.springdomain.StateDto;
+import joe.spring.springweb.mvc.data.DropDownData;
 
 /**
  * Handles requests for the application home page.
@@ -36,9 +38,9 @@ public class ReferenceController {
 			@RequestParam(value = "countryId",required=false) Long countryId) {
 		log.debug("Calling JSON service getStatesDropDownData() with countryId = " + countryId);
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
-		ArrayList<State> stateList = lookupStatesByCountryId(countryId);
+		ArrayList<StateDto> stateList = lookupStatesByCountryId(countryId);
 		if (stateList != null && stateList.size() > 0) {
-			for (State s: stateList) {
+			for (StateDto s: stateList) {
 				dropDownList.add(new DropDownData(s.getId(), s.getName() + " (" + s.getCode() + ")"));
 			}
 		}
@@ -47,11 +49,11 @@ public class ReferenceController {
 
 	@RequestMapping(value = "/json/getStates", method = RequestMethod.GET)
 	public @ResponseBody
-	List<State> getStatesByCountryId(
+	List<StateDto> getStatesByCountryId(
 			@RequestParam(value = "countryId",required=false) Long countryId) {
 		log.debug("Calling JSON service getStates() with countryId = " + countryId);
-		ArrayList<State> stateList = lookupStatesByCountryId(countryId);
-		return stateList;
+		ArrayList<StateDto> stateDtoList = lookupStatesByCountryId(countryId);
+		return stateDtoList;
 	}
 	
 	
@@ -86,8 +88,9 @@ public class ReferenceController {
 		return dropDownList;
 	}
 	
-	private ArrayList<State> lookupStatesByCountryId(Long countryId) {
+	private ArrayList<StateDto> lookupStatesByCountryId(Long countryId) {
 		ArrayList<State> stateList = new ArrayList<State>();
+		ArrayList<StateDto> stateDtoList = new ArrayList<StateDto>();
 		Country c = null;
 		if (countryId != null) {
 			c = refService.getCountryById(countryId);			
@@ -98,7 +101,11 @@ public class ReferenceController {
 			log.warn("Country was null. Getting all states / provinces");
 			stateList = (ArrayList<State>) refService.getAllStates();
 		}		
-		return stateList;
+		
+		if (stateList != null && stateList.size() > 0) {
+			stateDtoList = (ArrayList<StateDto>) DtoConverter.toStateDtoList(stateList);
+		}
+		return stateDtoList;
 	}
 
 }

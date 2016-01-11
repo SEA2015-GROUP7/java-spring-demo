@@ -68,6 +68,7 @@ public class CreateCustomerData {
 		customerService.removeAllCustomers();
 	}
 
+	@Ignore
 	@Test
 	public void createCustomerAndAccounts() {
 
@@ -105,7 +106,6 @@ public class CreateCustomerData {
 		log.info("<< Leaving createCustomerAndAccounts.");
 	}
 
-	@Ignore
 	@Test 
 	public void removeCustomersAndAccounts() {
 

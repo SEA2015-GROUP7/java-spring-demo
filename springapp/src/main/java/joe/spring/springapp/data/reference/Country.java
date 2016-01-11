@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import joe.spring.springdomain.CountryDto;
+
 @Entity
 public class Country {
 
@@ -55,5 +57,5 @@ public class Country {
 	public String toString() {
 		return "Country [id=" + id + ", name=" + name + ", code=" + code + "]";
 	}
-
+	
 }
