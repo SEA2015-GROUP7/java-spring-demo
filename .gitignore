@@ -1,5 +1,8 @@
 *.class
 
+# Specific properties file containing database connection information.
+db_hibernate.properties
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
