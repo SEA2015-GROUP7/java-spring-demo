@@ -25,6 +25,9 @@
 #########
 /target
 
+# Specific project files #
+##########################
+/src/main/resources/db_hibernate.properties
 
 # Packages #
 ############
