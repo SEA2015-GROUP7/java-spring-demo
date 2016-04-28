@@ -67,6 +67,11 @@ public class ReferenceServiceTest {
 		Long countryId = countryList.get(0).getId();
 		Country countryById = referenceService.getCountryById(countryId);
 		org.junit.Assert.assertNotNull("GetCountryById returned null for country id " + countryById, countryById);
+
+		Country badCountryByCode = referenceService.getCountryByCode("BAD");
+		org.junit.Assert.assertNull("GetCountryByCode(BAD) returned data unexpectedly! ", badCountryByCode);
+		
+		
 	}
 
 	

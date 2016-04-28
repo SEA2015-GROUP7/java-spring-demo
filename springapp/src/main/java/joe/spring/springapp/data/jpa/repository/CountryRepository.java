@@ -4,6 +4,7 @@ import joe.spring.springapp.data.domain.Account;
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.reference.Country;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,10 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
 	 * @param customer
 	 * @return
 	 */	
-	
+	@Cacheable("joe.spring.springapp.data.countries")	
+	Customer findById(Long id);
+
+	@Cacheable("joe.spring.springapp.data.countries")	
 	Country findByCode(String code);
 	
 }
