@@ -1,21 +1,18 @@
 package joe.spring.springapp.data.jpa;
 
 import java.beans.PropertyVetoException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import joe.spring.springapp.services.AccountService;
-import joe.spring.springapp.services.AddressService;
-import joe.spring.springapp.services.CustomerService;
-import joe.spring.springapp.services.ReferenceService;
-import joe.spring.springapp.services.impl.AccountServiceImpl;
-import joe.spring.springapp.services.impl.AddressServiceImpl;
-import joe.spring.springapp.services.impl.CustomerServiceImpl;
-import joe.spring.springapp.services.impl.ReferenceServiceImpl;
-
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -32,6 +29,15 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+import joe.spring.springapp.services.AccountService;
+import joe.spring.springapp.services.AddressService;
+import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.services.impl.AccountServiceImpl;
+import joe.spring.springapp.services.impl.AddressServiceImpl;
+import joe.spring.springapp.services.impl.CustomerServiceImpl;
+import joe.spring.springapp.services.impl.ReferenceServiceImpl;
+
 // import org.springframework.dao.QueryTimeoutException;
 
 /**
@@ -47,6 +53,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @PropertySource({ "classpath:db_hibernate.properties" })
 @IntegrationComponentScan("joe.spring.springapp.integration")
 @EnableIntegration
+@EnableCaching
 public class DbHibernateConfig {
 
 	private static final String PROPERTY_NAME_DATABASE_DRIVER_TYPE = "db.driverType";
@@ -149,6 +156,17 @@ public class DbHibernateConfig {
 		return new JpaTransactionManager(entityManagerFactory);
 	}
 	
+	@Bean
+    public CacheManager cacheManager() {
+        // configure and return an implementation of Spring's CacheManager SPI
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        ArrayList<ConcurrentMapCache> cacheList = new ArrayList<ConcurrentMapCache>();
+        cacheList.add(new ConcurrentMapCache("joe.spring.springapp.data.countries"));
+        cacheList.add(new ConcurrentMapCache("joe.spring.springapp.data.states"));        
+        cacheManager.setCaches(cacheList);
+        return cacheManager;
+    }
+		
 	@Bean
 	public AccountService accountService() {
 		return new AccountServiceImpl();

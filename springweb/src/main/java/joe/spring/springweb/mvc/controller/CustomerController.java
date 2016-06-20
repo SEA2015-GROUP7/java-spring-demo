@@ -138,6 +138,7 @@ public class CustomerController {
 			dest = "createCustomer";
 		} else {
 			log.info("NO form validation errors found. Creating a new customer!");
+			//customerService.createCustomer(customerModel.getFirstName(), customerModel.getLastName(), customerModel.getUserName(), customerModel.getDob());
 			model.addAttribute("firstName", customerModel.getFirstName());
 		}
 		return dest;
