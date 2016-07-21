@@ -68,7 +68,6 @@ public class CreateCustomerData {
 		customerService.removeAllCustomers();
 	}
 
-	@Ignore
 	@Test
 	public void createCustomerAndAccounts() {
 

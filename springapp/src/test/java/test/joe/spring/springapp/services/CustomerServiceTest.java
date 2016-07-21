@@ -65,6 +65,7 @@ public class CustomerServiceTest {
 		org.junit.Assert.assertNotNull(customerList);
 		org.junit.Assert.assertNotEquals(customerList.size(), 0);
 
+		log.info("Removing the customer.");
 		customerService.removeCustomer(c.getId());
 
 	}

@@ -71,6 +71,9 @@ public class AddressServiceTest {
 		org.junit.Assert.assertNotNull("Address Id was null.", address.getId());
 		log.info("Address created: " + address);
 
+		log.info("Removing addresses.");
+		addressService.removeAllAddresses();
+		
 		log.info("<< Leaving createAddress.");
 	}
 
@@ -95,6 +98,13 @@ public class AddressServiceTest {
 		log.info("Address created: " + homeAddress);
 		customer = customerService.getCustomerById(customer.getId());
 		log.info("Customer has " + customer.getAddresses().size() + " addresses");
+
+		log.info("Removing addresses.");
+		addressService.removeAllAddresses();
+		
+		log.info("Removing customer.");
+		customerService.removeCustomer(customer.getId());
+		
 		log.info("<< Leaving createAddressForCustomer.");
 	}
 	
