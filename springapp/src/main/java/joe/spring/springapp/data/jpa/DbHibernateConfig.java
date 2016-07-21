@@ -56,11 +56,12 @@ import joe.spring.springapp.services.impl.ReferenceServiceImpl;
 @EnableCaching
 public class DbHibernateConfig {
 
-	private static final String PROPERTY_NAME_DATABASE_DRIVER_TYPE = "db.driverType";
+//	private static final String PROPERTY_NAME_DATABASE_DRIVER_TYPE = "db.driverType";
 	private static final String PROPERTY_NAME_DATABASE_DRIVER_CLASS = "db.driverClass";
-	private static final String PROPERTY_NAME_DATABASE_SERVER = "db.server";
-	private static final String PROPERTY_NAME_DATABASE_PORT = "db.port";
-	private static final String PROPERTY_NAME_DATABASE_NAME = "db.name";
+//	private static final String PROPERTY_NAME_DATABASE_SERVER = "db.server";
+//	private static final String PROPERTY_NAME_DATABASE_PORT = "db.port";
+//	private static final String PROPERTY_NAME_DATABASE_NAME = "db.name";
+	private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
 	private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
 	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
 
@@ -88,12 +89,13 @@ public class DbHibernateConfig {
 		}
 
 		// Oracle URL format: jdbc:oracle:thin:@localhost:1521:xe
-		String url = "jdbc:oracle:" + 
-				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER_TYPE) + ":@" +
-				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_SERVER) + ":" +
-				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_PORT) + ":" +
-				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_NAME);
+//		String url = "jdbc:oracle:" + 
+//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER_TYPE) + ":@" +
+//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_SERVER) + ":" +
+//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_PORT) + ":" +
+//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_NAME);
 
+		String url = environment.getRequiredProperty(PROPERTY_NAME_DATABASE_URL);		
 		ds.setJdbcUrl(url);		
 		ds.setUser(environment
 				.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
@@ -146,7 +148,7 @@ public class DbHibernateConfig {
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 		hibernateJpaVendorAdapter.setShowSql(false);
 		hibernateJpaVendorAdapter.setGenerateDdl(false);
-		hibernateJpaVendorAdapter.setDatabase(Database.ORACLE);
+		hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
 		return hibernateJpaVendorAdapter;
 	}
 

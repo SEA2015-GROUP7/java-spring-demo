@@ -18,8 +18,9 @@ public class Account {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
