@@ -8,13 +8,24 @@ import javax.persistence.SequenceGenerator;
 
 import joe.spring.springdomain.CountryDto;
 
+/**
+ * The country ref data class.
+ * 
+ * @author jsicree
+ *
+ * NOTE: To run on Oracle Express, use the @GeneratedValue annotation 
+ * with the strategy = GenerationType.SEQUENCE and the @SequenceGenerator
+ * annotation. For mySQL, comment those annotations out and use the 
+ * @GeneratedValue annotation with strategy = GenerationType.AUTO.
+ * 
+ */
 @Entity
 public class Country {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
 	private String name;

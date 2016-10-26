@@ -16,13 +16,24 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * The customer entity class.
+ * 
+ * @author jsicree
+ *
+ * NOTE: To run on Oracle Express, use the @GeneratedValue annotation 
+ * with the strategy = GenerationType.SEQUENCE and the @SequenceGenerator
+ * annotation. For mySQL, comment those annotations out and use the 
+ * @GeneratedValue annotation with strategy = GenerationType.AUTO.
+ * 
+ */
 @Entity
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
 	private String firstName;
