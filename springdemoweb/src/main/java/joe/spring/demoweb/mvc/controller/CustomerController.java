@@ -1,29 +1,13 @@
-package joe.spring.springweb.mvc.controller;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import joe.spring.springapp.data.domain.Customer;
-import joe.spring.springapp.data.reference.Title;
-import joe.spring.springapp.services.CustomerService;
-import joe.spring.springapp.services.ReferenceService;
-import joe.spring.springweb.mvc.data.DropDownData;
-import joe.spring.springweb.mvc.data.FormFieldError;
-import joe.spring.springweb.mvc.data.ValidationResponse;
-import joe.spring.springweb.mvc.model.AnnotatedAccountModel;
-import joe.spring.springweb.mvc.model.CustomerModel;
+package joe.spring.demoweb.mvc.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
@@ -31,17 +15,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import joe.spring.demoweb.mvc.model.CustomerModel;
 
 /**
  * Handles requests for the form page examples.
  */
 @Controller
 public class CustomerController {
-
-	@Autowired
-	protected ReferenceService refService;
 
 	@Autowired
     @Qualifier("customerModelValidator")
@@ -85,7 +66,7 @@ public class CustomerController {
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.GET)
 	public String displayCreateCustomer(Model model) {
 
-		model.addAttribute("titleList", getTitleList());
+//		model.addAttribute("titleList", getTitleList());
 		model.addAttribute("customerModel", new CustomerModel());
 		log.info("Displaying the create customer form");
 
@@ -103,7 +84,7 @@ public class CustomerController {
 			for (ObjectError oe : result.getAllErrors()) {
 				log.info(oe.toString());
 			}
-			model.addAttribute("titleList", getTitleList());
+//			model.addAttribute("titleList", getTitleList());
 			dest = "createCustomer";
 		} else {
 			log.info("NO form validation errors found. Creating a new customer!");
@@ -113,14 +94,14 @@ public class CustomerController {
 		return dest;
 	}
 	
-	private List<DropDownData> getTitleList() {
-		List<Title> titleList = new ArrayList<Title>();
-		List<DropDownData> titleDropDownList = new ArrayList<DropDownData>();
-		titleList = refService.getAllTitles();
-		for (Title t : titleList) {
-			titleDropDownList.add(new DropDownData(t.id(), t.name()));
-		}
-		return titleDropDownList;
-	}
+//	private List<DropDownData> getTitleList() {
+//		List<Title> titleList = new ArrayList<Title>();
+//		List<DropDownData> titleDropDownList = new ArrayList<DropDownData>();
+//		titleList = refService.getAllTitles();
+//		for (Title t : titleList) {
+//			titleDropDownList.add(new DropDownData(t.id(), t.name()));
+//		}
+//		return titleDropDownList;
+//	}
 
 }
