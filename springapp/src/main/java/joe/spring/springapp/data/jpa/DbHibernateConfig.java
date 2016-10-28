@@ -2,7 +2,6 @@ package joe.spring.springapp.data.jpa;
 
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Properties;
 
 import javax.annotation.Resource;

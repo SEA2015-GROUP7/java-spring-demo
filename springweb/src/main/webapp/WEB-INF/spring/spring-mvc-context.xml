@@ -29,6 +29,9 @@
 	<bean id="customerModelValidator"
 		class="joe.spring.springweb.mvc.validator.CustomerModelValidator" />
 
+	<bean id="loginModelValidator"
+		class="joe.spring.springweb.mvc.validator.LoginModelValidator" />
+
 	<bean name="/DbHibernateConfig" class="joe.spring.springapp.data.jpa.DbHibernateConfig">
 	</bean>
 

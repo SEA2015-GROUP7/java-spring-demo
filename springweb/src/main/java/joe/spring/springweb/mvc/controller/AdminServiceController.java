@@ -98,7 +98,7 @@ public class AdminServiceController {
 			log.info("Adding test customers.");
 			for (int x = 0; x < customerData.length; x++) {
 				log.info("Adding customer " + customerData[x][0] + " " + customerData[x][1]);
-				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]));				
+				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]), "password");				
 			}			
 			
 			log.info("Adding test accounts.");
