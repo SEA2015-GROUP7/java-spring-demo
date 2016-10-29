@@ -87,7 +87,7 @@ public class AddressServiceTest {
 		org.junit.Assert.assertNotNull("State Id was null.", s.getId());
 		log.info("State found: " + s);
 
-		Customer customer = customerService.createCustomer("John", "Doe", "jdoe", new Date());		
+		Customer customer = customerService.createCustomer("John", "Doe", "jdoe", new Date(),"password");		
 		Address businessAddress = addressService.createAddress("10 Main St.", null, "Nome", s, "87656", customer, AddressType.BUSINESS);
 		org.junit.Assert.assertNotNull("Address was null.", businessAddress);
 		org.junit.Assert.assertNotNull("Address Id was null.", businessAddress.getId());

@@ -17,6 +17,7 @@ db.password=<PASSWORD>
 #Hibernate Configuration
 hibernate.format_sql=true
 hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+#hibernate.dialect=org.hibernate.dialect.MySQLDialect
 hibernate.ejb.naming_strategy=org.hibernate.cfg.ImprovedNamingStrategy
 hibernate.show_sql=false
 

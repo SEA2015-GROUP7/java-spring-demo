@@ -4,15 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import joe.spring.springapp.data.domain.Account;
-import joe.spring.springapp.data.domain.Customer;
-import joe.spring.springapp.data.jpa.DbHibernateConfig;
-import joe.spring.springapp.services.AccountService;
-import joe.spring.springapp.services.CustomerService;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -20,6 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+
+import joe.spring.springapp.data.domain.Account;
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.jpa.DbHibernateConfig;
+import joe.spring.springapp.services.AccountService;
+import joe.spring.springapp.services.CustomerService;
 
 /**
  * A simple test class.
@@ -84,7 +83,7 @@ public class CreateCustomerData {
 			log.info("Adding test customers.");
 			for (int x = 0; x < customerData.length; x++) {
 				log.info("Adding customer " + customerData[x][0] + " " + customerData[x][1]);
-				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]));				
+				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]),"password");				
 			}			
 			
 			log.info("Adding test accounts.");

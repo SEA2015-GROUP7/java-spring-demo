@@ -53,7 +53,7 @@ public class CustomerServiceTest {
 		log.info(">> Entering createCustomer.");
 		log.info("Creating a single customer.");
 		Customer c = customerService.createCustomer(firstName, lastName,
-				userName, birthDate);
+				userName, birthDate,"password");
 		org.junit.Assert.assertNotNull(c);
 		org.junit.Assert.assertNotNull(c.getId());
 
@@ -83,7 +83,7 @@ public class CustomerServiceTest {
 		for (int x = 0; x < customerNameArray.length; x++) {
 			customerService.createCustomer(customerNameArray[x][0],
 					customerNameArray[x][1], customerNameArray[x][2],
-					new Date());
+					new Date(), "password");
 		}
 
 		log.info("Testing getAllCustomers().");
@@ -126,7 +126,7 @@ public class CustomerServiceTest {
 		String lastName = "Doe";
 		String userName = "jdoe";
 		Date dob = new Date();
-		Customer c = customerService.createCustomer(firstName,lastName,userName,dob);
+		Customer c = customerService.createCustomer(firstName,lastName,userName,dob, "password");
 
 		Customer result = customerService.getCustomerByUserName(userName);
 		org.junit.Assert.assertNotNull(result);
@@ -154,7 +154,7 @@ public class CustomerServiceTest {
 		String lastName = "Doe";
 		String userName = "jdoe";
 		Date dob = new Date();
-		Customer c = customerService.createCustomer(firstName,lastName,userName,dob);
+		Customer c = customerService.createCustomer(firstName,lastName,userName,dob,"password");
 
 		List<Customer> customerList = customerService.searchCustomers(firstName);
 		if (customerList == null || customerList.size() == 0) {
@@ -248,7 +248,7 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(null,\"Doe\").");
-			customerService.createCustomer(null, "Doe", null, null);
+			customerService.createCustomer(null, "Doe", null, null, null);
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.
@@ -256,7 +256,7 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(\"\",\"Doe\").");
-			customerService.createCustomer("", "Doe", null, null);
+			customerService.createCustomer("", "Doe", null, null, null);
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.
@@ -264,7 +264,7 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(\"John\",null).");
-			customerService.createCustomer("John", null, null, null);
+			customerService.createCustomer("John", null, null, null, null);
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.
@@ -272,7 +272,7 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(\"John\",\"\").");
-			customerService.createCustomer("John", "", null, null);
+			customerService.createCustomer("John", "", null, null, null);
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.

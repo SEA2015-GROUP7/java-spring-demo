@@ -53,7 +53,7 @@ public class AccountServiceTest {
 
 		log.info(">> Entering createAccounts.");
 		
-		Customer c = customerService.createCustomer("John", "Doe", "jdoe", new Date());
+		Customer c = customerService.createCustomer("John", "Doe", "jdoe", new Date(),"password");
 		org.junit.Assert.assertNotNull("Customer was null.", c);
 		org.junit.Assert.assertNotNull("Customer Id was null.", c.getId());
 		log.info("Customer created: " + c);
