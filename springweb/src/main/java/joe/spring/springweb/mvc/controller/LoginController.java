@@ -37,30 +37,30 @@ public class LoginController {
 	}
 
 	
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String init(Model model) {
-		log.info("Displaying the login page.");
-        model.addAttribute("msg", "Please Enter Your Login Details");
-        return "login";
-    }
- 
-    @RequestMapping(method = RequestMethod.POST)
-    public String submit(Model model, @ModelAttribute("loginBean") LoginModel loginModel) {
-		log.info("Processing the login page.");
-        if (loginModel != null && loginModel.getUserName() != null & loginModel.getPassword() != null) {
-        	
-        	
-            if (loginModel.getUserName().equals("joe") && loginModel.getPassword().equals("foo")) {
-                model.addAttribute("msg", "welcome" + loginModel.getUserName());
-                return "home";
-            } else {
-                model.addAttribute("error", "Invalid Details");
-                return "login";
-            }
-        } else {
-            model.addAttribute("error", "Please enter Details");
-            return "login";
-        }
-    }	
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public String init(Model model) {
+//		log.info("Displaying the login page.");
+//        model.addAttribute("msg", "Please Enter Your Login Details");
+//        return "login";
+//    }
+// 
+//    @RequestMapping(method = RequestMethod.POST)
+//    public String submit(Model model, @ModelAttribute("loginBean") LoginModel loginModel) {
+//		log.info("Processing the login page.");
+//        if (loginModel != null && loginModel.getUserName() != null & loginModel.getPassword() != null) {
+//        	
+//        	
+//            if (loginModel.getUserName().equals("joe") && loginModel.getPassword().equals("foo")) {
+//                model.addAttribute("msg", "welcome" + loginModel.getUserName());
+//                return "home";
+//            } else {
+//                model.addAttribute("error", "Invalid Details");
+//                return "login";
+//            }
+//        } else {
+//            model.addAttribute("error", "Please enter Details");
+//            return "login";
+//        }
+//    }	
 		
 }

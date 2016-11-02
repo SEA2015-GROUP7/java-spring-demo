@@ -81,7 +81,7 @@ public class AdminServiceController {
 
 	}
 
-	@RequestMapping(value = "/createCustomerAccountData", method = RequestMethod.POST)
+	@RequestMapping(value = "/createCustomerAccountData", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody ValidationResponse createAccountCustomerData() {
 
 		ValidationResponse response = new ValidationResponse();
@@ -121,7 +121,7 @@ public class AdminServiceController {
 		return response;
 	}
 
-	@RequestMapping(value = "/deleteCustomerAccountData", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteCustomerAccountData", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody ValidationResponse deleteAccountCustomerData() {
 		ValidationResponse response = new ValidationResponse();
 		log.debug("Deleting Accounts");

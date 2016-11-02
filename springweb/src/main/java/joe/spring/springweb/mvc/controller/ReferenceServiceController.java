@@ -72,8 +72,7 @@ public class ReferenceServiceController {
 	}
 
 	@RequestMapping(value = "/getCountriesDropDownData", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody
-	List<DropDownData> getCountriesDropDownData() {
+	public List<DropDownData> getCountriesDropDownData() {
 		log.debug("Calling JSON service getCountriesAsJSON()");
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 		ArrayList<Country> countryList = (ArrayList<Country>) refService
