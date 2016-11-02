@@ -19,7 +19,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	List<Customer> findByLastName(String lastName);
 	Customer findByUserName(String userName);	
 	
-	@Query("select c from Customer c where c.firstName like %:searchTerm% OR c.lastName like %:searchTerm% OR c.userName like %:searchTerm%")
+	@Query("select c from CUSTOMER c where c.firstName like %:searchTerm% OR c.lastName like %:searchTerm% OR c.userName like %:searchTerm%")
 	List<Customer> searchCustomers(@Param("searchTerm") String searchTerm);
 	
 	

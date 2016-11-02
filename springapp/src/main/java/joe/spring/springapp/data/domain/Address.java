@@ -1,5 +1,6 @@
 package joe.spring.springapp.data.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +13,17 @@ import javax.persistence.SequenceGenerator;
 
 import joe.spring.springapp.data.reference.State;
 
+/**
+ * The address entity class.
+ * 
+ * @author jsicree
+ * 
+ * NOTE: To run on Oracle Express, use the @GeneratedValue annotation 
+ * with the strategy = GenerationType.SEQUENCE and the @SequenceGenerator
+ * annotation. For mySQL, comment those annotations out and use the 
+ * @GeneratedValue annotation with strategy = GenerationType.AUTO.
+ *
+ */
 @Entity(name="ADDRESS")
 public class Address {
 
@@ -20,23 +32,28 @@ public class Address {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
+	@Column(name="PRIMARY_ADDRESS_LINE")
 	private String primaryAddressLine;
 
+	@Column(name="SECONDARY_ADDRESS_LINE")
 	private String secondaryAddressLine;
 
+	@Column(name="CITY_NAME")
 	private String cityName;
 
 	@ManyToOne
 	@JoinColumn(name = "STATE_ID")
 	private State state;
 
+	@Column(name="ZIP_CODE")
 	private String zipCode;
 
+	@Column(name="ADDRESS_TYPE")
 	@Enumerated(EnumType.STRING)
 	private AddressType addressType;
 

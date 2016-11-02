@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,19 +17,36 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+/**
+ * The customer entity class.
+ * 
+ * @author jsicree
+ *
+ * NOTE: To run on Oracle Express, use the @GeneratedValue annotation 
+ * with the strategy = GenerationType.SEQUENCE and the @SequenceGenerator
+ * annotation. For mySQL, comment those annotations out and use the 
+ * @GeneratedValue annotation with strategy = GenerationType.AUTO.
+ * 
+ */
+@Entity(name="CUSTOMER")
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
+	@Column(name="FIRST_NAME")
 	private String firstName;
+
+	@Column(name="LAST_NAME")
 	private String lastName;
+
+	@Column(name="USER_NAME")
 	private String userName;
 
+	@Column(name="BIRTH_DATE")
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 

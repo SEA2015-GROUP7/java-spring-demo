@@ -15,11 +15,14 @@ import joe.spring.springapp.data.domain.Customer;
  */
 public interface CustomerService {
 
-	public Customer createCustomer(String firstName, String lastName,
-			String userName, Date birthDate);
+//	public Customer createCustomer(String firstName, String lastName,
+//			String userName, Date birthDate);
 
 	public Customer createCustomer(String firstName, String lastName,
-			String userName, Date birthDate, HashSet<Address> addresses);
+			String userName, Date birthDate, String password);
+
+//	public Customer createCustomer(String firstName, String lastName,
+//			String userName, Date birthDate, String password, HashSet<Address> addresses);
 
 	public Customer updateCustomer(Customer c);
 
@@ -33,6 +36,8 @@ public interface CustomerService {
 
 	public Customer getCustomerByUserName(final String userName);
 
+	public Boolean validateCustomer(final Long id, final String password);
+	
 	public void removeCustomer(final Long customerId);
 
 	public void removeAllCustomers();

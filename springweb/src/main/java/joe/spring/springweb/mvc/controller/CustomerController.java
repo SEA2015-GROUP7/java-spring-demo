@@ -41,9 +41,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class CustomerController {
 
 	@Autowired
-	protected CustomerService customerService;
-	
-	@Autowired
 	protected ReferenceService refService;
 
 	@Autowired
@@ -73,17 +70,6 @@ public class CustomerController {
 		return "customers";
 	}
 
-	@RequestMapping(value = "/getAllCustomers", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Customer> getAllCustomers() {
-		log.debug("Fetching a list of all customers");
-		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
-				.getAllCustomers();
-		log.debug("CustomerService.getCustomers() returned "
-				+ customerList.size() + " customers.");
-		return customerList;
-	}
-
 	// ******************************************************************
 
 	// Customer search example. Takes a single search term and searches
@@ -96,23 +82,6 @@ public class CustomerController {
 		return "customerSearch";
 	}
 
-	@RequestMapping(value = "/customerSearch", method = RequestMethod.POST)
-	public @ResponseBody
-	List<Customer> searchCustomers(
-			@RequestParam(value = "searchTerm", required = false) String searchTerm) {
-		log.debug("Searching for customers with searchTerm = " + searchTerm);
-		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
-				.searchCustomers(searchTerm);
-		log.debug("CustomerService.searchCustomers() returned "
-				+ customerList.size() + " customers.");
-		return customerList;
-	}
-
-	// ******************************************************************
-
-	// Spring MVC example to display a customer form and process a create
-	// customer request.
-
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.GET)
 	public String displayCreateCustomer(Model model) {
 
@@ -122,8 +91,8 @@ public class CustomerController {
 
 		return "createCustomer";
 	}
-
-	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST)
+	
+	@RequestMapping(value = "/createCustomer", method = RequestMethod.POST, produces = "application/json")
 	public String createCustomer(@Validated CustomerModel customerModel,
 			BindingResult result, Model model) {
 		log.info("In createCustomer...");
@@ -143,50 +112,6 @@ public class CustomerController {
 		}
 		return dest;
 	}
-
-	
-	
-	// ******************************************************************
-
-	// Spring MVC & JQuery example to display a customer form and process a
-	// create customer request.
-
-//	@RequestMapping(value = "/createJsonCustomer", method = RequestMethod.GET)
-//	public String displayCustomerForm() {
-//		log.info("Displaying the new customer form");
-//		return "newCustomerForm";
-//	}
-
-	@RequestMapping(value = "/createCustomerJson", method = RequestMethod.POST)
-	public @ResponseBody
-	ValidationResponse createCustomerJson(
-			@Validated CustomerModel customerModel, BindingResult result,
-			Model model) {
-
-		log.info("In createCustomerJson...");
-		ValidationResponse response = new ValidationResponse();
-		log.info("CustomerModel:" + customerModel);
-		if (result.hasErrors()) {
-			response.setStatus("ERROR");
-			List<FormFieldError> errorList = new ArrayList<FormFieldError>();
-			// Validation - get the current locale to use to look up error messages
-			Locale currentLocale = LocaleContextHolder.getLocale();
-			log.info("Form validation errors: " + result.getErrorCount());
-			for (ObjectError oe : result.getAllErrors()) {
-				log.info(((FieldError) oe).toString());
-				// Look up the localized error message and create a FormFieldError with it.
-		        String localizedErrorMessage = messageSource.getMessage((FieldError) oe, currentLocale);
-				errorList.add(new FormFieldError(((FieldError) oe).getField(),
-						localizedErrorMessage));
-			}
-			response.setErrorMessageList(errorList);
-		} else {
-			response.setStatus("OK");
-			log.info("NO form validation errors found.");
-			// TODO: With no validation errors, time to create a new customer.
-		}
-		return response;
-	}
 	
 	private List<DropDownData> getTitleList() {
 		List<Title> titleList = new ArrayList<Title>();
@@ -197,29 +122,5 @@ public class CustomerController {
 		}
 		return titleDropDownList;
 	}
-
-//	private Customer createNewCustomer(CustomerModel cModel) {
-//		
-//		Customer newCustomer = null;
-//		
-//		Customer existingCustomer = customerService.getCustomerByUserName(cModel.getUserName());
-//		if (existingCustomer != null) {
-//			
-//		} else {
-//			// UserName is unique.
-//			Date birthDate = null;
-//			SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-//			try {
-//				birthDate = format.parse(cModel.getDob());				
-//				newCustomer = customerService.createCustomer(cModel.getFirstName(), cModel.getLastName(),
-//						cModel.getUserName(), birthDate);
-//			} catch (ParseException pe) {
-//				
-//			}			
-//		}
-//		
-//		return newCustomer;
-//	}
-	
 
 }

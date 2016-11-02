@@ -1,5 +1,6 @@
 package joe.spring.springapp.data.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,7 +11,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
-@Entity
+/**
+ * The account entity class.
+ * 
+ * @author jsicree
+ *
+ * NOTE: To run on Oracle Express, use the @GeneratedValue annotation 
+ * with the strategy = GenerationType.SEQUENCE and the @SequenceGenerator
+ * annotation. For mySQL, comment those annotations out and use the 
+ * @GeneratedValue annotation with strategy = GenerationType.AUTO.
+ *
+ */
+@Entity(name="ACCOUNT")
 public class Account {
 
 	public enum AccountType {
@@ -18,14 +30,16 @@ public class Account {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
+	@Column(name="ACCOUNT_TYPE")
 	@Enumerated(EnumType.STRING)
 	private AccountType accountType;
 
+	@Column(name="ACCOUNT_NUMBER")
 	private String accountNumber;
 	
 	@ManyToOne
