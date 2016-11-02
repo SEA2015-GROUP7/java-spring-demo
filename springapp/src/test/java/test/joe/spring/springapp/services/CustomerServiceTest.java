@@ -39,7 +39,7 @@ public class CustomerServiceTest {
 				DbHibernateConfig.class);
 		customerService = (CustomerService) context.getBean("customerService");
 
-		//customerService.removeAllCustomers();
+		customerService.removeAllCustomers();
 	}
 
 	@Test

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ import javax.persistence.TemporalType;
  * @GeneratedValue annotation with strategy = GenerationType.AUTO.
  * 
  */
-@Entity
+@Entity(name="CUSTOMER")
 public class Customer {
 
 	@Id
@@ -36,10 +37,16 @@ public class Customer {
     @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
+	@Column(name="FIRST_NAME")
 	private String firstName;
+
+	@Column(name="LAST_NAME")
 	private String lastName;
+
+	@Column(name="USER_NAME")
 	private String userName;
 
+	@Column(name="BIRTH_DATE")
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 

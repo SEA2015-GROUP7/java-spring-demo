@@ -1,5 +1,6 @@
 package joe.spring.springapp.data.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,18 +37,23 @@ public class Address {
     @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
+	@Column(name="PRIMARY_ADDRESS_LINE")
 	private String primaryAddressLine;
 
+	@Column(name="SECONDARY_ADDRESS_LINE")
 	private String secondaryAddressLine;
 
+	@Column(name="CITY_NAME")
 	private String cityName;
 
 	@ManyToOne
 	@JoinColumn(name = "STATE_ID")
 	private State state;
 
+	@Column(name="ZIP_CODE")
 	private String zipCode;
 
+	@Column(name="ADDRESS_TYPE")
 	@Enumerated(EnumType.STRING)
 	private AddressType addressType;
 

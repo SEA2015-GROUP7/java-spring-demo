@@ -1,5 +1,6 @@
 package joe.spring.springapp.data.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,6 +10,7 @@ public class Credential {
 	@Id	
 	private Long id;
 	
+	@Column(name="PASSWORD")
 	private String password;
 
 	public Credential() {

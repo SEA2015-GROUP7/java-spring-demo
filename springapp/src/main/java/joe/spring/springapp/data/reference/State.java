@@ -1,5 +1,6 @@
 package joe.spring.springapp.data.reference;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ import javax.persistence.SequenceGenerator;
  * @GeneratedValue annotation with strategy = GenerationType.AUTO.
  *
  */
-@Entity
+@Entity(name="STATE")
 public class State {
 
 	@Id
@@ -28,7 +29,10 @@ public class State {
     @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
+	@Column(name="NAME")
 	private String name;
+
+	@Column(name="CODE")
 	private String code;
 
 	@ManyToOne

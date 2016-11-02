@@ -25,13 +25,13 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 	 */
 	List<Account> findByCustomer(Customer customer);
 	
-	@Query("select a from Account a where a.accountType = 'PREMIUM'")
+	@Query("select a from ACCOUNT a where a.accountType = 'PREMIUM'")
 	List<Account> getPremiumAccounts();
 
-	@Query("select a from Account a where a.accountType = 'FREE'")
+	@Query("select a from ACCOUNT a where a.accountType = 'FREE'")
 	List<Account> getFreeAccounts();
 
-	@Query("select a from Account a where a.accountType = ?1")
+	@Query("select a from ACCOUNT a where a.accountType = ?1")
 	List<Account> getAccountsByType(AccountType accountType);
 	
 }

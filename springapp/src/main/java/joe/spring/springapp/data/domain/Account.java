@@ -1,5 +1,6 @@
 package joe.spring.springapp.data.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,7 +22,7 @@ import javax.persistence.SequenceGenerator;
  * @GeneratedValue annotation with strategy = GenerationType.AUTO.
  *
  */
-@Entity
+@Entity(name="ACCOUNT")
 public class Account {
 
 	public enum AccountType {
@@ -34,9 +35,11 @@ public class Account {
     @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
+	@Column(name="ACCOUNT_TYPE")
 	@Enumerated(EnumType.STRING)
 	private AccountType accountType;
 
+	@Column(name="ACCOUNT_NUMBER")
 	private String accountNumber;
 	
 	@ManyToOne
