@@ -119,6 +119,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public void removeCustomer(Long customerId) {
 
 		if (customerId != null) {
+			credentialRepo.delete(customerId);
 			customerRepo.delete(customerId);
 		} else {
 			throw new IllegalStateException("Missing method parameter.");
