@@ -3,13 +3,13 @@ package joe.spring.springweb.mvc;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import joe.spring.springapp.data.jpa.DbHibernateConfig;
+import joe.spring.springweb.security.WebSecurityConfig;
 
 public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-//		return new Class[] { SecurityConfig.class };
-		return new Class[] { DbHibernateConfig.class };
+		return new Class[] { DbHibernateConfig.class, WebSecurityConfig.class };
 	}
 
 	@Override
@@ -19,7 +19,6 @@ public class MvcWebApplicationInitializer extends AbstractAnnotationConfigDispat
 
 	@Override
 	protected String[] getServletMappings() {
-		// TODO Auto-generated method stub
 		return new String [] { "/" };
 	}
 	
