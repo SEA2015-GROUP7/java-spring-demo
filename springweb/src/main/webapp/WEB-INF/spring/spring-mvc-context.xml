@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
+
+THIS CONFIGURATION FILE HAS BEEN REPLACED BY THE CLASSES MvcWebConfig.java AND MvcWebApplicationInitializer.java
+
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:security="http://www.springframework.org/schema/security"

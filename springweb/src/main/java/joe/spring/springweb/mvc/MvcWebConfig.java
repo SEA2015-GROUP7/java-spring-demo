@@ -74,37 +74,4 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 		return bean;
 	}
 
-	
-/*	
-	<bean id="customerModelValidator"
-		class="joe.spring.springweb.mvc.validator.CustomerModelValidator" />
-
-	<bean id="loginModelValidator"
-		class="joe.spring.springweb.mvc.validator.LoginModelValidator" />
-
-	<bean name="/DbHibernateConfig" class="joe.spring.springapp.data.jpa.DbHibernateConfig">
-	</bean>
-
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:message" />
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
-
-	<bean id="contentNegotiationManager"
-		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-		<property name="favorPathExtension" value="true" />
-		<property name="favorParameter" value="false" />
-		<property name="parameterName" value="mediaType" />
-		<property name="ignoreAcceptHeader" value="true" />
-		<property name="useJaf" value="false" />
-		<property name="defaultContentType" value="application/json" />
-		<property name="mediaTypes">
-			<map>
-				<entry key="json" value="application/json" />
-				<entry key="xml" value="application/xml" />
-			</map>
-		</property>
-	</bean>
-*/	
 }
