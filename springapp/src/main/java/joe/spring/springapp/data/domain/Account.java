@@ -19,7 +19,7 @@ import javax.persistence.SequenceGenerator;
  * NOTE: To run on Oracle Express, use the @GeneratedValue annotation 
  * with the strategy = GenerationType.SEQUENCE and the @SequenceGenerator
  * annotation. For mySQL, comment those annotations out and use the 
- * @GeneratedValue annotation with strategy = GenerationType.AUTO.
+ * @GeneratedValue annotation with strategy = GenerationType.IDENTITY.
  *
  */
 @Entity(name="ACCOUNT")
@@ -30,9 +30,9 @@ public class Account {
 	}
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
 	@Column(name="ACCOUNT_TYPE")

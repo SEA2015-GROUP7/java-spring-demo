@@ -49,11 +49,12 @@ public class CustomerServiceTest {
 		String lastName = "Doe";
 		String userName = "jdoe";
 		Date birthDate = new Date();
+		String password = "password";
 
 		log.info(">> Entering createCustomer.");
 		log.info("Creating a single customer.");
 		Customer c = customerService.createCustomer(firstName, lastName,
-				userName, birthDate,"password");
+				userName, birthDate,password);
 		org.junit.Assert.assertNotNull(c);
 		org.junit.Assert.assertNotNull(c.getId());
 
@@ -75,15 +76,15 @@ public class CustomerServiceTest {
 
 		log.info(">> Entering testCustomerMethods");
 
-		String[][] customerNameArray = { { "John", "Doe", "jdoe" },
-				{ "Jim", "Doe", "jdoe1" }, { "Jane", "Smith", "jsmith" },
-				{ "Steve", "Jones", "sjones" } };
+		String[][] customerNameArray = { { "John", "Doe", "jdoe", "password" },
+				{ "Jim", "Doe", "jdoe1", "password" }, { "Jane", "Smith", "jsmith", "password" },
+				{ "Steve", "Jones", "sjones", "password" } };
 
 		log.info("Creating test customers.");
 		for (int x = 0; x < customerNameArray.length; x++) {
 			customerService.createCustomer(customerNameArray[x][0],
 					customerNameArray[x][1], customerNameArray[x][2],
-					new Date(), "password");
+					new Date(), customerNameArray[x][3]);
 		}
 
 		log.info("Testing getAllCustomers().");
@@ -125,8 +126,10 @@ public class CustomerServiceTest {
 		String firstName = "John";
 		String lastName = "Doe";
 		String userName = "jdoe";
+		String password = "password";
+
 		Date dob = new Date();
-		Customer c = customerService.createCustomer(firstName,lastName,userName,dob, "password");
+		Customer c = customerService.createCustomer(firstName,lastName,userName,dob, password);
 
 		Customer result = customerService.getCustomerByUserName(userName);
 		org.junit.Assert.assertNotNull(result);
@@ -154,7 +157,9 @@ public class CustomerServiceTest {
 		String lastName = "Doe";
 		String userName = "jdoe";
 		Date dob = new Date();
-		Customer c = customerService.createCustomer(firstName,lastName,userName,dob,"password");
+		String password = "password";
+
+		Customer c = customerService.createCustomer(firstName,lastName,userName,dob,password);
 
 		List<Customer> customerList = customerService.searchCustomers(firstName);
 		if (customerList == null || customerList.size() == 0) {
