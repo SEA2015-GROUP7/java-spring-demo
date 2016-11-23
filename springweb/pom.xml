@@ -131,7 +131,12 @@
 			<version>${spring-security.version}</version>
 		</dependency>
 
- 		<!-- JUnit -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -176,7 +181,7 @@
 					<groupId>javax.el</groupId>
 					<artifactId>el-api</artifactId>
 				</exclusion>
-			</exclusions>			
+			</exclusions>
 		</dependency>
 
 	</dependencies>

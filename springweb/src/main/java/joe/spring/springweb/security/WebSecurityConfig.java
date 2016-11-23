@@ -27,8 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		log.info("In WebSecurityConfig.configure(HttpSecurity)");
 
-		log.warn("Disabling CSRF protection for now.");
-		http.csrf().disable();
 		super.configure(http);
 	}
 
