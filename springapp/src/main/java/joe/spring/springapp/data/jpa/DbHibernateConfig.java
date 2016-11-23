@@ -87,13 +87,6 @@ public class DbHibernateConfig {
 			e.printStackTrace();
 		}
 
-		// Oracle URL format: jdbc:oracle:thin:@localhost:1521:xe
-//		String url = "jdbc:oracle:" + 
-//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER_TYPE) + ":@" +
-//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_SERVER) + ":" +
-//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_PORT) + ":" +
-//				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_NAME);
-
 		String url = environment.getRequiredProperty(PROPERTY_NAME_DATABASE_URL);		
 		ds.setJdbcUrl(url);		
 		ds.setUser(environment
@@ -104,20 +97,6 @@ public class DbHibernateConfig {
 		ds.setMaxPoolSize(10);
 		return ds;
 	}
-
-	// @Bean
-	// public DataSource dataSource() {
-	//
-	// // DataSource ds = null;
-	// OracleDataSource ds = null;
-	// // try {
-	// // Context initContext = new InitialContext();
-	// // Context envContext = (Context)initContext.lookup("java:/comp/env");
-	// // ds = (DataSource)envContext.lookup("jdbc/myoracle");
-	// // } catch (NamingException ne) {
-	// //
-	// // }
-	//
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(
@@ -147,6 +126,7 @@ public class DbHibernateConfig {
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 		hibernateJpaVendorAdapter.setShowSql(false);
 		hibernateJpaVendorAdapter.setGenerateDdl(false);
+//		hibernateJpaVendorAdapter.setDatabase(Database.ORACLE);
 		hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
 		return hibernateJpaVendorAdapter;
 	}
