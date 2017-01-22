@@ -14,13 +14,14 @@
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script>
-	$(document).ready(
+
+		$(document).ready(
 			function() {
 				$( "#example_table tr:even" ).css( "background-color", "#ffffff" );
 				$( "#example_table tr:odd" ).css( "background-color", "#eeeeee" );
 
 			});
-
+	
 </script>
 </head>
 <body>

@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 
 import joe.spring.springapp.data.reference.State;
 
@@ -21,7 +20,7 @@ import joe.spring.springapp.data.reference.State;
  * NOTE: To run on Oracle Express, use the @GeneratedValue annotation 
  * with the strategy = GenerationType.SEQUENCE and the @SequenceGenerator
  * annotation. For mySQL, comment those annotations out and use the 
- * @GeneratedValue annotation with strategy = GenerationType.AUTO.
+ * @GeneratedValue annotation with strategy = GenerationType.IDENTITY.
  *
  */
 @Entity(name="ADDRESS")
@@ -32,9 +31,9 @@ public class Address {
 	}
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
-    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="springSeq")
+//    @SequenceGenerator( name = "springSeq", sequenceName = "SPRING_SEQ")
 	private Long id;
 
 	@Column(name="PRIMARY_ADDRESS_LINE")

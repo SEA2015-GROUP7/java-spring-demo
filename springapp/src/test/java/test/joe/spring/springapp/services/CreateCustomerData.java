@@ -37,12 +37,12 @@ public class CreateCustomerData {
 	private static AbstractApplicationContext context; 
 	
 	public static String[][] customerData = {
-		{"John", "Smith", "jsmith01", "08/21/1971"},
-		{"Jane", "Riggs", "jriggs01", "10/15/1980"},
-		{"Bill", "Nye", "sciguy1234", "03/25/1962"},
-		{"Alex", "Lifeson", "lerxst", "08/27/1953"},
-		{"Geddy", "Lee", "dirk", "07/29/1953"},
-		{"Neil", "Peart", "pratt", "09/12/1952"}
+		{"John", "Smith", "jsmith01", "08/21/1971", "password"},
+		{"Jane", "Riggs", "jriggs01", "10/15/1980", "password"},
+		{"Bill", "Nye", "sciguy1234", "03/25/1962", "password"},
+		{"Alex", "Lifeson", "lerxst", "08/27/1953", "password"},
+		{"Geddy", "Lee", "dirk", "07/29/1953", "password"},
+		{"Neil", "Peart", "pratt", "09/12/1952", "password"}
 	};
 
 	public static String[][] accountData = {
@@ -68,9 +68,9 @@ public class CreateCustomerData {
 	}
 
 	@Test
-	public void createCustomerAndAccounts() {
+	public void createCustomersAndAccounts() {
 
-		log.info(">> Entering createCustomerAndAccounts.");
+		log.info(">> Entering createCustomersAndAccounts.");
 
 		log.info("Removing existing accounts.");
 		accountService.removeAllAccounts();
@@ -83,7 +83,7 @@ public class CreateCustomerData {
 			log.info("Adding test customers.");
 			for (int x = 0; x < customerData.length; x++) {
 				log.info("Adding customer " + customerData[x][0] + " " + customerData[x][1]);
-				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]),"password");				
+				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]),customerData[x][4]);				
 			}			
 			
 			log.info("Adding test accounts.");
@@ -101,7 +101,7 @@ public class CreateCustomerData {
 		} catch (ParseException pe) {
 			// Do nothing. :)
 		}
-		log.info("<< Leaving createCustomerAndAccounts.");
+		log.info("<< Leaving createCustomersAndAccounts.");
 	}
 
 	@Test 

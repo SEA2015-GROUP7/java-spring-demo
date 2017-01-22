@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date" %>    	
@@ -12,44 +13,57 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/site.css"/>	
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<sec:csrfMetaTags />
 <script>
 	$(function() {
-				function deleteData() {
-						$.ajax({
-									method: "POST",
-									dataType : "json",
-									url : "deleteCustomerAccountData",
-									success: function(result) {		
-										if (result.status == "OK") {
-											alert("Accounts and Customers deleted");											
-										} else {
-											alert("An error occurred while deleting accounts and customers");											
-										}
-									}
-							});
-			    }				
-				function createData() {
-						$.ajax({
-									method: "POST",
-									dataType : "json",
-									url : "createCustomerAccountData",
-									success: function(result) {		
-										if (result.status == "OK") {
-											alert("Accounts and Customers created");											
-										} else {
-											alert("An error occurred while creating accounts and customers");											
-										}
-									}
-							});
-			    }				
-			    $( "#delete-cust-account-data" ).button().on( "click", function() {
-			    	event.preventDefault();
-			    	deleteData();
+		var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+		var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+		var csrfToken = $("meta[name='_csrf']").attr("content");
+
+		function deleteData() {
+			var data = {};
+			data[csrfParameter] = csrfToken;
+			
+			$.ajax({
+						method: "POST",
+						dataType : "json",
+						url : "deleteCustomerAccountData",
+						data: data,
+						success: function(result) {		
+							if (result.status == "OK") {
+								alert("Accounts and Customers deleted");											
+							} else {
+								alert("An error occurred while deleting accounts and customers");											
+							}
+						}
 				});
-			    $( "#create-cust-account-data" ).button().on( "click", function() {
-			    	event.preventDefault();
-			    	createData();
+	    }				
+		function createData() {
+			var data = {};
+			data[csrfParameter] = csrfToken;
+
+			$.ajax({
+						method: "POST",
+						dataType : "json",
+						url : "createCustomerAccountData",
+						data: data,
+						success: function(result) {		
+							if (result.status == "OK") {
+								alert("Accounts and Customers created");											
+							} else {
+								alert("An error occurred while creating accounts and customers");											
+							}
+						}
 				});
+	    }				
+	    $( "#delete-cust-account-data" ).button().on( "click", function() {
+	    	event.preventDefault();
+	    	deleteData();
+		});
+	    $( "#create-cust-account-data" ).button().on( "click", function() {
+	    	event.preventDefault();
+	    	createData();
+		});
 			    
 			    
 	});								

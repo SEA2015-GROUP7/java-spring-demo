@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date" %>    	
@@ -12,7 +13,9 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/site.css"/>	
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<sec:csrfMetaTags />
 <script>
+
 	$(function() {
 				var dialog, form,
 				firstName = $( "#firstName" ),
@@ -20,6 +23,10 @@
 				userName = $( "#userName" ),
 				dob = $( "#dob" ),
 			    allFields = $( [] ).add( firstName ).add( lastName ).add( userName ).add( dob );
+
+				var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+				var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+				var csrfToken = $("meta[name='_csrf']").attr("content");
 				
 				function editCustomer(id) {
 					if (id === undefined) {
@@ -30,6 +37,9 @@
 
 				function searchCustomers() {
 					var searchVal = $("#searchVal").val();
+					var data = {};
+					data[csrfParameter] = csrfToken;
+					data["searchTerm"] = searchVal;
 
 					$('#customer_table').hide();
 					$('#customer_table TBODY tr').remove();
@@ -38,9 +48,7 @@
 						method: "POST",
 						dataType : "json",
 						url : "customer/customerSearch",
-						data : {
-							searchTerm : searchVal
-						},
+						data : data,
 						success: function(data) {
 							var html = '';
 							var len = data.length;

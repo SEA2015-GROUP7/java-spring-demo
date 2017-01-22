@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.Date" %>    
@@ -12,7 +13,12 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/site.css"/>	
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<sec:csrfMetaTags />
 <script>
+	var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+	var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+	var csrfToken = $("meta[name='_csrf']").attr("content");
+
 	$(document).ready(
 			function() {
 
@@ -40,10 +46,13 @@
 		$('#state_table').hide();
 		$('#state_table TBODY tr').remove();
 		countryId = $("#country option:selected").val();
+		var headers = {};
+		headers[csrfHeader] = csrfToken;
 
 		$.ajax({
 					dataType : "json",
 					url : "reference/getStates",
+					headers: headers,
 					data : {
 						countryId : countryId
 					},
