@@ -5,15 +5,27 @@ This repository contains a demo web application based on the Spring Framework. T
 * Spring Core
 * Spring Data JPA
 * Spring MVC
+* Spring Security
 * Form and Bean Validation via JSR-303 and Spring custom validators
 * Content negotiation strategies to produce XML and JSON output
 * Front End: HTML5, CSS3, JQuery and JQuery UI
 * Unit Testing: JUnit
 * Build: Maven 
-* Database: Oracle *(Oracle Express)*
+* Database: Oracle *(Oracle Express)*, mySQL
 * Continuous Integration: Travis CI
 
-The application consists of 2 projects named *springapp* and *springweb*. The *springapp* project contains the business and data access services for a simple domain. The *springweb* project is a simple web application containing a number of examples that use the services provided in *springapp*. The *springall* project is a parent project for both *springapp* and *springweb*. The *database* directory contains PL/SQL scripts that can be used to create and populate an Oracle database.
+The application consists of 3 projects named *springapp*, *springweb* and *springdomain*. The *springapp* project contains the business and data access services for a simple domain. The *springweb* project is a simple web application containing a number of examples that use the services provided in *springapp*. The *springdomain* project defines the API in a single XSD file and is used to generate DTO objects at compilation time. The *springall* project is a parent project for both *springapp*, *springweb* and *springdomain*. The *database* directory contains PL/SQL scripts that can be used to create and populate an Oracle database.
+
+Below is are some simple UML diagrams for one of the services that deals with Customers:
+
+![CustomerService](/docs/CustomerService_ClassDiagram.png)
+
+![CustomerWebService](/docs/CustomerServiceController_ClassDiagram.png)
+
+![Customer_SeqDiagram](/docs/SearchCustomers_SeqDiagram.png)
+
+
+
 
 
 
