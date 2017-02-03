@@ -3,9 +3,13 @@ package joe.spring.springapp.data.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.reference.Country;
 import joe.spring.springapp.data.reference.State;
 import joe.spring.springdomain.CountryDto;
+import joe.spring.springdomain.CustomerDto;
 import joe.spring.springdomain.StateDto;
 
 public final class DtoConverter {
@@ -41,6 +45,24 @@ public final class DtoConverter {
 		for (State obj : list) {
 			StateDto dto = toStateDto(obj);
 			dtoList.add(dto);
+		}		
+		return dtoList;
+	}
+
+	public static CustomerDto toCustomerDto(Customer obj) {
+		CustomerDto dto = new CustomerDto();
+		dto.setId(obj.getId());
+		dto.setFirstName(obj.getFirstName());
+		dto.setLastName(obj.getLastName());
+		dto.setUserName(obj.getUserName());		
+		//dto.setBirthDate(obj.getBirthDate());
+		return dto;
+	}
+
+	public static List<CustomerDto> toCustomerDtoList(List<Customer> list) {
+		ArrayList<CustomerDto> dtoList = new ArrayList<CustomerDto>();
+		for (Customer obj : list) {
+			dtoList.add(toCustomerDto(obj));
 		}		
 		return dtoList;
 	}

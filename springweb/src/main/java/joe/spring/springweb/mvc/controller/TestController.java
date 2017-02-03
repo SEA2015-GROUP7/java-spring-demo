@@ -2,11 +2,6 @@ package joe.spring.springweb.mvc.controller;
 
 import java.util.ArrayList;
 
-import joe.spring.springapp.data.domain.Customer;
-import joe.spring.springapp.services.CustomerService;
-import joe.spring.springweb.mvc.data.CustomerDto;
-import joe.spring.springweb.mvc.data.DtoListWrapper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.services.CustomerService;
+import joe.spring.springweb.mvc.data.CustomerDto;
+import joe.spring.springweb.mvc.data.DtoListWrapper;
 
 /**
  * Controller used to test Content Negotiation in Spring MVC. A contentNegotiationManager bean has been
@@ -45,7 +45,12 @@ public class TestController {
 		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
 				.getAllCustomers();		
 		for (Customer c : customerList) {
-			customerDtoList.add(new CustomerDto(c.getFirstName(), c.getLastName(), c.getUserName(), c.getBirthDate()));
+			CustomerDto dto = new CustomerDto();
+			dto.setFirstName(c.getFirstName());
+			dto.setLastName(c.getLastName());
+			dto.setUserName(c.getUserName());
+			dto.setDob(null);
+			customerDtoList.add(dto);
 		}
 		return new DtoListWrapper<CustomerDto>(customerDtoList);
 	}

@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import joe.spring.springapp.data.domain.Customer;
+import joe.spring.springapp.data.dto.DtoConverter;
 import joe.spring.springapp.data.reference.Title;
 import joe.spring.springapp.services.CustomerService;
 import joe.spring.springapp.services.ReferenceService;
+import joe.spring.springdomain.CustomerDto;
 import joe.spring.springweb.mvc.data.DropDownData;
 import joe.spring.springweb.mvc.data.FormFieldError;
 import joe.spring.springweb.mvc.data.ValidationResponse;
@@ -65,24 +67,25 @@ public class CustomerServiceController {
 	}
 
 	@RequestMapping(value = "/getAllCustomers", method = RequestMethod.GET, produces = "application/json")
-	public List<Customer> getAllCustomers() {
+	public List<CustomerDto> getAllCustomers() {
 		log.debug("Fetching a list of all customers");
 		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
 				.getAllCustomers();
 		log.debug("CustomerService.getCustomers() returned "
 				+ customerList.size() + " customers.");
-		return customerList;
+		
+		return DtoConverter.toCustomerDtoList(customerList);
 	}
 
 	@RequestMapping(value = "/customerSearch", method = RequestMethod.POST, produces = "application/json")
-	public List<Customer> searchCustomers(
+	public List<CustomerDto> searchCustomers(
 			@RequestParam(value = "searchTerm", required = false) String searchTerm) {
 		log.debug("Searching for customers with searchTerm = " + searchTerm);
 		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
 				.searchCustomers(searchTerm);
 		log.debug("CustomerService.searchCustomers() returned "
 				+ customerList.size() + " customers.");
-		return customerList;
+		return DtoConverter.toCustomerDtoList(customerList);
 	}
 	
 	@RequestMapping(value = "/createCustomerJson", method = RequestMethod.POST, produces = "application/json")
