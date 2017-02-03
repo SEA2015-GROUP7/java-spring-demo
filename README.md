@@ -18,11 +18,11 @@ The application consists of 3 projects named *springapp*, *springweb* and *sprin
 
 Below are some simple UML diagrams for one of the services that deals with Customers:
 
-![CustomerService](/docs/CustomerService_ClassDiagram.png)
+![CustomerService](/docs/CustomerService_ClassDiagram_small.png)
 
-![CustomerWebService](/docs/CustomerServiceController_ClassDiagram.png)
+![CustomerWebService](/docs/CustomerServiceController_ClassDiagram_small.png)
 
-![Customer_SeqDiagram](/docs/SearchCustomers_SeqDiagram.png)
+![Customer_SeqDiagram](/docs/SearchCustomers_SeqDiagram_small.png)
 
 
 
