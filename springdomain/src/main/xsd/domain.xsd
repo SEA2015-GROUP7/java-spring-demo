@@ -1,8 +1,17 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:tns="http://spring.joe/springdomain.domain"
-	targetNamespace="http://spring.joe/springdomain.domain"
-	elementFormDefault="qualified">
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:tns="http://spring.joe/springdomain.domain" targetNamespace="http://spring.joe/springdomain.domain"
+	elementFormDefault="qualified" jaxb:version="2.0">
 
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings>
+				<jaxb:javaType name="java.util.Calendar" xmlType="xs:date"
+					parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+					printMethod="javax.xml.bind.DatatypeConverter.printDate" />
+			</jaxb:globalBindings>
+		</xs:appinfo>
+	</xs:annotation>
 
 	<xs:complexType name="AccountDto">
 		<xs:sequence>

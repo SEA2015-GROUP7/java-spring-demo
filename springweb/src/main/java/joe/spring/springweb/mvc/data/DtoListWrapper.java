@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import joe.spring.springdomain.CustomerDto;
+
 @XmlRootElement(name="data")
 @XmlSeeAlso({CustomerDto.class})
 public class DtoListWrapper<T> {

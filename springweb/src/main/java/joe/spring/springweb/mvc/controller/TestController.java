@@ -1,6 +1,7 @@
 package joe.spring.springweb.mvc.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.services.CustomerService;
-import joe.spring.springweb.mvc.data.CustomerDto;
+import joe.spring.springdomain.CustomerDto;
 import joe.spring.springweb.mvc.data.DtoListWrapper;
 
 /**
@@ -49,7 +50,9 @@ public class TestController {
 			dto.setFirstName(c.getFirstName());
 			dto.setLastName(c.getLastName());
 			dto.setUserName(c.getUserName());
-			dto.setDob(null);
+			Calendar cst = Calendar.getInstance();
+			cst.setTime(c.getBirthDate());
+			dto.setBirthDate(cst);
 			customerDtoList.add(dto);
 		}
 		return new DtoListWrapper<CustomerDto>(customerDtoList);

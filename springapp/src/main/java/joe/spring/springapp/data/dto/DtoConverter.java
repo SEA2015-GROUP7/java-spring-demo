@@ -1,9 +1,8 @@
 package joe.spring.springapp.data.dto;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.reference.Country;
@@ -55,7 +54,9 @@ public final class DtoConverter {
 		dto.setFirstName(obj.getFirstName());
 		dto.setLastName(obj.getLastName());
 		dto.setUserName(obj.getUserName());		
-		//dto.setBirthDate(obj.getBirthDate());
+		Calendar c = Calendar.getInstance();
+		c.setTime(obj.getBirthDate());
+		dto.setBirthDate(c);
 		return dto;
 	}
 
