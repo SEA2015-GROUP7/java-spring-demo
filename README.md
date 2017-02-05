@@ -10,6 +10,7 @@ This repository contains a demo web application based on the Spring Framework. T
 * Content negotiation strategies to produce XML and JSON output
 * Front End: HTML5, CSS3, JQuery and JQuery UI
 * Unit Testing: JUnit
+* Web Service Testing: SOAPUI
 * Build: Maven 
 * Database: Oracle *(Oracle Express)*, mySQL
 * Continuous Integration: Travis CI
