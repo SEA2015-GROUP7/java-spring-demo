@@ -63,7 +63,7 @@
 									html = "<tr id='" + data[i].id + "'><td>" + data[i].lastName 
 										 + "</td><td>" + data[i].firstName 
 										 + "</td><td>" + data[i].userName
-										 + "</td><td>" + data[i].birthDate
+										 + "</td><td>" + new Date(data[i].birthDate).toString()
 											+ "</td><td><a data-role='button' class='ui-table-button' id='edit_" + data[i].id + "'>Edit</a></td></tr>";
 									$('#customer_table TBODY').append(html);		
 								    $("#customer_table TBODY").find("a[id='edit_" + data[i].id + "']").button().on( "click", function() {

@@ -66,7 +66,7 @@ public class CustomerServiceController {
 
 	}
 
-	@RequestMapping(value = "/getAllCustomers", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getAllCustomers", method = RequestMethod.POST, produces = "application/json")
 	public List<CustomerDto> getAllCustomers() {
 		log.debug("Fetching a list of all customers");
 		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
