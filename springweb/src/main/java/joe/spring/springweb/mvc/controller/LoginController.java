@@ -2,65 +2,47 @@ package joe.spring.springweb.mvc.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import joe.spring.springweb.mvc.model.LoginModel;
-
-/**
- * 
- */
 @Controller
 public class LoginController {
 
-//	@Autowired
-//	@Qualifier("loginModelValidator")
-//	private Validator validator;
+	protected final static Logger log = LoggerFactory
+			.getLogger(LoginController.class);
 
-//	@InitBinder
-//	private void initBinder(WebDataBinder binder) {
-//		binder.setValidator(validator);
-//	}
-
-	protected final static Logger log = LoggerFactory.getLogger(LoginController.class);
-
-	public LoginController() {
-
+	@RequestMapping(value = { "/"}, method = RequestMethod.GET)
+	public ModelAndView welcomePage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("welcome");
+		return model;
 	}
 
+	@RequestMapping(value = { "/home"}, method = RequestMethod.GET)
+	public ModelAndView homePage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("home");
+		return model;
+	}
 	
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String init(Model model) {
-		log.info("Displaying the login page.");
-        model.addAttribute("msg", "Please Enter Your Login Details");
-        return "login";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String submit(Model model, @ModelAttribute("loginBean") LoginModel loginModel) {
-		log.info("Processing the login page.");
-        if (loginModel != null && loginModel.getUserName() != null & loginModel.getPassword() != null) {
-        	
-        	
-            if (loginModel.getUserName().equals("joe") && loginModel.getPassword().equals("foo")) {
-                model.addAttribute("msg", "welcome" + loginModel.getUserName());
-                return "home";
-            } else {
-                model.addAttribute("error", "Invalid Details");
-                return "login";
-            }
-        } else {
-            model.addAttribute("error", "Please enter Details");
-            return "login";
-        }
-    }	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView loginPage(@RequestParam(value = "error",required = false) String error,
+	@RequestParam(value = "logout",	required = false) String logout) {
 		
+		ModelAndView model = new ModelAndView();
+		if (error != null) {
+			model.addObject("error", "Invalid Credentials provided.");
+		}
+
+		if (logout != null) {
+			model.addObject("message", "Log out successful.");
+		}
+
+		model.setViewName("login");
+		return model;
+	}
+
 }

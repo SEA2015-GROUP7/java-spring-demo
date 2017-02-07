@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Customers</title>
+<title>java-spring-demo: State Lookup</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/site.css"/>	
 <script
@@ -93,7 +93,7 @@
 	depending on the selected country.</p>	
 	<p id="description">When a country is selected from the SelectMenu component, an AJAX call is made to fetch a list of states. 
 	The state list is returned as JSON data.</p>
-	<p><a href="index.jsp">Return to Home</a></p>
+	<nav><a href="${pageContext.request.contextPath}/home">Return to Home</a></nav>
 	<form id="countrySelectForm">
 		<fieldset>
 			<label for="country">Country</label><select name="country" id="country" class="ui-select"></select><br />

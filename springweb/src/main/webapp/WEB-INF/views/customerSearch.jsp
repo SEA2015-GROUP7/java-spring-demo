@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Customers</title>
+<title>java-spring-demo: Customer Search</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/site.css"/>	
 <script
@@ -125,8 +125,8 @@
 </script>
 </head>
 <body>
-<header>Customer Search</header>
-<nav><a href="index.jsp">Home</a></nav>
+<header>java-spring-demo: Customer Search</header>
+<nav><a href="${pageContext.request.contextPath}/home">Return to Home</a></nav>
 <div id="dialog-form" title="Create new customer">
   <p class="validateTips">All form fields are required.</p>
   <form>
