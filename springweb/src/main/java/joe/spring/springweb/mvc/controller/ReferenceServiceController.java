@@ -24,7 +24,7 @@ import joe.spring.springweb.mvc.data.DropDownData;
  * Handles requests for the application home page.
  */
 @RestController
-@RequestMapping("reference")
+@RequestMapping("api/reference")
 public class ReferenceServiceController {
 
 	@Autowired

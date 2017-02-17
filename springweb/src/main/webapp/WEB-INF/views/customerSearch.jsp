@@ -53,7 +53,7 @@
 					$.ajax({
 						method: "POST",
 						dataType : "json",
-						url : "customer/customerSearch",
+						url : "api/customer/customerSearch",
 						data : data,
 						success: function(data) {
 							var html = '';

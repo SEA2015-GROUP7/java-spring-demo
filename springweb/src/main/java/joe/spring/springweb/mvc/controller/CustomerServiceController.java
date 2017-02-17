@@ -30,6 +30,10 @@ import joe.spring.springapp.data.reference.Title;
 import joe.spring.springapp.services.CustomerService;
 import joe.spring.springapp.services.ReferenceService;
 import joe.spring.springdomain.CustomerDto;
+import joe.spring.springdomain.CustomerDtoList;
+import joe.spring.springdomain.CustomerSearchRequest;
+import joe.spring.springdomain.CustomerSearchResponse;
+import joe.spring.springdomain.RequestStatus;
 import joe.spring.springweb.mvc.data.DropDownData;
 import joe.spring.springweb.mvc.data.FormFieldError;
 import joe.spring.springweb.mvc.data.ValidationResponse;
@@ -39,7 +43,7 @@ import joe.spring.springweb.mvc.model.CustomerModel;
  * Handles requests for the form page examples.
  */
 @RestController
-@RequestMapping("customer")
+@RequestMapping("api/customer")
 public class CustomerServiceController {
 
 	@Autowired
@@ -87,6 +91,24 @@ public class CustomerServiceController {
 				+ customerList.size() + " customers.");
 		return DtoConverter.toCustomerDtoList(customerList);
 	}
+
+	@RequestMapping(value = "/v2/customerSearch", method = RequestMethod.POST, produces = "application/json")
+	public CustomerSearchResponse searchCustomersVersion2(
+			@RequestParam(value = "request") CustomerSearchRequest request) {
+		CustomerSearchResponse response = new CustomerSearchResponse();
+		
+		log.debug("Searching for customers with searchTerm = " + request.getSearchTerm());
+		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
+				.searchCustomers(request.getSearchTerm());
+		log.debug("CustomerService.searchCustomers() returned "
+				+ customerList.size() + " customers.");
+		response.setStatus(RequestStatus.OK);
+		CustomerDtoList customers = new CustomerDtoList();
+		customers.getCustomers().addAll(DtoConverter.toCustomerDtoList(customerList));
+		response.setCustomers(customers);
+		return response;
+	}
+	
 	
 	@RequestMapping(value = "/createCustomerJson", method = RequestMethod.POST, produces = "application/json")
 	public @ResponseBody

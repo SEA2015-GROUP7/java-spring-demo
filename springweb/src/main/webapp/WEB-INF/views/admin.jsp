@@ -33,7 +33,7 @@
 			$.ajax({
 						method: "POST",
 						dataType : "json",
-						url : "deleteCustomerAccountData",
+						url : "api/admin/deleteCustomerAccountData",
 						data: data,
 						success: function(result) {		
 							if (result.status == "OK") {
@@ -51,7 +51,7 @@
 			$.ajax({
 						method: "POST",
 						dataType : "json",
-						url : "createCustomerAccountData",
+						url : "api/admin/createCustomerAccountData",
 						data: data,
 						success: function(result) {		
 							if (result.status == "OK") {

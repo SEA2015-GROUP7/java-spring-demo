@@ -34,7 +34,7 @@
 					}}						
 				);
 
-				$.getJSON('reference/getCountriesDropDownData', function(data) {
+				$.getJSON('api/reference/getCountriesDropDownData', function(data) {
 					var html = '';
 					var len = data.length;
 					if (len > 0) {
@@ -57,7 +57,7 @@
 
 		$.ajax({
 					dataType : "json",
-					url : "reference/getStates",
+					url : "api/reference/getStates",
 					headers: headers,
 					data : {
 						countryId : countryId

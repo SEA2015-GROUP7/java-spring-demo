@@ -104,4 +104,35 @@
 			<xs:enumeration value="PLN" />
 		</xs:restriction>
 	</xs:simpleType>
+
+	<xs:simpleType name="RequestStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OK" />
+			<xs:enumeration value="ERROR" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:element name="CustomerSearchRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="searchTerm" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="CustomerDtoList">
+		<xs:sequence>
+			<xs:element name="customers" type="tns:CustomerDto" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="CustomerSearchResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="status" type="tns:RequestStatus" />
+				<xs:element name="customers" type="tns:CustomerDtoList" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
 </xs:schema>

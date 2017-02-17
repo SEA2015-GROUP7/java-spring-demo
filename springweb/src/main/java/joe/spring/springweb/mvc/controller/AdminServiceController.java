@@ -5,43 +5,33 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import joe.spring.springapp.data.domain.Account;
 import joe.spring.springapp.data.domain.Customer;
-import joe.spring.springapp.data.reference.Title;
 import joe.spring.springapp.services.AccountService;
 import joe.spring.springapp.services.CustomerService;
 import joe.spring.springapp.services.ReferenceService;
-import joe.spring.springweb.mvc.data.DropDownData;
 import joe.spring.springweb.mvc.data.FormFieldError;
 import joe.spring.springweb.mvc.data.ValidationResponse;
-import joe.spring.springweb.mvc.model.CustomerModel;
 
 /**
  * Handles requests for the form page examples.
  */
-@Controller
+@RestController
+@RequestMapping("api/admin")
 public class AdminServiceController {
 
 	@Autowired
