@@ -26,6 +26,13 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<xs:complexType name="AccountDtoList">
+		<xs:sequence>
+			<xs:element name="accounts" type="tns:AccountDto" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+
 	<xs:complexType name="AddressDto">
 		<xs:sequence>
 			<xs:element name="id" type="xs:long" />
@@ -35,6 +42,12 @@
 			<xs:element name="city" type="xs:string" />
 			<xs:element name="stateCode" type="xs:string" />
 			<xs:element name="zipCode" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AddressDtoList">
+		<xs:sequence>
+			<xs:element name="addresses" type="tns:AddressDto" maxOccurs="unbounded" minOccurs="0" />
 		</xs:sequence>
 	</xs:complexType>
 
@@ -48,6 +61,12 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<xs:complexType name="CustomerDtoList">
+		<xs:sequence>
+			<xs:element name="customers" type="tns:CustomerDto" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
 	<xs:complexType name="CountryDto">
 		<xs:sequence>
 			<xs:element name="id" type="xs:long" />
@@ -56,6 +75,12 @@
 		</xs:sequence>
 	</xs:complexType>
 
+	<xs:complexType name="CountryDtoList">
+		<xs:sequence>
+			<xs:element name="countries" type="tns:CountryDto" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
 	<xs:complexType name="StateDto">
 		<xs:sequence>
 			<xs:element name="id" type="xs:long" />
@@ -64,6 +89,27 @@
 			<xs:element name="countryCode" type="xs:string" />
 		</xs:sequence>
 	</xs:complexType>
+
+	<xs:complexType name="StateDtoList">
+		<xs:sequence>
+			<xs:element name="states" type="tns:StateDto" maxOccurs="unbounded" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="CurrencyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GBP" />
+			<xs:enumeration value="EUR" />
+			<xs:enumeration value="PLN" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="RequestStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OK" />
+			<xs:enumeration value="ERROR" />
+		</xs:restriction>
+	</xs:simpleType>
 
 	<xs:element name="CountryRequest">
 		<xs:complexType>
@@ -96,21 +142,6 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-
-	<xs:simpleType name="CurrencyType">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="GBP" />
-			<xs:enumeration value="EUR" />
-			<xs:enumeration value="PLN" />
-		</xs:restriction>
-	</xs:simpleType>
-
-	<xs:simpleType name="RequestStatus">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="OK" />
-			<xs:enumeration value="ERROR" />
-		</xs:restriction>
-	</xs:simpleType>
 	
 	<xs:element name="CustomerSearchRequest">
 		<xs:complexType>
@@ -120,12 +151,6 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:complexType name="CustomerDtoList">
-		<xs:sequence>
-			<xs:element name="customers" type="tns:CustomerDto" maxOccurs="unbounded" minOccurs="0" />
-		</xs:sequence>
-	</xs:complexType>
-	
 	<xs:element name="CustomerSearchResponse">
 		<xs:complexType>
 			<xs:sequence>

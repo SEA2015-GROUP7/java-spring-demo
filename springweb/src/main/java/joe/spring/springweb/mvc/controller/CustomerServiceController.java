@@ -7,17 +7,14 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,17 +49,17 @@ public class CustomerServiceController {
 	@Autowired
 	protected ReferenceService refService;
 
-	@Autowired
-    @Qualifier("customerModelValidator")
-    private Validator validator;
+//	@Autowired
+//    @Qualifier("customerModelValidator")
+//    private Validator validator;
 
 	@Autowired
 	protected MessageSource messageSource;
 	
-	@InitBinder
-    private void initBinder(WebDataBinder binder) {
-        binder.setValidator(validator);
-    }
+//	@InitBinder
+//    private void initBinder(WebDataBinder binder) {
+//        binder.setValidator(validator);
+//    }
 	protected final static Logger log = LoggerFactory
 			.getLogger(CustomerServiceController.class);
 
@@ -91,10 +88,10 @@ public class CustomerServiceController {
 				+ customerList.size() + " customers.");
 		return DtoConverter.toCustomerDtoList(customerList);
 	}
-
+	
 	@RequestMapping(value = "/v2/customerSearch", method = RequestMethod.POST, produces = "application/json")
 	public CustomerSearchResponse searchCustomersVersion2(
-			@RequestParam(value = "request") CustomerSearchRequest request) {
+			@RequestBody CustomerSearchRequest request) {
 		CustomerSearchResponse response = new CustomerSearchResponse();
 		
 		log.debug("Searching for customers with searchTerm = " + request.getSearchTerm());

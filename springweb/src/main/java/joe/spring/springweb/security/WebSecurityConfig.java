@@ -16,17 +16,19 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-@EnableWebSecurity
-@PropertySource({ "classpath:security_db.properties" })
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//@EnableWebSecurity
+//@PropertySource({ "classpath:security_db.properties" })
+//public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@Deprecated
+public class WebSecurityConfig {
 
-	private static final String PROPERTY_NAME_DATABASE_DRIVER_CLASS = "db.driverClass";
-	private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
-	private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
-	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
-
-	@Resource
-	private Environment environment;
+//	private static final String PROPERTY_NAME_DATABASE_DRIVER_CLASS = "db.driverClass";
+//	private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
+//	private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
+//	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
+//
+//	@Resource
+//	private Environment environment;
 
 	protected final static Logger log = LoggerFactory.getLogger(WebSecurityConfig.class);
 
@@ -52,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //		return dao;
 //	}
 
-	@Bean
+//	@Bean
 	public UserDetailsService userDetailsService() {
 		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 		manager.createUser(User.withUsername("user").password("password").roles("USER").build());
@@ -60,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return manager;
 	}	
 	
-	@Override
+//	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/", "/resources/**", "/welcome", "/login").permitAll()
@@ -77,6 +79,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/")
 				.deleteCookies("JSESSIONID"); 
 	}
-		
+
 }	
 	
