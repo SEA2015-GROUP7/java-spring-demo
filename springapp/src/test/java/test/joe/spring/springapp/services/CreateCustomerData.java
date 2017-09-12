@@ -19,6 +19,7 @@ import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.jpa.DbHibernateConfig;
 import joe.spring.springapp.services.AccountService;
 import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ServiceException;
 
 /**
  * A simple test class.
@@ -64,7 +65,12 @@ public class CreateCustomerData {
 		accountService = (AccountService) context.getBean("accountService");
 
 		accountService.removeAllAccounts();
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -76,19 +82,35 @@ public class CreateCustomerData {
 		accountService.removeAllAccounts();
 
 		log.info("Removing existing customers.");
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		try {
 			log.info("Adding test customers.");
 			for (int x = 0; x < customerData.length; x++) {
 				log.info("Adding customer " + customerData[x][0] + " " + customerData[x][1]);
-				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]),customerData[x][4]);				
+				try {
+					customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]),customerData[x][4]);
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 			}			
 			
 			log.info("Adding test accounts.");
 			for (int x = 0; x < accountData.length; x++) {
-				Customer c = customerService.getCustomerByUserName(accountData[x][0]);				
+				Customer c = null;
+				try {
+					c = customerService.getCustomerByUserName(accountData[x][0]);
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 				if (c != null) {
 					log.info("Adding " + accountData[x][1] + " account for customer " + accountData[x][0]);
 					accountService.createAccount(Account.AccountType.valueOf(accountData[x][1]), accountData[x][2], c);
@@ -109,7 +131,12 @@ public class CreateCustomerData {
 
 		log.info(">> Entering removeCustomersAndAccounts.");
 		accountService.removeAllAccounts();
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		log.info("<< Leaving removeCustomersAndAccounts.");
 	}
 

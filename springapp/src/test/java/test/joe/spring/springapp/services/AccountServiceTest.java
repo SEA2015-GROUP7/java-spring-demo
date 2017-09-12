@@ -8,6 +8,7 @@ import joe.spring.springapp.data.domain.Account.AccountType;
 import joe.spring.springapp.data.jpa.DbHibernateConfig;
 import joe.spring.springapp.services.AccountService;
 import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ServiceException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -45,7 +46,12 @@ public class AccountServiceTest {
 				.getBean("accountService");		
 		
 		accountService.removeAllAccounts();
-		customerService.removeAllCustomers();		
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 
 	@Test
@@ -53,7 +59,13 @@ public class AccountServiceTest {
 
 		log.info(">> Entering createAccounts.");
 		
-		Customer c = customerService.createCustomer("John", "Doe", "jdoe", new Date(),"password");
+		Customer c = null;
+		try {
+			c = customerService.createCustomer("John", "Doe", "jdoe", new Date(),"password");
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		org.junit.Assert.assertNotNull("Customer was null.", c);
 		org.junit.Assert.assertNotNull("Customer Id was null.", c.getId());
 		log.info("Customer created: " + c);
@@ -71,7 +83,12 @@ public class AccountServiceTest {
 		log.info("Premium account created: " + premiumAccount);
 		
 		accountService.removeAllAccounts();
-		customerService.removeAllCustomers();		
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		log.info("<< Leaving createAccounts.");
 	}
 	

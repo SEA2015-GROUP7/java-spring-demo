@@ -10,6 +10,7 @@ import joe.spring.springapp.data.reference.State;
 import joe.spring.springapp.services.AddressService;
 import joe.spring.springapp.services.CustomerService;
 import joe.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.services.ServiceException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -51,7 +52,12 @@ public class AddressServiceTest {
 				.getBean("addressService");		
 		
 		addressService.removeAllAddresses();
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Ignore
@@ -87,7 +93,13 @@ public class AddressServiceTest {
 		org.junit.Assert.assertNotNull("State Id was null.", s.getId());
 		log.info("State found: " + s);
 
-		Customer customer = customerService.createCustomer("John", "Doe", "jdoe", new Date(),"password");		
+		Customer customer = null;
+		try {
+			customer = customerService.createCustomer("John", "Doe", "jdoe", new Date(),"password");
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		Address businessAddress = addressService.createAddress("10 Main St.", null, "Nome", s, "87656", customer, AddressType.BUSINESS);
 		org.junit.Assert.assertNotNull("Address was null.", businessAddress);
 		org.junit.Assert.assertNotNull("Address Id was null.", businessAddress.getId());
@@ -96,14 +108,24 @@ public class AddressServiceTest {
 		org.junit.Assert.assertNotNull("Address was null.", homeAddress);
 		org.junit.Assert.assertNotNull("Address Id was null.", homeAddress.getId());
 		log.info("Address created: " + homeAddress);
-		customer = customerService.getCustomerById(customer.getId());
+		try {
+			customer = customerService.getCustomerById(customer.getId());
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		log.info("Customer has " + customer.getAddresses().size() + " addresses");
 
 		log.info("Removing addresses.");
 		addressService.removeAllAddresses();
 		
 		log.info("Removing customer.");
-		customerService.removeCustomer(customer.getId());
+		try {
+			customerService.removeCustomer(customer.getId());
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		log.info("<< Leaving createAddressForCustomer.");
 	}

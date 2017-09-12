@@ -9,6 +9,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.http.MediaType;
 import org.springframework.validation.Validator;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -16,11 +17,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-import joe.spring.springapp.data.jpa.DbHibernateConfig;
+import joe.spring.springweb.mvc.services.client.BasicAuthRestTemplate;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "joe.spring.springweb.mvc.controller" })
+@ComponentScan(basePackages = { "joe.spring.springweb.mvc" })
 public class MvcWebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -48,6 +49,22 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 		return new joe.spring.springweb.mvc.validator.LoginModelValidator();
 	}
 
+	
+	@Bean
+	public Validator statesByCountryValidator() {
+		return new joe.spring.springweb.mvc.validator.StatesByCountryRequestValidator();
+	}
+
+	@Bean
+	public Validator createCustomerValidator() {
+		return new joe.spring.springweb.mvc.validator.CreateCustomerRequestValidator();
+	}
+
+	@Bean
+	public Validator deleteCustomerValidator() {
+		return new joe.spring.springweb.mvc.validator.DeleteCustomerRequestValidator();
+	}
+	
 	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource src = new ReloadableResourceBundleMessageSource();
@@ -74,4 +91,10 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 		return bean;
 	}
 
+//	@Bean
+//	public RestTemplate apiRestTemplate() {
+//		BasicAuthRestTemplate bean = new BasicAuthRestTemplate("user","password");
+//		return bean;		
+//	}
+	
 }

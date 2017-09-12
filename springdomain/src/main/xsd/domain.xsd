@@ -32,7 +32,6 @@
 		</xs:sequence>
 	</xs:complexType>
 	
-
 	<xs:complexType name="AddressDto">
 		<xs:sequence>
 			<xs:element name="id" type="xs:long" />
@@ -111,10 +110,38 @@
 		</xs:restriction>
 	</xs:simpleType>
 
-	<xs:element name="CountryRequest">
+	<xs:complexType name="ApiFieldError">
+		<xs:sequence>
+			<xs:element name="code" type="xs:string" />
+			<xs:element name="field" type="xs:string" />
+			<xs:element name="message" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ApiGlobalError">
+		<xs:sequence>
+			<xs:element name="code" type="xs:string" />
+			<xs:element name="message" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="ErrorResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="code" type="xs:string" />
+				<xs:element name="fieldErrors" type="tns:ApiFieldError" maxOccurs="unbounded" minOccurs="0" />
+				<xs:element name="globalErrors" type="tns:ApiGlobalError" maxOccurs="unbounded" minOccurs="0" />				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+<!--  
+	Reference data request / response objects
+-->
+
+	<xs:element name="CountryByCodeRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="countryCode" type="xs:string" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -127,10 +154,26 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="StateRequest">
+	<xs:element name="CountriesResponse">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="code" type="xs:string" />
+				<xs:element name="countries" type="tns:CountryDtoList" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="StatesByCountryRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="countryCode" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="StateByCodeRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="stateCode" type="xs:string" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -142,7 +185,69 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
+	<xs:element name="StatesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="states" type="tns:StateDtoList" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+<!-- 
+    Account request / response objects
+-->
+
+<!-- 
+    Customer request / response objects
+-->
 	
+	<xs:element name="CreateCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="firstName" type="xs:string" />
+				<xs:element name="lastName" type="xs:string" />
+				<xs:element name="userName" type="xs:string" />
+				<xs:element name="birthDate" type="xs:date" />
+				<xs:element name="password" type="xs:string" />				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="GetCustomerByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long" />
+				<xs:element name="includeAddresses" type="xs:boolean" default="false"/>				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="GetCustomerByUserNameRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="userName" type="xs:string" />
+				<xs:element name="includeAddresses" type="xs:boolean" default="false"/>				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="CustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customer" type="tns:CustomerDto" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="CustomersResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customers" type="tns:CustomerDtoList" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
 	<xs:element name="CustomerSearchRequest">
 		<xs:complexType>
 			<xs:sequence>
@@ -151,11 +256,26 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="CustomerSearchResponse">
+	<xs:element name="DeleteCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="userName" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="DeleteCustomerResponse">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="status" type="tns:RequestStatus" />
-				<xs:element name="customers" type="tns:CustomerDtoList" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="DeleteAllCustomersResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="status" type="tns:RequestStatus" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

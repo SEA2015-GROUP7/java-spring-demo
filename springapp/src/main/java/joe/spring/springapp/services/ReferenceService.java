@@ -14,14 +14,14 @@ import joe.spring.springapp.data.reference.Title;
  */
 public interface ReferenceService {
 
-	public List<Country> getAllCountries();
-	public Country getCountryById(final Long countryId);
-	public Country getCountryByCode(String code);
-	public List<State> getAllStates();	
-	public State getStateById(final Long stateId);
-	public State getStateByCode(final String code);
-	public List<State> getStatesByCountry(Country country);	
-	public List<Title> getAllTitles();	
+	public List<Country> getAllCountries() throws ServiceException;
+	public Country getCountryById(final Long countryId) throws ServiceException;
+	public Country getCountryByCode(String code) throws ServiceException;
+	public List<State> getAllStates() throws ServiceException;	
+	public State getStateById(final Long stateId) throws ServiceException;
+	public State getStateByCode(final String code) throws ServiceException;
+	public List<State> getStatesByCountry(Country country) throws ServiceException;	
+	public List<Title> getAllTitles() throws ServiceException;	
 }
 
 

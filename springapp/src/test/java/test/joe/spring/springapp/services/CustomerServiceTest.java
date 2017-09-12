@@ -7,6 +7,7 @@ import java.util.List;
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.jpa.DbHibernateConfig;
 import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ServiceException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -39,7 +40,12 @@ public class CustomerServiceTest {
 				DbHibernateConfig.class);
 		customerService = (CustomerService) context.getBean("customerService");
 
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -53,21 +59,44 @@ public class CustomerServiceTest {
 
 		log.info(">> Entering createCustomer.");
 		log.info("Creating a single customer.");
-		Customer c = customerService.createCustomer(firstName, lastName,
-				userName, birthDate,password);
+		Customer c = null;
+		try {
+			c = customerService.createCustomer(firstName, lastName,
+					userName, birthDate,password);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		org.junit.Assert.assertNotNull(c);
 		org.junit.Assert.assertNotNull(c.getId());
 
-		Customer customerById = customerService.getCustomerById(c.getId());
+		Customer customerById = null;
+		try {
+			customerById = customerService.getCustomerById(c.getId());
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		org.junit.Assert.assertNotNull(customerById);
 
-		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
-				.getCustomersByLastName(lastName);
+		ArrayList<Customer> customerList = null;
+		try {
+			customerList = (ArrayList<Customer>) customerService
+					.getCustomersByLastName(lastName);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		org.junit.Assert.assertNotNull(customerList);
 		org.junit.Assert.assertNotEquals(customerList.size(), 0);
 
 		log.info("Removing the customer.");
-		customerService.removeCustomer(c.getId());
+		try {
+			customerService.removeCustomer(c.getId());
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -82,35 +111,61 @@ public class CustomerServiceTest {
 
 		log.info("Creating test customers.");
 		for (int x = 0; x < customerNameArray.length; x++) {
-			customerService.createCustomer(customerNameArray[x][0],
-					customerNameArray[x][1], customerNameArray[x][2],
-					new Date(), customerNameArray[x][3]);
+			try {
+				customerService.createCustomer(customerNameArray[x][0],
+						customerNameArray[x][1], customerNameArray[x][2],
+						new Date(), customerNameArray[x][3]);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		log.info("Testing getAllCustomers().");
-		ArrayList<Customer> list = (ArrayList<Customer>) customerService
-				.getAllCustomers();
+		ArrayList<Customer> list = null;
+		try {
+			list = (ArrayList<Customer>) customerService
+					.getAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (list == null || list.size() != customerNameArray.length) {
 			org.junit.Assert.fail("Test of getAllCustomers() failed.");
 		}
 
 		log.info("Testing getCustomersByLastName().");
-		list = (ArrayList<Customer>) customerService
-				.getCustomersByLastName("Doe");
+		try {
+			list = (ArrayList<Customer>) customerService
+					.getCustomersByLastName("Doe");
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (list == null || list.size() != 2) {
 			org.junit.Assert.fail("Test of getCustomersByLastName() failed.");
 		}
 
 		log.info("Testing getCustomersByLastName() (negative).");
-		list = (ArrayList<Customer>) customerService
-				.getCustomersByLastName("BAD_NAME");
+		try {
+			list = (ArrayList<Customer>) customerService
+					.getCustomersByLastName("BAD_NAME");
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (list == null || list.size() != 0) {
 			org.junit.Assert
 					.fail("Test of getCustomersByLastName(BAD_NAME) failed.");
 		}
 
 		log.info("Removing all customers.");
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		log.info("<< Leaving CustomerTest.");
 
@@ -129,14 +184,31 @@ public class CustomerServiceTest {
 		String password = "password";
 
 		Date dob = new Date();
-		Customer c = customerService.createCustomer(firstName,lastName,userName,dob, password);
+		Customer c = null;
+		try {
+			c = customerService.createCustomer(firstName,lastName,userName,dob, password);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		Customer result = customerService.getCustomerByUserName(userName);
+		Customer result = null;
+		try {
+			result = customerService.getCustomerByUserName(userName);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		org.junit.Assert.assertNotNull(result);
 		log.info("Found customer by userName (" + userName + "): " + result);
 		
 		log.info("Removing customer.");
-		customerService.removeCustomer(c.getId());
+		try {
+			customerService.removeCustomer(c.getId());
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		log.info("<< Leaving testGetCustomerByUserName");
 
@@ -159,65 +231,117 @@ public class CustomerServiceTest {
 		Date dob = new Date();
 		String password = "password";
 
-		Customer c = customerService.createCustomer(firstName,lastName,userName,dob,password);
+		Customer c = null;
+		try {
+			c = customerService.createCustomer(firstName,lastName,userName,dob,password);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		List<Customer> customerList = customerService.searchCustomers(firstName);
+		List<Customer> customerList = null;
+		try {
+			customerList = customerService.searchCustomers(firstName);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + firstName  + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + firstName +")");
 		}
 
-		customerList = customerService.searchCustomers(firstName.substring(0,1));
+		try {
+			customerList = customerService.searchCustomers(firstName.substring(0,1));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + firstName.substring(0,1)  + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + firstName.substring(0,1) +")");
 		}
 
-		customerList = customerService.searchCustomers(firstName.substring(firstName.length() - 2));
+		try {
+			customerList = customerService.searchCustomers(firstName.substring(firstName.length() - 2));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + firstName.substring(firstName.length() - 2)  + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + firstName.substring(firstName.length() - 2) +")");
 		}
 
-		customerList = customerService.searchCustomers(lastName);
+		try {
+			customerList = customerService.searchCustomers(lastName);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + lastName  + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + lastName +")");
 		}
 
-		customerList = customerService.searchCustomers(lastName.substring(0,1));
+		try {
+			customerList = customerService.searchCustomers(lastName.substring(0,1));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + lastName.substring(0,1)  + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + lastName.substring(0,1) +")");
 		}
 
-		customerList = customerService.searchCustomers(firstName.substring(lastName.length() - 2));
+		try {
+			customerList = customerService.searchCustomers(firstName.substring(lastName.length() - 2));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + firstName.substring(lastName.length() - 2)  + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + lastName.substring(firstName.length() - 2) +")");
 		}
 
-		customerList = customerService.searchCustomers(userName);
+		try {
+			customerList = customerService.searchCustomers(userName);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + userName + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + userName +")");
 		}
 
-		customerList = customerService.searchCustomers(userName.substring(0,1));
+		try {
+			customerList = customerService.searchCustomers(userName.substring(0,1));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + userName.substring(0,1)  + ") failed.");
 		} else {
 			log.info("Found " + customerList.size() + " customers using searchCustomers(" + userName.substring(0,1) +")");
 		}
 
-		customerList = customerService.searchCustomers(firstName.substring(userName.length() - 2));
+		try {
+			customerList = customerService.searchCustomers(firstName.substring(userName.length() - 2));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(" + firstName.substring(userName.length() - 2)  + ") failed.");
 		} else {
@@ -225,14 +349,24 @@ public class CustomerServiceTest {
 		}
 
 		String badString = "XXX";
-		customerList = customerService.searchCustomers(badString);
+		try {
+			customerList = customerService.searchCustomers(badString);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			log.info("Found no customers as expected using searchCustomers(" + badString + ")");
 		} else {
 			org.junit.Assert.fail("searchCustomers(" + badString + ") failed by returning records.");
 		}
 		
-		customerList = customerService.searchCustomers(null);
+		try {
+			customerList = customerService.searchCustomers(null);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (customerList == null || customerList.size() == 0) {
 			org.junit.Assert.fail("searchCustomers(null) failed.");
 		} else {
@@ -240,7 +374,12 @@ public class CustomerServiceTest {
 		}
 		
 		log.info("Removing customer.");
-		customerService.removeCustomer(c.getId());
+		try {
+			customerService.removeCustomer(c.getId());
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		log.info("<< Leaving testLookupCustomers");
 
@@ -253,7 +392,12 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(null,\"Doe\").");
-			customerService.createCustomer(null, "Doe", null, null, null);
+			try {
+				customerService.createCustomer(null, "Doe", null, null, null);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.
@@ -261,7 +405,12 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(\"\",\"Doe\").");
-			customerService.createCustomer("", "Doe", null, null, null);
+			try {
+				customerService.createCustomer("", "Doe", null, null, null);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.
@@ -269,7 +418,12 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(\"John\",null).");
-			customerService.createCustomer("John", null, null, null, null);
+			try {
+				customerService.createCustomer("John", null, null, null, null);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.
@@ -277,7 +431,12 @@ public class CustomerServiceTest {
 
 		try {
 			log.info("Testing createCustomer(\"John\",\"\").");
-			customerService.createCustomer("John", "", null, null, null);
+			try {
+				customerService.createCustomer("John", "", null, null, null);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			org.junit.Assert.fail("");
 		} catch (IllegalStateException ise) {
 			// Do nothing.

@@ -24,6 +24,7 @@ import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.services.AccountService;
 import joe.spring.springapp.services.CustomerService;
 import joe.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.services.ServiceException;
 import joe.spring.springweb.mvc.data.FormFieldError;
 import joe.spring.springweb.mvc.data.ValidationResponse;
 
@@ -81,19 +82,35 @@ public class AdminServiceController {
 		accountService.removeAllAccounts();
 
 		log.info("Removing existing customers.");
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		try {
 			log.info("Adding test customers.");
 			for (int x = 0; x < customerData.length; x++) {
 				log.info("Adding customer " + customerData[x][0] + " " + customerData[x][1]);
-				customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]), "password");				
+				try {
+					customerService.createCustomer(customerData[x][0], customerData[x][1],customerData[x][2], dateFormat.parse(customerData[x][3]), "password");
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 			}			
 			
 			log.info("Adding test accounts.");
 			for (int x = 0; x < accountData.length; x++) {
-				Customer c = customerService.getCustomerByUserName(accountData[x][0]);				
+				Customer c = null;
+				try {
+					c = customerService.getCustomerByUserName(accountData[x][0]);
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 				if (c != null) {
 					log.info("Adding " + accountData[x][1] + " account for customer " + accountData[x][0]);
 					accountService.createAccount(Account.AccountType.valueOf(accountData[x][1]), accountData[x][2], c);
@@ -117,7 +134,12 @@ public class AdminServiceController {
 		log.debug("Deleting Accounts");
 		accountService.removeAllAccounts();
 		log.debug("Deleting Customers");
-		customerService.removeAllCustomers();
+		try {
+			customerService.removeAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		response.setStatus("OK");
 		return response;
 	}

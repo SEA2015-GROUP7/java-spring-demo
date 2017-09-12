@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ServiceException;
 import joe.spring.springdomain.CustomerDto;
 import joe.spring.springweb.mvc.data.DtoListWrapper;
 
@@ -43,8 +44,14 @@ public class TestController {
 	public @ResponseBody DtoListWrapper<CustomerDto> getAllCustomers() {
 		log.info("Fetching a list of all customers.");
 		ArrayList<CustomerDto> customerDtoList = new ArrayList<CustomerDto>();
-		ArrayList<Customer> customerList = (ArrayList<Customer>) customerService
-				.getAllCustomers();		
+		ArrayList<Customer> customerList = null;
+		try {
+			customerList = (ArrayList<Customer>) customerService
+					.getAllCustomers();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		for (Customer c : customerList) {
 			CustomerDto dto = new CustomerDto();
 			dto.setFirstName(c.getFirstName());

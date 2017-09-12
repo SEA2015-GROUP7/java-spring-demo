@@ -2,18 +2,17 @@ package joe.spring.springapp.services.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import joe.spring.springapp.data.domain.Address;
 import joe.spring.springapp.data.domain.Credential;
 import joe.spring.springapp.data.domain.Customer;
 import joe.spring.springapp.data.jpa.repository.CredentialRepository;
 import joe.spring.springapp.data.jpa.repository.CustomerRepository;
 import joe.spring.springapp.services.CustomerService;
+import joe.spring.springapp.services.ServiceException;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -27,16 +26,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerServiceImpl() {
 	}
 
-//	@Override
-//	public Customer createCustomer(String firstName, String lastName,
-//			String userName, Date birthDate) {
-//
-//		return createCustomer(firstName, lastName, userName, birthDate, null, null);
-//	}
-
 	@Override
 	public Customer createCustomer(String firstName, String lastName, String userName, Date birthDate,
-			String password) {
+			String password) throws ServiceException {
 		Customer newCustomer = null;
 
 		if (firstName != null && !firstName.isEmpty() && lastName != null
@@ -52,48 +44,16 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return newCustomer;
 		
-//		return createCustomer(firstName, lastName, userName, birthDate, password, null);
 	}
 	
-//	@Override
-//	public Customer createCustomer(String firstName, String lastName,
-//			String userName, Date birthDate, String password, HashSet<Address> addresses) {
-//
-//		Customer newCustomer = null;
-//
-//		if (firstName != null && !firstName.isEmpty() && lastName != null
-//				&& !lastName.isEmpty()) {
-//			newCustomer = customerRepo.save(new Customer(firstName, lastName,
-//					userName, birthDate, addresses));
-//			if (newCustomer != null) {
-//				Credential cred = credentialRepo.save(new Credential(newCustomer.getId(), password));								
-//			}
-//			
-//		} else {
-//			throw new IllegalStateException("Missing method parameter.");
-//		}
-//		return newCustomer;
-//	}
-
 	@Override
-	public Customer updateCustomer(Customer c) {
+	public Customer updateCustomer(Customer c) throws ServiceException{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Customer> getCustomersByLastName(String lastName) {
-		List<Customer> customerList = null;
-		if (lastName != null && !lastName.isEmpty()) {
-			customerList = customerRepo.findByLastName(lastName);
-		} else {
-			throw new IllegalStateException("Missing method parameter.");
-		}
-		return customerList;
-	}
-
-	@Override
-	public Customer getCustomerById(Long customerId) {
+	public Customer getCustomerById(Long customerId) throws ServiceException {
 
 		Customer c = null;
 		if (customerId != null) {
@@ -105,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer getCustomerByUserName(final String userName) {
+	public Customer getCustomerByUserName(final String userName) throws ServiceException {
 		Customer c = null;
 		if (userName != null && !userName.trim().isEmpty()) {
 			c = customerRepo.findByUserName(userName);
@@ -116,31 +76,24 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void removeCustomer(Long customerId) {
-
-		if (customerId != null) {
-			credentialRepo.delete(customerId);
-			customerRepo.delete(customerId);
-		} else {
-			throw new IllegalStateException("Missing method parameter.");
-		}
-
-	}
-
-	@Override
-	public void removeAllCustomers() {
-		credentialRepo.deleteAll();
-		customerRepo.deleteAll();
-	}
-
-	@Override
-	public List<Customer> getAllCustomers() {
+	public List<Customer> getAllCustomers() throws ServiceException {
 		List<Customer> customerList = customerRepo.findAll();
 		return customerList;
 	}
 
 	@Override
-	public List<Customer> searchCustomers(final String searchTerm) {
+	public List<Customer> getCustomersByLastName(String lastName) throws ServiceException {
+		List<Customer> customerList = null;
+		if (lastName != null && !lastName.isEmpty()) {
+			customerList = customerRepo.findByLastName(lastName);
+		} else {
+			throw new IllegalStateException("Missing method parameter.");
+		}
+		return customerList;
+	}
+
+	@Override
+	public List<Customer> searchCustomers(final String searchTerm) throws ServiceException {
 		
 		List<Customer> customerList = new ArrayList<Customer>();
 		if (searchTerm != null && !searchTerm.trim().isEmpty()) {
@@ -152,7 +105,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerList;		
 	}
 
-	public Boolean validateCustomer(Long id, String password) {
+	public Boolean validateCustomer(Long id, String password) throws ServiceException {
 		
 		Boolean result = false;
 		
@@ -169,6 +122,24 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public void removeCustomer(Long customerId) throws ServiceException {
+
+		if (customerId != null) {
+			credentialRepo.delete(customerId);
+			customerRepo.delete(customerId);
+		} else {
+			throw new IllegalStateException("Missing method parameter.");
+		}
+
+	}
+
+	@Override
+	public void removeAllCustomers() throws ServiceException {
+		credentialRepo.deleteAll();
+		customerRepo.deleteAll();
 	}
 
 }

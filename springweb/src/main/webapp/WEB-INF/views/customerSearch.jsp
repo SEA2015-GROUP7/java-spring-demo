@@ -11,14 +11,16 @@
 <title>java-spring-demo: Customer Search</title>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/site.css"/>	
+
 <script
-  src="https://code.jquery.com/jquery-3.1.1.js"
-  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
   crossorigin="anonymous"></script>
+  
 <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>  
+  crossorigin="anonymous"></script>
 <sec:csrfMetaTags />
 <script>
 
@@ -44,29 +46,32 @@
 				function searchCustomers() {
 					var searchVal = $("#searchVal").val();
 					var data = {};
+					var searchReq = new Object();
+					searchReq.searchTerm = searchVal;
+					searchReq.foo = "bar";
 					data[csrfParameter] = csrfToken;
-					data["searchTerm"] = searchVal;
+					data["searchTerm"] = searchReq;
 
 					$('#customer_table').hide();
 					$('#customer_table TBODY tr').remove();
 
 					$.ajax({
 						method: "POST",
-						dataType : "json",
-						url : "api/customer/customerSearch",
+						dataType : "jsonp",
+						url : "api/customer/v1/customerSearch",
 						data : data,
 						success: function(data) {
 							var html = '';
-							var len = data.length;
+							var len = data.customers.length;
 							if (len > 0) {
 								for (var i = 0; i < len; i++) {
-									html = "<tr id='" + data[i].id + "'><td>" + data[i].lastName 
-										 + "</td><td>" + data[i].firstName 
-										 + "</td><td>" + data[i].userName
-										 + "</td><td>" + new Date(data[i].birthDate).toString()
-											+ "</td><td><a data-role='button' class='ui-table-button' id='edit_" + data[i].id + "'>Edit</a></td></tr>";
+									html = "<tr id='" + data.customers[i].id + "'><td>" + data.customers[i].lastName 
+										 + "</td><td>" + data.customers[i].firstName 
+										 + "</td><td>" + data.customers[i].userName
+										 + "</td><td>" + new Date(data.customers[i].birthDate).toString()
+											+ "</td><td><a data-role='button' class='ui-table-button' id='edit_" + data.customers[i].id + "'>Edit</a></td></tr>";
 									$('#customer_table TBODY').append(html);		
-								    $("#customer_table TBODY").find("a[id='edit_" + data[i].id + "']").button().on( "click", function() {
+								    $("#customer_table TBODY").find("a[id='edit_" + data.customers[i].id + "']").button().on( "click", function() {
 										   editCustomer(22);					
 								    });
 								}			
@@ -144,7 +149,7 @@
     </fieldset>
   </form>
 </div>
-<p id="description">This page displays a list of customers in a table that is populated by an AJAX call to the getCustomers service.</p>	
+<p id="description">v1 - This page displays a list of customers in a table that is populated by an AJAX call to the getCustomers service.</p>	
 <hr/>	
 <div class="table-contain">
 	<h1>Customers</h1>

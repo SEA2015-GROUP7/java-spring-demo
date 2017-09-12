@@ -8,38 +8,93 @@ import joe.spring.springapp.data.domain.Address;
 import joe.spring.springapp.data.domain.Customer;
 
 /**
- * An administrative service used to manage customers and accounts.
+ * An administrative service used to manage customers.
  * 
- * @author joeontech
+ * @author Joe Sicree
  * 
  */
 public interface CustomerService {
 
-//	public Customer createCustomer(String firstName, String lastName,
-//			String userName, Date birthDate);
-
+	/**
+	 * Create a new <code>Customer</code>.
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param userName
+	 * @param birthDate
+	 * @param password
+	 * @return A new <code>Customer</code>
+	 */
 	public Customer createCustomer(String firstName, String lastName,
-			String userName, Date birthDate, String password);
+			String userName, Date birthDate, String password) throws ServiceException;
 
-//	public Customer createCustomer(String firstName, String lastName,
-//			String userName, Date birthDate, String password, HashSet<Address> addresses);
+	/**
+	 * Update the specified <code>Customer</code>.
+	 * 
+	 * @param c
+	 * @return The updated <code>Customer</code>
+	 */
+	public Customer updateCustomer(Customer c) throws ServiceException;
 
-	public Customer updateCustomer(Customer c);
+	/**
+	 * Look up a <code>Customer</code> by id.
+	 *  
+	 * @param customerId
+	 * @return
+	 */
+	public Customer getCustomerById(final Long customerId) throws ServiceException;
 
-	public List<Customer> getCustomersByLastName(final String lastName);
+	/**
+	 * Returns a <code>Customer</code> object by user name.
+	 * 
+	 * @param userName
+	 * @return
+	 */
+	public Customer getCustomerByUserName(final String userName) throws ServiceException; 
 
-	public List<Customer> getAllCustomers();
+	/**
+	 * Returns a list of all <code>Customer</code> objects.
+	 * 
+	 * @return
+	 */
+	public List<Customer> getAllCustomers() throws ServiceException;
 
-	public List<Customer> searchCustomers(final String searchTerm);
+	/**
+	 * Returns a list of <code>Customer</code> objects by last name.
+	 * 
+	 * @param lastName
+	 * @return
+	 */
+	public List<Customer> getCustomersByLastName(final String lastName) throws ServiceException;
 
-	public Customer getCustomerById(final Long customerId);
+	/**
+	 * Search for <code>Customer</code> objects by partial first, last or user name.
+	 * 
+	 * @param searchTerm
+	 * @return
+	 */
+	public List<Customer> searchCustomers(final String searchTerm) throws ServiceException;
 
-	public Customer getCustomerByUserName(final String userName);
-
-	public Boolean validateCustomer(final Long id, final String password);
+	/**
+	 * Validate a <code>Customer</code> objects by id and password.
+	 * 
+	 * @param id
+	 * @param password
+	 * @return
+	 */
+	public Boolean validateCustomer(final Long id, final String password) throws ServiceException;
 	
-	public void removeCustomer(final Long customerId);
+	/**
+	 * Delete the specified <code>Customer</code>.
+	 * 
+	 * @param customerId
+	 */
+	public void removeCustomer(final Long customerId) throws ServiceException;
 
-	public void removeAllCustomers();
+	/**
+	 * Delete all <code>Customer</code> objects.
+	 * 
+	 */  
+	public void removeAllCustomers() throws ServiceException;
 
 }

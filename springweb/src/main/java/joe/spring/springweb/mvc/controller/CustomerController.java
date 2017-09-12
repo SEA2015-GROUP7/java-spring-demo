@@ -2,28 +2,15 @@ package joe.spring.springweb.mvc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
-import joe.spring.springapp.data.domain.Customer;
-import joe.spring.springapp.data.reference.Title;
-import joe.spring.springapp.services.CustomerService;
-import joe.spring.springapp.services.ReferenceService;
-import joe.spring.springweb.mvc.data.DropDownData;
-import joe.spring.springweb.mvc.data.FormFieldError;
-import joe.spring.springweb.mvc.data.ValidationResponse;
-import joe.spring.springweb.mvc.model.AnnotatedAccountModel;
-import joe.spring.springweb.mvc.model.CustomerModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
@@ -31,8 +18,12 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import joe.spring.springapp.data.reference.Title;
+import joe.spring.springapp.services.ReferenceService;
+import joe.spring.springapp.services.ServiceException;
+import joe.spring.springweb.mvc.data.DropDownData;
+import joe.spring.springweb.mvc.model.CustomerModel;
 
 /**
  * Handles requests for the form page examples.
@@ -116,9 +107,14 @@ public class CustomerController {
 	private List<DropDownData> getTitleList() {
 		List<Title> titleList = new ArrayList<Title>();
 		List<DropDownData> titleDropDownList = new ArrayList<DropDownData>();
-		titleList = refService.getAllTitles();
-		for (Title t : titleList) {
-			titleDropDownList.add(new DropDownData(t.id(), t.name()));
+		try {
+			titleList = refService.getAllTitles();
+			for (Title t : titleList) {
+				titleDropDownList.add(new DropDownData(t.id(), t.name()));
+			}
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return titleDropDownList;
 	}

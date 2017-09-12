@@ -30,13 +30,13 @@
 					}}						
 				);
 
-				$.getJSON('api/reference/getCountriesDropDownData', function(data) {
+				$.getJSON('getCountriesDropDownData', function(data) {
 					var html = '';
 					var len = data.length;
 					if (len > 0) {
-						html += '<option value="' + data[0].id + '" selected>' + data[0].name + '</option>';
+						html += '<option value="' + data[0].idStr + '" selected>' + data[0].name + '</option>';
 						for (var i = 1; i < len; i++) {
-							html += '<option value="' + data[i].id + ' ">'
+							html += '<option value="' + data[i].idStr + ' ">'
 									+ data[i].name + '</option>';
 						}
 						$('#country').append(html);		
@@ -47,16 +47,16 @@
 	function refreshStateList() {
 		$('#state_table').hide();
 		$('#state_table TBODY tr').remove();
-		countryId = $("#country option:selected").val();
+		countryCode = $("#country option:selected").val();
 		var headers = {};
 		headers[csrfHeader] = csrfToken;
 
 		$.ajax({
 					dataType : "json",
-					url : "api/reference/getStates",
+					url : "getStates",
 					headers: headers,
 					data : {
-						countryId : countryId
+						countryCode : countryCode
 					},
 					success : function(data) {
 
