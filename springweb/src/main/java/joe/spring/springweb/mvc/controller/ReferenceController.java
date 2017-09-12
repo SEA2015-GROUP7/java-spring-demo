@@ -12,23 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import joe.spring.springapp.data.dto.DtoConverter;
-import joe.spring.springapp.data.reference.Country;
-import joe.spring.springapp.data.reference.State;
 import joe.spring.springapp.data.reference.Title;
 import joe.spring.springapp.services.ReferenceService;
 import joe.spring.springapp.services.ServiceException;
-import joe.spring.springdomain.CountriesResponse;
 import joe.spring.springdomain.CountryDto;
-import joe.spring.springdomain.CountryDtoList;
 import joe.spring.springdomain.StateDto;
-import joe.spring.springdomain.StateDtoList;
-import joe.spring.springdomain.StatesByCountryRequest;
-import joe.spring.springdomain.StatesResponse;
 import joe.spring.springweb.mvc.data.DropDownData;
-import joe.spring.springweb.mvc.services.client.BasicAuthRestTemplate;
+import joe.spring.springweb.mvc.services.client.ApiRestClient;
 
 /**
  * Handles requests for the application home page.
@@ -39,8 +30,8 @@ public class ReferenceController {
 	@Autowired
 	protected ReferenceService refService;
 
-//	@Autowired
-//	protected RestTemplate apiRestTemplate;
+	@Autowired
+	protected ApiRestClient apiRestClient;
 	
 	protected final static Logger log = LoggerFactory
 			.getLogger(ReferenceController.class);
@@ -50,16 +41,9 @@ public class ReferenceController {
 			@RequestParam(value = "countryCode",required=false) String countryCode) {
 		log.debug("Calling JSON service getStates() with countryCode = " + countryCode);
 
-		StateDtoList stateDtoList = null;
+		List<StateDto> statesList = apiRestClient.getStatesByCountry(countryCode);
 
-		BasicAuthRestTemplate rt = new BasicAuthRestTemplate("user","password");
-		StatesByCountryRequest req = new StatesByCountryRequest();
-		req.setCountryCode(countryCode);
-		StatesResponse resp = rt.postForObject("http://localhost:8080/springweb/api/reference/v1/getStatesByCountry", req, StatesResponse.class);
-		if (resp != null) {
-			stateDtoList = resp.getStates();
-		}
-		return new ResponseEntity<>(stateDtoList.getStates(),HttpStatus.OK);
+		return new ResponseEntity<>(statesList,HttpStatus.OK);
 	}
 	
 	
@@ -70,16 +54,11 @@ public class ReferenceController {
 
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 
-		BasicAuthRestTemplate rt = new BasicAuthRestTemplate("user","password");
-		StatesByCountryRequest req = new StatesByCountryRequest();
-		req.setCountryCode(countryCode);
-		StatesResponse resp = rt.postForObject("http://localhost:8080/springweb/api/reference/v1/getStatesByCountry", req, StatesResponse.class);
-		if (resp != null) {
-			StateDtoList stateDtoList = resp.getStates();
-			for (StateDto s : stateDtoList.getStates()) {
-				dropDownList.add(new DropDownData(s.getId(), s.getName() + " (" + s.getCode() + ")"));
-				
-			}
+		List<StateDto> statesList = apiRestClient.getStatesByCountry(countryCode);
+
+		for (StateDto s : statesList) {
+			dropDownList.add(new DropDownData(s.getId(), s.getName() + " (" + s.getCode() + ")"));
+			
 		}
 		return dropDownList;
 	}
@@ -109,42 +88,13 @@ public class ReferenceController {
 		log.debug("Calling JSON service getCountriesAsJSON()");
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 		
-		BasicAuthRestTemplate rt = new BasicAuthRestTemplate("user","password");
-		CountriesResponse resp = rt.postForObject("http://localhost:8080/springweb/api/reference/v1/getAllCountries", null, CountriesResponse.class);
-		if (resp != null) {
-			CountryDtoList cdtoList = resp.getCountries();
-			for (CountryDto c : cdtoList.getCountries()) {
-				dropDownList.add(new DropDownData(c.getId(), c.getCode(), c.getName()));
-			}			
-		}
+		log.info("apiRestClient = " + apiRestClient);
+		List<CountryDto> countryList = apiRestClient.getAllCountries();
+		for (CountryDto c : countryList) {
+			dropDownList.add(new DropDownData(c.getId(), c.getCode(), c.getName()));
+		}			
 		
 		return dropDownList;
-	}
-	
-	private ArrayList<StateDto> lookupStatesByCountryId(Long countryId) {
-		ArrayList<State> stateList = new ArrayList<State>();
-		ArrayList<StateDto> stateDtoList = new ArrayList<StateDto>();
-			
-		Country c = null;
-		if (countryId != null) {
-			try {
-				c = refService.getCountryById(countryId);
-				if (c != null) {
-					stateList = (ArrayList<State>) refService.getStatesByCountry(c);
-				} else {	
-					log.warn("Country was null. Getting all states / provinces");
-					stateList = (ArrayList<State>) refService.getAllStates();
-				}		
-				
-				if (stateList != null && stateList.size() > 0) {
-					stateDtoList = (ArrayList<StateDto>) DtoConverter.toStateDtoList(stateList);
-				}
-			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
-		}		
-		return stateDtoList;
 	}
 
 }

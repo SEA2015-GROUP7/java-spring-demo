@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-@Component
 public class BasicAuthRestTemplate extends RestTemplate {
 
 	private String username;
-    private String password;
+
+	private String password;
 
     public BasicAuthRestTemplate(String username, String password) {
         super();
