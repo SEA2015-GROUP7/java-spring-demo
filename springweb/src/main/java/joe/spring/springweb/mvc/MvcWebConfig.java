@@ -61,20 +61,42 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 		return new joe.spring.springweb.mvc.validator.LoginModelValidator();
 	}
 
+	
 	@Bean
-	public Validator statesByCountryValidator() {
-		return new joe.spring.springweb.mvc.validator.StatesByCountryRequestValidator();
+	public Validator countryByCodeValidator() {
+		return new joe.spring.springweb.mvc.validator.CountryByCodeRequestValidator();
 	}
-
+	
 	@Bean
 	public Validator createCustomerValidator() {
 		return new joe.spring.springweb.mvc.validator.CreateCustomerRequestValidator();
 	}
 
 	@Bean
+	public Validator customerByUserNameValidator() {
+		return new joe.spring.springweb.mvc.validator.CustomerByUserNameRequestValidator();
+	}
+
+	@Bean
+	public Validator customerSearchValidator() {
+		return new joe.spring.springweb.mvc.validator.CustomerSearchRequestValidator();
+	}
+	
+	@Bean
 	public Validator deleteCustomerValidator() {
 		return new joe.spring.springweb.mvc.validator.DeleteCustomerRequestValidator();
 	}
+	
+	@Bean
+	public Validator stateByCodeValidator() {
+		return new joe.spring.springweb.mvc.validator.StateByCodeRequestValidator();
+	}
+
+	@Bean
+	public Validator statesByCountryValidator() {
+		return new joe.spring.springweb.mvc.validator.StatesByCountryRequestValidator();
+	}
+
 
 	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {

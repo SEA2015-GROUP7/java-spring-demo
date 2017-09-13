@@ -2,12 +2,13 @@ package joe.spring.springweb.mvc;
 
 public enum ApiErrorCode {
 	ACCESS_DENIED("AccessDenied"),
-	SERVICE_EXCEPTION("ApiException"),
-	NULL_OR_EMPTY_VALUE("NullOrEmptyValue"),
+	CUSTOMER_DOES_NOT_EXIST("CustomerDoesNotExist"),
 	INVALID_VALUE("InvalidValue"),
+	NULL_OR_EMPTY_VALUE("NullOrEmptyValue"),
+	SERVICE_EXCEPTION("ApiException"),
 	UNKNOWN_COUNTRY_CODE("UnknownCountryCode"), 
-	USERNAME_EXISTS("UserNameExists"), 
-	CUSTOMER_DOES_NOT_EXIST("CustomerDoesNotExist");
+	UNKNOWN_STATE_CODE("UnknownStateCode"), 
+	USERNAME_EXISTS("UserNameExists");
 	
 	private String code;
 	

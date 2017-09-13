@@ -19,6 +19,7 @@ import joe.spring.springapp.services.ServiceException;
 import joe.spring.springdomain.CountryDto;
 import joe.spring.springdomain.StateDto;
 import joe.spring.springweb.mvc.data.DropDownData;
+import joe.spring.springweb.mvc.services.client.ApiClientException;
 import joe.spring.springweb.mvc.services.client.ApiRestClient;
 
 /**
@@ -39,33 +40,42 @@ public class ReferenceController {
 	@RequestMapping(value = "/getStates", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<StateDto>> getStatesByCountryCode(
 			@RequestParam(value = "countryCode",required=false) String countryCode) {
-		log.debug("Calling JSON service getStates() with countryCode = " + countryCode);
+		log.debug("Calling service getStatesByCountryCode() with countryCode = " + countryCode);
 
-		List<StateDto> statesList = apiRestClient.getStatesByCountry(countryCode);
+		List<StateDto> statesList = new ArrayList<StateDto>();
+		try {
+			statesList = apiRestClient.getStatesByCountry(countryCode);
+		} catch (ApiClientException e) {
+			e.printStackTrace();
+		}
 
 		return new ResponseEntity<>(statesList,HttpStatus.OK);
 	}
-	
-	
+		
 	@RequestMapping(value = "/getStatesDropDownData", method = RequestMethod.GET, produces = "application/json")
-	public List<DropDownData> getStatesDropDownDataByCountryId(
+	public ResponseEntity<List<DropDownData>> getStatesDropDownDataByCountryCode(
 			@RequestParam(value = "countryCode",required=false) String countryCode) {
-		log.debug("Calling JSON service getStatesDropDownData() with countryCode = " + countryCode);
+		log.debug("Calling service getStatesDropDownDataByCountryCode() with countryCode = " + countryCode);
 
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 
-		List<StateDto> statesList = apiRestClient.getStatesByCountry(countryCode);
+		List<StateDto> statesList = new ArrayList<StateDto>();
+		try {
+			statesList = apiRestClient.getStatesByCountry(countryCode);
+		} catch (ApiClientException e) {
+			e.printStackTrace();
+		}
 
 		for (StateDto s : statesList) {
-			dropDownList.add(new DropDownData(s.getId(), s.getName() + " (" + s.getCode() + ")"));
-			
+			dropDownList.add(new DropDownData(s.getId(), s.getName() + " (" + s.getCode() + ")"));			
 		}
-		return dropDownList;
+
+		return new ResponseEntity<>(dropDownList,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/getTitlesDropDownData", method = RequestMethod.GET, produces = "application/json")
-	public List<DropDownData> getTitlesDropDownData() {
-		log.debug("Calling JSON service getTitlesAsJSON()");
+	public ResponseEntity<List<DropDownData>> getTitlesDropDownData() {
+		log.debug("Calling service getTitlesDropDownData()");
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 		ArrayList<Title> titleList;
 		try {
@@ -77,24 +87,29 @@ public class ReferenceController {
 				}
 			}
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return dropDownList;
+
+		return new ResponseEntity<>(dropDownList,HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/getCountriesDropDownData", method = RequestMethod.GET, produces = "application/json")
-	public List<DropDownData> getCountriesDropDownData() {
-		log.debug("Calling JSON service getCountriesAsJSON()");
+	public ResponseEntity<List<DropDownData>> getCountriesDropDownData() {
+		log.debug("Calling service getCountriesDropDownData()");
 		ArrayList<DropDownData> dropDownList = new ArrayList<DropDownData>();
 		
 		log.info("apiRestClient = " + apiRestClient);
-		List<CountryDto> countryList = apiRestClient.getAllCountries();
+		List<CountryDto> countryList = new ArrayList<CountryDto>();
+		try {
+			countryList = apiRestClient.getAllCountries();
+		} catch (ApiClientException e) {
+			e.printStackTrace();
+		}
 		for (CountryDto c : countryList) {
 			dropDownList.add(new DropDownData(c.getId(), c.getCode(), c.getName()));
 		}			
 		
-		return dropDownList;
+		return new ResponseEntity<>(dropDownList,HttpStatus.OK);
 	}
 
 }

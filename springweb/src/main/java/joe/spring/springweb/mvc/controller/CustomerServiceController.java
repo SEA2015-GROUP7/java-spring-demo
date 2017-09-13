@@ -60,14 +60,32 @@ public class CustomerServiceController {
 	@Qualifier("createCustomerValidator")
 	private Validator createCustomerValidator;
 
-	@Autowired
-	@Qualifier("deleteCustomerValidator")
-	private Validator deleteCustomerValidator;
-
 	@InitBinder("createCustomerRequest")
 	public void setupCreateCustomerBinder(WebDataBinder binder) {
 		binder.addValidators(createCustomerValidator);
 	}
+
+	@Autowired
+	@Qualifier("customerByUserNameValidator")
+	private Validator customerByUserNameValidator;
+
+	@InitBinder("getCustomerByUserNameRequest")
+	public void setupGetCustomerByUserNameBinder(WebDataBinder binder) {
+		binder.addValidators(customerByUserNameValidator);
+	}
+
+	@Autowired
+	@Qualifier("customerSearchValidator")
+	private Validator customerSearchValidator;
+
+	@InitBinder("customerSearchRequest")
+	public void setupCustomerSearchBinder(WebDataBinder binder) {
+		binder.addValidators(customerSearchValidator);
+	}
+	
+	@Autowired
+	@Qualifier("deleteCustomerValidator")
+	private Validator deleteCustomerValidator;
 
 	@InitBinder("deleteCustomerRequest")
 	public void setupDeleteCustomerBinder(WebDataBinder binder) {
@@ -108,7 +126,7 @@ public class CustomerServiceController {
 	}
 
 	@RequestMapping(value = "/v1/getCustomerByUserName", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<CustomerResponse> getCustomerByUserName(@RequestBody GetCustomerByUserNameRequest request)
+	public ResponseEntity<CustomerResponse> getCustomerByUserName(@Valid @RequestBody GetCustomerByUserNameRequest request)
 			throws ApiException {
 		CustomerResponse response = new CustomerResponse();
 
@@ -148,7 +166,7 @@ public class CustomerServiceController {
 	}
 
 	@RequestMapping(value = "/v1/customerSearch", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<CustomersResponse> searchForCustomers(@RequestBody CustomerSearchRequest request)
+	public ResponseEntity<CustomersResponse> searchForCustomers(@Valid @RequestBody CustomerSearchRequest request)
 			throws ApiException {
 		CustomersResponse response = new CustomersResponse();
 
@@ -190,21 +208,21 @@ public class CustomerServiceController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/v1/deleteAllCustomers", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<DeleteAllCustomersResponse> deleteAllCustomers() throws ApiException {
-		DeleteAllCustomersResponse response = new DeleteAllCustomersResponse();
-		response.setStatus(RequestStatus.ERROR);
-
-		log.debug("Deleting all customers");
-		try {
-			customerService.removeAllCustomers();
-			response.setStatus(RequestStatus.OK);
-		} catch (ServiceException e) {
-			log.error("ServiceException thrown during delete all customers.", e);
-			e.printStackTrace();
-			throw new ApiException(ApiMessages.SERVICE_EXCEPTION_MSG, e);
-		}
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/v1/deleteAllCustomers", method = RequestMethod.POST, produces = "application/json")
+//	public ResponseEntity<DeleteAllCustomersResponse> deleteAllCustomers() throws ApiException {
+//		DeleteAllCustomersResponse response = new DeleteAllCustomersResponse();
+//		response.setStatus(RequestStatus.ERROR);
+//
+//		log.debug("Deleting all customers");
+//		try {
+//			customerService.removeAllCustomers();
+//			response.setStatus(RequestStatus.OK);
+//		} catch (ServiceException e) {
+//			log.error("ServiceException thrown during delete all customers.", e);
+//			e.printStackTrace();
+//			throw new ApiException(ApiMessages.SERVICE_EXCEPTION_MSG, e);
+//		}
+//		return new ResponseEntity<>(response, HttpStatus.OK);
+//	}
 
 }

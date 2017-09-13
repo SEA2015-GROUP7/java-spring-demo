@@ -47,19 +47,38 @@ public class ReferenceServiceController {
 	protected ReferenceService refService;
 
 	@Autowired
+	@Qualifier("countryByCodeValidator")
+	private Validator countryByCodeValidator;
+
+	@InitBinder("countryByCodeRequest")
+	public void setupCountryByCodeBinder(WebDataBinder binder) {
+		binder.addValidators(countryByCodeValidator);
+	}
+
+	@Autowired
 	@Qualifier("statesByCountryValidator")
 	private Validator statesByCountryValidator;
-
-	protected final static Logger log = LoggerFactory
-			.getLogger(ReferenceServiceController.class);
 
 	@InitBinder("statesByCountryRequest")
 	public void setupStatesByCountryBinder(WebDataBinder binder) {
 		binder.addValidators(statesByCountryValidator);
 	}
 
+	@Autowired
+	@Qualifier("stateByCodeValidator")
+	private Validator stateByCodeValidator;
+
+	@InitBinder("stateByCodeRequest")
+	public void setupStateByCodeBinder(WebDataBinder binder) {
+		binder.addValidators(stateByCodeValidator);
+	}
+	
+	protected final static Logger log = LoggerFactory
+			.getLogger(ReferenceServiceController.class);
+
+
 	@RequestMapping(value = "/v1/getCountryByCode", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<CountryResponse> getCountryByCode(@RequestBody CountryByCodeRequest request) throws ApiException {
+	public ResponseEntity<CountryResponse> getCountryByCode(@Valid @RequestBody CountryByCodeRequest request) throws ApiException {
 		
 		log.debug("Calling /v1/getCountryByCode with countryCode = " + request.getCountryCode());
 
@@ -130,14 +149,13 @@ public class ReferenceServiceController {
 			log.error("ServiceException thrown while getting states by country.", e);
 			e.printStackTrace();
 			throw new ApiException(ApiMessages.SERVICE_EXCEPTION_MSG, e);
-		}
-		
+		}		
 		
 		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/v1/getStateByCode", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<StateResponse> getStateByCode(@RequestBody StateByCodeRequest request) throws ApiException {
+	public ResponseEntity<StateResponse> getStateByCode(@Valid @RequestBody StateByCodeRequest request) throws ApiException {
 		
 		log.debug("Calling /v1/getStateByCode with stateCode = " + request.getStateCode());
 
