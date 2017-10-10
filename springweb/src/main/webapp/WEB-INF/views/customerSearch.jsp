@@ -24,6 +24,11 @@
 <sec:csrfMetaTags />
 <script>
 
+	var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
+	var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+	var csrfToken = $("meta[name='_csrf']").attr("content");
+
+
 	$(function() {
 				var dialog, form,
 				firstName = $( "#firstName" ),
@@ -32,34 +37,21 @@
 				dob = $( "#dob" ),
 			    allFields = $( [] ).add( firstName ).add( lastName ).add( userName ).add( dob );
 
-				var csrfParameter = $("meta[name='_csrf_parameter']").attr("content");
-				var csrfHeader = $("meta[name='_csrf_header']").attr("content");
-				var csrfToken = $("meta[name='_csrf']").attr("content");
-				
-				function editCustomer(id) {
-					if (id === undefined) {
-				          id = 0;
-				    }					
-					alert("Editing " + id);
-				}				
-
 				function searchCustomers() {
 					var searchVal = $("#searchVal").val();
-					var data = {};
-					var searchReq = new Object();
-					searchReq.searchTerm = searchVal;
-					searchReq.foo = "bar";
-					data[csrfParameter] = csrfToken;
-					data["searchTerm"] = searchReq;
+					var headers = {};
+					headers[csrfHeader] = csrfToken;
 
 					$('#customer_table').hide();
 					$('#customer_table TBODY tr').remove();
 
 					$.ajax({
 						method: "POST",
-						dataType : "jsonp",
-						url : "api/customer/v1/customerSearch",
-						data : data,
+						dataType : "json",
+						url : "customerSearch",
+						data : {
+							searchTerm : searchVal
+						},						
 						success: function(data) {
 							var html = '';
 							var len = data.customers.length;
@@ -69,15 +61,12 @@
 										 + "</td><td>" + data.customers[i].firstName 
 										 + "</td><td>" + data.customers[i].userName
 										 + "</td><td>" + new Date(data.customers[i].birthDate).toString()
-											+ "</td><td><a data-role='button' class='ui-table-button' id='edit_" + data.customers[i].id + "'>Edit</a></td></tr>";
+											+ "</td></tr>";
 									$('#customer_table TBODY').append(html);		
-								    $("#customer_table TBODY").find("a[id='edit_" + data.customers[i].id + "']").button().on( "click", function() {
-										   editCustomer(22);					
-								    });
 								}			
 							    
 							} else {
-								html="<tr><td colspan=\"5\">No results found.</td></tr>";
+								html="<tr><td colspan=\"4\">No results found.</td></tr>";
 								$('#customer_table TBODY').html(html);						
 							}
 							$( "#customer_table tr:even" ).css( "background-color", "#bbbbff" );
@@ -88,42 +77,6 @@
 					});
 				}
 
-				dialog = $( "#dialog-form" ).dialog({
-			      autoOpen: false,
-			      height: 450,
-			      width: 475,
-			      modal: true,
-			      buttons: {
-			        Cancel: function() {
-			          dialog.dialog( "close" );
-			        }
-			      },
-			      close: function() {
-			        form[ 0 ].reset();
-			        allFields.removeClass( "ui-state-error" );
-			      }
-			    });
-			 
-			    form = dialog.find( "form" ).on( "submit", function( event ) {
-			      event.preventDefault();
-			      //addCustomer();
-			    });
-			 
-			    $( "#update-customer-table" ).button().on( "click", function() {
-			    	event.preventDefault();
-			    	searchCustomers();
-				});
-
-				$( "#dob" ).datepicker({
-				      changeMonth: true,
-				      changeYear: true,
-				      yearRange : '-99:+0'
-				    });
-
-				$( "#search_submit" ).button().on( "click", function() {
-			    	event.preventDefault();
-			    	searchCustomers();
-				});;
 				
 				searchCustomers();
 	});								
@@ -132,23 +85,6 @@
 <body>
 <header>java-spring-demo: Customer Search</header>
 <nav><a href="${pageContext.request.contextPath}/home">Return to Home</a></nav>
-<div id="dialog-form" title="Create new customer">
-  <p class="validateTips">All form fields are required.</p>
-  <form>
-    <fieldset class="customer-fs">
-      <label for="firstName">First Name</label>
-      <input type="text" name="firstName" id="firstName" class="text ui-widget-content ui-corner-all">
-      <label for="lastName">Last Name</label>
-      <input type="text" name="lastName" id="lastName" class="text ui-widget-content ui-corner-all">
-      <label for="userName">User Name</label>
-      <input type="text" name="userName" id="userName" class="text ui-widget-content ui-corner-all">
-      <label for="dob">BirthDate</label>
-      <input type="text" name="dob" id="dob" class="text ui-widget-content ui-corner-all"> 
-      <!-- Allow form submission with keyboard without duplicating the dialog button -->
-      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
-    </fieldset>
-  </form>
-</div>
 <p id="description">v1 - This page displays a list of customers in a table that is populated by an AJAX call to the getCustomers service.</p>	
 <hr/>	
 <div class="table-contain">

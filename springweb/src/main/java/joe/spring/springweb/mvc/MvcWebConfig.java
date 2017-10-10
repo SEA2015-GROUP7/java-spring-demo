@@ -32,6 +32,7 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 	private static final String PROPERTY_NAME_API_PASSWORD = "api.password";
 	private static final String PROPERTY_NAME_API_GET_ALL_COUNTRIES_URL = "api.getAllCountries.url";
 	private static final String PROPERTY_NAME_API_GET_STATES_BY_CODE_URL = "api.getStatesByCountry.url";
+	private static final String PROPERTY_NAME_API_CUSTOMER_SEARCH_URL = "api.customerSearch.url";
 
 	@Resource
 	private Environment environment;
@@ -60,44 +61,7 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 	public Validator loginModelValidator() {
 		return new joe.spring.springweb.mvc.validator.LoginModelValidator();
 	}
-
 	
-	@Bean
-	public Validator countryByCodeValidator() {
-		return new joe.spring.springweb.mvc.validator.CountryByCodeRequestValidator();
-	}
-	
-	@Bean
-	public Validator createCustomerValidator() {
-		return new joe.spring.springweb.mvc.validator.CreateCustomerRequestValidator();
-	}
-
-	@Bean
-	public Validator customerByUserNameValidator() {
-		return new joe.spring.springweb.mvc.validator.CustomerByUserNameRequestValidator();
-	}
-
-	@Bean
-	public Validator customerSearchValidator() {
-		return new joe.spring.springweb.mvc.validator.CustomerSearchRequestValidator();
-	}
-	
-	@Bean
-	public Validator deleteCustomerValidator() {
-		return new joe.spring.springweb.mvc.validator.DeleteCustomerRequestValidator();
-	}
-	
-	@Bean
-	public Validator stateByCodeValidator() {
-		return new joe.spring.springweb.mvc.validator.StateByCodeRequestValidator();
-	}
-
-	@Bean
-	public Validator statesByCountryValidator() {
-		return new joe.spring.springweb.mvc.validator.StatesByCountryRequestValidator();
-	}
-
-
 	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {
 		ReloadableResourceBundleMessageSource src = new ReloadableResourceBundleMessageSource();
@@ -132,6 +96,7 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 				environment.getRequiredProperty(PROPERTY_NAME_API_PASSWORD));
 		client.setAllCountriesUrl(environment.getRequiredProperty(PROPERTY_NAME_API_GET_ALL_COUNTRIES_URL));
 		client.setStatesByCountryUrl(environment.getRequiredProperty(PROPERTY_NAME_API_GET_STATES_BY_CODE_URL));
+		client.setCustomerSearchUrl(environment.getRequiredProperty(PROPERTY_NAME_API_CUSTOMER_SEARCH_URL));
 		return client;
 	}
 

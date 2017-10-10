@@ -9,8 +9,10 @@ import org.springframework.web.client.HttpStatusCodeException;
 
 import joe.spring.springdomain.CountriesResponse;
 import joe.spring.springdomain.CountryDto;
+import joe.spring.springdomain.CustomerDto;
+import joe.spring.springdomain.CustomerSearchRequest;
+import joe.spring.springdomain.CustomersResponse;
 import joe.spring.springdomain.StateDto;
-import joe.spring.springdomain.StateDtoList;
 import joe.spring.springdomain.StatesByCountryRequest;
 import joe.spring.springdomain.StatesResponse;
 
@@ -25,6 +27,7 @@ public class ApiRestClient {
 
 	private String allCountriesUrl;
 	private String statesByCountryUrl;
+	private String customerSearchUrl;
 
 	private BasicAuthRestTemplate restTemplate;
 
@@ -68,6 +71,23 @@ public class ApiRestClient {
 		return response.getStates().getStates();
 	}
 
+	public List<CustomerDto> customerSearch(final String searchTerm) throws ApiClientException {
+
+		CustomersResponse response = new CustomersResponse();
+		CustomerSearchRequest request = new CustomerSearchRequest();
+		request.setSearchTerm(searchTerm);
+		try {
+			response = restTemplate.postForObject(customerSearchUrl, request, CustomersResponse.class);
+		} catch (HttpStatusCodeException sce) {
+			log.error("An HttpStatusCodeException was thrown calling the customerSearch service. HTTP status code: " + sce.getRawStatusCode());
+			log.error("ErrorResponse for HttpStatusCodeException: " + sce.getResponseBodyAsString());
+			throw new ApiClientException("HttpStatusCodeException caught after call to getStatesByCountry service. HTTP status code: " + sce.getRawStatusCode(), sce);			
+		}
+		return response.getCustomers().getCustomers();
+	}
+	
+	
+	
 	public String getAllCountriesUrl() {
 		return allCountriesUrl;
 	}
@@ -84,6 +104,14 @@ public class ApiRestClient {
 		this.statesByCountryUrl = statesByCountryUrl;
 	}
 
+	public String getCustomerSearchUrl() {
+		return customerSearchUrl;
+	}
+
+	public void setCustomerSearchUrl(String customerSearchUrl) {
+		this.customerSearchUrl = customerSearchUrl;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -91,6 +119,8 @@ public class ApiRestClient {
 		builder.append(allCountriesUrl);
 		builder.append(", statesByCountryUrl=");
 		builder.append(statesByCountryUrl);
+		builder.append(", customerSearchUrl=");
+		builder.append(customerSearchUrl);
 		builder.append("]");
 		return builder.toString();
 	}

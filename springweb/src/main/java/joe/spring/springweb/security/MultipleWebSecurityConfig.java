@@ -58,18 +58,18 @@ public class MultipleWebSecurityConfig {
 		return manager;
 	}
 	
-	@Configuration
-	@Order(1)                                                        
-	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-				.antMatcher("/api/**")                               
-				.authorizeRequests()
-					.anyRequest().access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-					.and()
-				.httpBasic();
-		}
-	}
+//	@Configuration
+//	@Order(1)                                                        
+//	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+//		protected void configure(HttpSecurity http) throws Exception {
+//			http.csrf().disable()
+//				.antMatcher("/api/**")                               
+//				.authorizeRequests()
+//					.anyRequest().access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+//					.and()
+//				.httpBasic();
+//		}
+//	}
 
 	@Configuration                                                   
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {

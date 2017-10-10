@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,12 +20,17 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import joe.spring.springapp.data.reference.Title;
 import joe.spring.springapp.services.ReferenceService;
 import joe.spring.springapp.services.ServiceException;
+import joe.spring.springdomain.CustomerDto;
+import joe.spring.springdomain.StateDto;
 import joe.spring.springweb.mvc.data.DropDownData;
 import joe.spring.springweb.mvc.model.CustomerModel;
+import joe.spring.springweb.mvc.services.client.ApiClientException;
+import joe.spring.springweb.mvc.services.client.ApiRestClient;
 
 /**
  * Handles requests for the form page examples.
@@ -40,6 +47,9 @@ public class CustomerController {
 
 	@Autowired
 	protected MessageSource messageSource;
+
+	@Autowired
+	protected ApiRestClient apiRestClient;
 	
 	@InitBinder
     private void initBinder(WebDataBinder binder) {
@@ -73,6 +83,24 @@ public class CustomerController {
 		return "customerSearch";
 	}
 
+	@RequestMapping(value = "/customerSearch", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<List<CustomerDto>> customerSearch(
+			@RequestParam(value = "searchTerm",required=false) String searchTerm) {
+		log.debug("Calling service customerSearch with searchTerm = " + searchTerm);
+
+		List<CustomerDto> dtoList = new ArrayList<CustomerDto>();
+		try {
+			dtoList = apiRestClient.customerSearch(searchTerm);
+		} catch (ApiClientException e) {
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(dtoList,HttpStatus.OK);
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/createCustomer", method = RequestMethod.GET)
 	public String displayCreateCustomer(Model model) {
 
@@ -119,4 +147,6 @@ public class CustomerController {
 		return titleDropDownList;
 	}
 
+	
+	
 }

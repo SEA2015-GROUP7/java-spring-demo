@@ -66,10 +66,16 @@ public class AddressServiceTest {
 
 		log.info(">> Entering createAddress.");
 
-		State s = referenceService.getStateByCode("NJ");
-		org.junit.Assert.assertNotNull("State was null.", s);
-		org.junit.Assert.assertNotNull("State Id was null.", s.getId());
-		log.info("State found: " + s);
+		State s = null;
+		try {
+			s = referenceService.getStateByCode("NJ");
+			org.junit.Assert.assertNotNull("State was null.", s);
+			org.junit.Assert.assertNotNull("State Id was null.", s.getId());
+			log.info("State found: " + s);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 //		Address address = addressService.createAddress("568 Bogert Rd.", null, "River Edge", s, "07661", customer, AddressType.HOME);
 		Address address = addressService.createAddress("568 Bogert Rd.", null, "River Edge", s, "07661", AddressType.HOME);
@@ -88,7 +94,13 @@ public class AddressServiceTest {
 
 		log.info(">> Entering createAddressForCustomer.");
 
-		State s = referenceService.getStateByCode("AK");
+		State s = null;
+		try {
+			s = referenceService.getStateByCode("AK");
+		} catch (ServiceException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		org.junit.Assert.assertNotNull("State was null.", s);
 		org.junit.Assert.assertNotNull("State Id was null.", s.getId());
 		log.info("State found: " + s);
