@@ -4,6 +4,7 @@
 
 # Property Files containing passwords #
 #######################################
+security_db.properties
 api.properties
 
 # Compiled source #
