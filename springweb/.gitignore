@@ -2,6 +2,10 @@
 # the repository                                      #
 #######################################################
 
+# Property Files containing passwords #
+#######################################
+api.properties
+
 # Compiled source #
 ###################
 *.com
