@@ -53,7 +53,7 @@ public class MultipleWebSecurityConfig {
 	@Bean
 	public UserDetailsService userDetailsService() throws Exception {
 		InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-		manager.createUser(User.withUsername("user").password("password").roles("USER").build());
+		manager.createUser(User.withUsername("apiUser").password("password").roles("USER").build());
 		manager.createUser(User.withUsername("admin").password("password").roles("ADMIN").build());
 		return manager;
 	}

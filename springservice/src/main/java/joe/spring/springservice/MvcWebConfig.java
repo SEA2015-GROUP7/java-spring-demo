@@ -1,37 +1,22 @@
 package joe.spring.springservice;
 
-import java.util.Properties;
-
 import javax.annotation.Resource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
-import org.springframework.http.MediaType;
 import org.springframework.validation.Validator;
-import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
-
-import joe.spring.springservice.client.ApiRestClient;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "joe.spring.springservice" })
-@PropertySource({ "classpath:api.properties", "classpath:swagger.properties"})
+@PropertySource({"classpath:swagger.properties"})
 public class MvcWebConfig extends WebMvcConfigurerAdapter {
-
-	private static final String PROPERTY_NAME_API_USERNAME = "api.user";
-	private static final String PROPERTY_NAME_API_PASSWORD = "api.password";
-	private static final String PROPERTY_NAME_API_GET_ALL_COUNTRIES_URL = "api.getAllCountries.url";
-	private static final String PROPERTY_NAME_API_GET_STATES_BY_CODE_URL = "api.getStatesByCountry.url";
 
 	@Resource
 	private Environment environment;
@@ -82,17 +67,6 @@ public class MvcWebConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public Validator statesByCountryValidator() {
 		return new joe.spring.springservice.validator.StatesByCountryRequestValidator();
-	}
-
-	@Bean
-	public ApiRestClient apiRestClient() {
-
-		ApiRestClient client = new ApiRestClient(
-				environment.getRequiredProperty(PROPERTY_NAME_API_USERNAME),
-				environment.getRequiredProperty(PROPERTY_NAME_API_PASSWORD));
-		client.setAllCountriesUrl(environment.getRequiredProperty(PROPERTY_NAME_API_GET_ALL_COUNTRIES_URL));
-		client.setStatesByCountryUrl(environment.getRequiredProperty(PROPERTY_NAME_API_GET_STATES_BY_CODE_URL));
-		return client;
 	}
 
 }
